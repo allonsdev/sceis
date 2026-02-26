@@ -1,0 +1,262 @@
+{% load static %}
+{% load static i18n %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="{% static 'landing/' %}">
+    <title>SCIES</title>
+
+<!-- Stylesheets -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+<link href="css/responsive.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+<link rel="icon" href="images/favicon.png" type="image/x-icon">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+<style>
+	.hidden-menu {
+    display: none !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page-wrapper">
+    <!-- Main Header-->
+    <header class="main-header header-style-one">
+    	
+    	<!--Header-Upper-->
+        <div class="header-upper">
+        	<div class="auto-container">
+            	<div class="clearfix">
+                	
+                	<div class="pull-left logo-box">
+                    	<div class="logo"><a href="/"><img src="images/logo.png" alt="" title=""></a></div>
+                    </div>
+                   	
+                   	<div class="nav-outer clearfix">
+                    
+						<!-- Main Menu -->
+						<nav class="main-menu navbar-expand-md hidden-menu">
+							<div class="navbar-header">
+								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+							</div>
+
+							<div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
+								<ul class="navigation clearfix">
+									<li class="dropdown"><a href="#">Home</a>
+										<ul>
+											<li><a href="index.html">Home Page 01</a></li>
+											<li><a href="index-3.html">Home Page 02</a></li>
+										</ul>
+									</li>
+									<li class="dropdown"><a href="#">About Us</a>
+										<ul>
+											<li><a href="about.html">About Us</a></li>
+											<li><a href="team.html">Team</a></li>
+										</ul>
+									</li>
+									<li><a href="service.html">Services</a></li>
+									<li class="dropdown"><a href="#">Portfolio</a>
+										<ul>
+											<li><a href="portfolio.html">Portfolio</a></li>
+											<li><a href="portfolio-2.html">Portfolio 02</a></li>
+											<li><a href="portfolio-single.html">Portfolio Single</a></li>
+										</ul>
+									</li>
+									<li class="dropdown"><a href="#">Blog</a>
+										<ul>
+											<li><a href="blog.html">Our Blog</a></li>
+											<li><a href="blog-single.html">Blog Single</a></li>
+										</ul>
+									</li>
+									<li><a href="contact.html">Contact us</a></li>
+								</ul>
+							</div>
+							
+						</nav>
+						
+						<div class="outer-box">
+							
+							<!-- Btn Box -->
+							<div class="btn-box">
+								<a href="/admin" class="btn-style-one theme-btn"><span class="txt">Admin</span></a>
+							</div>
+						</div>
+								
+						<div class="outer-box">
+							
+							<!-- Btn Box -->
+							<div class="btn-box">
+								<a href="/login" class="btn-style-one theme-btn"><span class="txt">Login</span></a>
+							</div>
+						</div>
+						
+					</div>
+                   
+                </div>
+            </div>
+        </div>
+        <!--End Header Upper-->
+        
+    </header>
+    <!--End Main Header -->
+	
+	<!--Banner Section-->
+    <section class="banner-section">
+		<div class="patern-layer-one" style="background-image: url(images/background/pattern-1.png)"></div>
+		<div class="patern-layer-two" style="background-image: url(images/background/pattern-2.png)"></div>
+		<div class="patern-layer-three" style="background-image: url(images/background/pattern-3.png)"></div>
+		<!-- Icons -->
+		<div class="icons parallax-scene-1">
+			<!-- Icon One -->
+			<div data-depth="0.20" class="icon-one parallax-layer" style="background-image:url(images/icons/icon-1.png)"></div>
+		</div>
+		
+		<div class="auto-container">
+			<div class="row clearfix">
+				<!-- Content Column -->
+				<div class="content-column col-lg-8 col-md-12 col-sm-12">
+					<div class="inner-column">
+						<h1>Customer <br> Relationship Management</h1>
+						<div class="text">We’re focused on changing the way people do work. <br> Do you want in on the action?</div>
+					</div>
+				</div>
+				<!-- Image Column -->
+				<div class="image-column col-lg-4 col-md-12 col-sm-12">
+					<div class="inner-column">
+						<figure class="image titlt" data-tilt data-tilt-max="4">
+							<img src="images/background/banner-1.png" alt="">
+						</figure>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--End Banner Section-->
+	
+	
+	
+	<!--Main Footer-->
+    <footer class="main-footer">
+		<div class="pattern-layer"></div>
+		<div class="auto-container">
+		
+        	<!-- Widgets Section -->
+            <div class="widgets-section">
+            	<div class="row clearfix">
+                	
+                    <!-- Big Column -->
+                    <div class="big-column col-lg-6 col-md-12 col-sm-12">
+                        <div class="row clearfix">
+							
+							<!--Footer Column-->
+                            <div class="footer-column col-lg-6 col-md-6 col-sm-12">
+                                <div class="footer-widget logo-widget">
+									<div class="logo">
+                                    	<a href="index.html"><img src="images/footer-logo.png" alt="" /></a>
+                                    </div>
+									<div class="language">Language : <a href="#">English (UK)</a></div>
+									<div class="social-box">
+										<span>Social</span>
+										<a href="#" class="fa fa-facebook"></a>
+										<a href="#" class="fa fa-twitter"></a>
+										<a href="#" class="fa fa-dribbble"></a>
+										<a href="#" class="fa fa-google"></a>
+									</div>
+								</div>
+							</div>
+							
+							<!--Footer Column-->
+                            <div class="footer-column col-lg-6 col-md-6 col-sm-12">
+                                <div class="footer-widget links-widget">
+									<h5>About Company</h5>
+									<ul class="list-link">
+										<li><a href="#">How it works</a></li>
+										<li><a href="#">Design</a></li>
+										<li><a href="#">Development</a></li>
+										<li><a href="#">Digital markeing </a></li>
+										<li><a href="#">Services</a></li>
+										<li><a href="#">Security</a></li>
+									</ul>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					<!-- Big Column -->
+                    <div class="big-column col-lg-6 col-md-12 col-sm-12">
+                        <div class="row clearfix">
+							
+							<!--Footer Column-->
+                            <div class="footer-column col-lg-6 col-md-6 col-sm-12">
+                                <div class="footer-widget links-widget">
+									<h5>Information</h5>
+									<ul class="list-link">
+										<li><a href="#">Team</a></li>
+										<li><a href="#">Pricing plan</a></li>
+										<li><a href="#">Google Map</a></li>
+										<li><a href="#">Apps store</a></li>
+										<li><a href="#">About</a></li>
+									</ul>
+								</div>
+							</div>
+							
+							<!--Footer Column-->
+                            <div class="footer-column col-lg-6 col-md-6 col-sm-12">
+                                <div class="footer-widget support-widget">
+									<h5>Support</h5>
+									<ul>
+										<li>113 momo Street, bd 721 <br> NY 20012</li>
+										<li><a href="mailto:micihelp@gmail.com">micihelp@gmail.com</a></li>
+									</ul>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="copyright">&copy; 2020 All rights reserved</div>
+		</div>
+	</footer>
+	
+</div>
+<!--End pagewrapper-->
+
+<!--Scroll to top-->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-up"></span></div>
+
+<script src="js/jquery.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.paroller.min.js"></script>
+<script src="js/parallax.min.js"></script>
+<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="js/jquery.fancybox.js"></script>
+<script src="js/appear.js"></script>
+<script src="js/tilt.jquery.min.js"></script>
+<script src="js/owl.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/knob.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
