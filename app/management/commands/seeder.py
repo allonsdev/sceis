@@ -1,15 +1,98 @@
 import random
-from datetime import timedelta
 from django.core.management.base import BaseCommand
-from django.utils import timezone
 from faker import Faker
 from app.models import *
 
-fake = Faker()
+fake = Faker("en_GB")
+
+
+# ----------------------------
+# ZIMBABWE DATASETS
+# ----------------------------
+
+ZIM_PROVINCES = [
+    "Harare","Bulawayo","Manicaland","Mashonaland East",
+    "Mashonaland West","Mashonaland Central","Masvingo",
+    "Matabeleland North","Matabeleland South","Midlands"
+]
+
+ZIM_CITIES = [
+    "Harare","Bulawayo","Mutare","Gweru","Kwekwe",
+    "Masvingo","Chinhoyi","Marondera","Kadoma",
+    "Victoria Falls","Bindura","Redcliff"
+]
+
+ZIM_ORGANIZATIONS = [
+    "University of Zimbabwe",
+    "National University of Science and Technology",
+    "Midlands State University",
+    "Chinhoyi University of Technology",
+    "Zimbabwe Open University",
+    "Econet Wireless Zimbabwe",
+    "NetOne Zimbabwe",
+    "CBZ Holdings",
+    "Stanbic Bank Zimbabwe",
+    "Delta Corporation",
+    "Old Mutual Zimbabwe",
+    "OK Zimbabwe",
+    "Zimbabwe Revenue Authority",
+    "Ministry of ICT Zimbabwe",
+    "Zimbabwe Electricity Supply Authority",
+    "SeedCo Zimbabwe",
+    "Innscor Africa",
+    "Zimnat Insurance",
+    "CABS Bank",
+    "FBC Holdings"
+]
+
+ZIM_FIRST_NAMES = [
+    "Tawanda","Tendai","Tatenda","Nyasha","Ruvimbo","Blessing",
+    "Simbarashe","Tapiwa","Tariro","Farai","Kudakwashe",
+    "Rutendo","Panashe","Tanaka","Chipo","Precious"
+]
+
+ZIM_LAST_NAMES = [
+    "Moyo","Ndlovu","Dube","Sibanda","Mpofu","Chikowore",
+    "Mutasa","Gumbo","Zhou","Chirisa","Mlambo",
+    "Shumba","Banda","Phiri","Nyathi","Chakabva"
+]
+
+TASK_TITLES = [
+    "Follow up training proposal",
+    "Schedule client meeting",
+    "Send training quotation",
+    "Prepare training materials",
+    "Discuss contract renewal",
+    "Review training feedback",
+    "Confirm participant list",
+    "Organize training venue"
+]
+
+CHURN_REASONS = [
+    "Client budget constraints",
+    "Competitor offered lower pricing",
+    "Training program postponed",
+    "Low engagement from participants",
+    "Management restructuring"
+]
+
+PROGRAMS = [
+    "Data Analytics for Business",
+    "Cybersecurity Fundamentals",
+    "Project Management Professional Prep",
+    "Digital Transformation Strategy",
+    "Leadership & Management Excellence",
+    "AI for Business Leaders",
+    "Cloud Computing Essentials",
+    "Python for Data Science",
+    "Business Intelligence with Power BI",
+    "Agile & Scrum Master Training"
+]
 
 
 class Command(BaseCommand):
-    help = "Seeds all CRM, analytics, and task models with demo data"
+
+    help = "Seed CRM system with Zimbabwe demo data"
 
     def handle(self, *args, **kwargs):
 
@@ -31,209 +114,295 @@ class Command(BaseCommand):
         for m in models:
             m.objects.all().delete()
 
+        # -------------------------
+        # ORGANIZATIONS
+        # -------------------------
+
         self.stdout.write("Seeding organizations...")
 
         orgs = []
-        for i in range(20):
+
+        for name in ZIM_ORGANIZATIONS:
+
             org = ClientOrganization.objects.create(
-                name=fake.company(),
-                legal_name=fake.company(),
+                name=name,
+                legal_name=name,
                 organization_type=random.choice([
-                    "university", "polytechnic", "training_college",
-                    "corporate", "government", "ngo", "other"
+                    "university","corporate","government","ngo"
                 ]),
-                industry_sector=fake.job(),
-                sub_sector=fake.word(),
+                industry_sector=random.choice([
+                    "Education","Finance","Telecommunications",
+                    "Government","Retail","Agriculture","Energy"
+                ]),
+                sub_sector="Training & Development",
                 country="Zimbabwe",
-                province=fake.state(),
-                city=fake.city(),
-                physical_address=fake.address(),
-                website=fake.url(),
-                primary_email=fake.email(),
-                primary_phone=fake.phone_number(),
-                size_estimate=random.randint(10, 500),
-                annual_training_budget=random.uniform(10000, 100000),
-                relationship_start_date=fake.date_between("-3y", "-1y"),
-                relationship_status=random.choice(["prospect", "active", "at_risk"]),
-                churn_risk_score=random.uniform(0, 1),
-                lifetime_value_estimate=random.uniform(5000, 50000),
-                notes=fake.sentence(),
+                province=random.choice(ZIM_PROVINCES),
+                city=random.choice(ZIM_CITIES),
+                physical_address=f"{random.randint(1,200)} {fake.street_name()}",
+                website=f"https://www.{name.replace(' ','').lower()}.co.zw",
+                primary_email=f"info@{name.replace(' ','').lower()}.co.zw",
+                primary_phone=f"+2637{random.randint(10000000,99999999)}",
+                size_estimate=random.randint(30,350),
+                annual_training_budget=random.uniform(2000,40000),
+                relationship_start_date=fake.date_between("-3y","-1y"),
+                relationship_status=random.choice(["prospect","active","at_risk"]),
+                churn_risk_score=random.uniform(0.05,0.65),
+                lifetime_value_estimate=random.uniform(8000,120000),
+                notes=fake.sentence()
             )
+
             orgs.append(org)
+
+        # -------------------------
+        # CONTACTS
+        # -------------------------
 
         self.stdout.write("Seeding contacts...")
 
         contacts = []
+
         for org in orgs:
-            for _ in range(random.randint(1, 3)):
+
+            for _ in range(random.randint(2,4)):
+
+                first = random.choice(ZIM_FIRST_NAMES)
+                last = random.choice(ZIM_LAST_NAMES)
+
                 contact = ClientContact.objects.create(
                     organization=org,
-                    first_name=fake.first_name(),
-                    last_name=fake.last_name(),
-                    job_title=fake.job(),
-                    department=fake.word(),
-                    seniority_level=random.choice(["junior", "mid", "senior"]),
-                    email=fake.email(),
-                    phone=fake.phone_number(),
-                    decision_maker=random.choice([True, False]),
-                    primary_contact=random.choice([True, False]),
-                    engagement_score=random.uniform(0, 100),
-                    last_interaction_date=fake.date_between("-6m", "today"),
-                    satisfaction_rating=random.uniform(1, 5),
-                    notes=fake.sentence(),
+                    first_name=first,
+                    last_name=last,
+                    job_title=random.choice([
+                        "HR Manager","Training Manager",
+                        "Learning & Development Officer",
+                        "IT Director","Operations Manager"
+                    ]),
+                    department=random.choice(["HR","Training","IT","Operations"]),
+                    seniority_level=random.choice(["mid","senior"]),
+                    email=f"{first.lower()}.{last.lower()}@{org.website.replace('https://www.','')}",
+                    phone=f"+2637{random.randint(10000000,99999999)}",
+                    decision_maker=random.choice([True,False]),
+                    primary_contact=random.choice([True,False]),
+                    engagement_score=random.uniform(35,95),
+                    last_interaction_date=fake.date_between("-6m","today"),
+                    satisfaction_rating=random.uniform(3.2,4.8),
+                    notes=fake.sentence()
                 )
+
                 contacts.append(contact)
 
-        self.stdout.write("Seeding training programs...")
+        # -------------------------
+        # TRAINING PROGRAMS
+        # -------------------------
+
+        self.stdout.write("Seeding programs...")
 
         programs = []
-        for i in range(10):
+
+        for title in PROGRAMS:
+
             program = TrainingProgram.objects.create(
-                title=fake.catch_phrase(),
-                category=fake.word(),
-                delivery_mode=random.choice(["online", "onsite", "hybrid"]),
+                title=title,
+                category="Professional Training",
+                delivery_mode=random.choice(["online","onsite","hybrid"]),
                 description=fake.text(),
-                duration_days=random.randint(1, 30),
-                cost_per_participant=random.uniform(100, 2000),
-                certification_awarded=random.choice([True, False]),
-                accreditation_body=fake.company(),
-                target_audience=fake.text(),
+                duration_days=random.randint(2,10),
+                cost_per_participant=random.uniform(150,1200),
+                certification_awarded=random.choice([True,False]),
+                accreditation_body="Zimbabwe Institute of Management",
+                target_audience="Professionals and managers",
                 learning_objectives=fake.text(),
-                active=True,
+                active=True
             )
+
             programs.append(program)
 
-        self.stdout.write("Seeding training engagements...")
+        # -------------------------
+        # TRAINING ENGAGEMENTS
+        # -------------------------
 
-        engagements = []
+        self.stdout.write("Seeding engagements...")
+
         for org in orgs:
-            for _ in range(random.randint(1, 3)):
-                engagement = TrainingEngagement.objects.create(
+
+            for _ in range(random.randint(1,3)):
+
+                TrainingEngagement.objects.create(
                     organization=org,
                     program=random.choice(programs),
                     cohort_name=f"Cohort {random.randint(1,100)}",
-                    start_date=fake.date_between("-1y", "today"),
-                    end_date=fake.date_between("today", "+6m"),
-                    participants_count=random.randint(5, 100),
-                    completion_rate=random.uniform(50, 100),
-                    average_attendance_rate=random.uniform(50, 100),
-                    engagement_index=random.uniform(0, 100),
-                    satisfaction_score=random.uniform(1, 5),
-                    net_promoter_score=random.uniform(-100, 100),
-                    customized_content_requested=random.choice([True, False]),
-                    renewal_expected=random.choice([True, False]),
-                    renewal_probability=random.uniform(0, 1),
-                    revenue_generated=random.uniform(1000, 50000),
-                    churn_flag=random.choice([True, False]),
-                    churn_reason=fake.sentence(),
-                    internal_notes=fake.sentence(),
+                    start_date=fake.date_between("-1y","today"),
+                    end_date=fake.date_between("today","+3m"),
+                    participants_count=random.randint(8,45),
+                    completion_rate=random.uniform(75,98),
+                    average_attendance_rate=random.uniform(70,96),
+                    engagement_index=random.uniform(55,92),
+                    satisfaction_score=random.uniform(3.5,4.9),
+                    net_promoter_score=random.uniform(10,65),
+                    customized_content_requested=random.choice([True,False]),
+                    renewal_expected=random.choice([True,False]),
+                    renewal_probability=random.uniform(0.35,0.85),
+                    revenue_generated=random.uniform(1800,28000),
+                    churn_flag=random.choice([False,False,True]),
+                    churn_reason=random.choice(CHURN_REASONS),
+                    internal_notes=fake.sentence()
                 )
-                engagements.append(engagement)
+
+        # -------------------------
+        # TASKS
+        # -------------------------
 
         self.stdout.write("Seeding tasks...")
 
-        tasks = []
         for org in orgs:
-            for _ in range(random.randint(2, 6)):
-                task = Task.objects.create(
-                    title=fake.sentence(),
-                    description=fake.text(),
-                    assigned_to=random.choice(contacts).organization.account_manager
-                    if contacts else None,
+
+            for _ in range(random.randint(2,5)):
+
+                Task.objects.create(
+                    title=random.choice(TASK_TITLES),
+                    description=fake.sentence(),
+                    assigned_to=None,
                     related_organization=org,
-                    due_date=fake.date_between("-10d", "+30d"),
+                    due_date=fake.date_between("-5d","+20d"),
                     completed_at=None,
-                    priority=random.choice(["low", "medium", "high"]),
-                    status=random.choice(["pending", "in_progress", "completed", "overdue"]),
+                    priority=random.choice(["low","medium","high"]),
+                    status=random.choice([
+                        "pending","in_progress","completed","overdue"
+                    ])
                 )
-                tasks.append(task)
+
+        # -------------------------
+        # CHURN ALERTS
+        # -------------------------
 
         self.stdout.write("Seeding churn alerts...")
 
         for org in orgs:
-            if random.choice([True, False]):
+
+            if random.random() < 0.35:
+
+                risk = random.uniform(0.2,0.75)
+
+                if risk > 0.6:
+                    level = "HIGH"
+                elif risk > 0.4:
+                    level = "MEDIUM"
+                else:
+                    level = "LOW"
+
                 ChurnAlert.objects.create(
                     organization=org,
-                    risk_score=random.uniform(0, 1),
-                    risk_level=random.choice(["LOW", "MEDIUM", "HIGH"]),
-                    trigger_reason=fake.sentence(),
-                    recommended_action=fake.sentence(),
-                    acknowledged=random.choice([True, False]),
-                    resolved=random.choice([True, False]),
+                    risk_score=risk,
+                    risk_level=level,
+                    trigger_reason=random.choice(CHURN_REASONS),
+                    recommended_action=random.choice([
+                        "Schedule client meeting",
+                        "Offer customized training package",
+                        "Provide renewal discount",
+                        "Increase engagement"
+                    ]),
+                    acknowledged=random.choice([True,False]),
+                    resolved=random.choice([False,False,True])
                 )
 
-        self.stdout.write("Seeding competitors...")
+        # -------------------------
+        # COMPETITORS
+        # -------------------------
 
-        for i in range(10):
+        COMPETITORS = [
+            "Speciss College",
+            "Zimbabwe Institute of Management",
+            "Trust Academy",
+            "Digital Skills Africa",
+            "Africa University Training Centre",
+            "UZ Professional Development Centre"
+        ]
+
+        for c in COMPETITORS:
+
             Competitor.objects.create(
-                name=fake.company(),
+                name=c,
                 country="Zimbabwe",
-                service_focus=fake.text(),
-                pricing_notes=fake.text(),
-                strengths=fake.text(),
-                weaknesses=fake.text(),
-                threat_level=random.uniform(0, 1),
-                market_share_estimate=random.uniform(1, 50),
+                service_focus="Professional training",
+                pricing_notes="Competitive pricing",
+                strengths="Strong corporate partnerships",
+                weaknesses="Limited digital delivery",
+                threat_level=random.uniform(0.15,0.75),
+                market_share_estimate=random.uniform(2,18)
             )
 
-        self.stdout.write("Seeding marketing campaigns...")
+        # -------------------------
+        # MARKETING CAMPAIGNS
+        # -------------------------
 
-        for i in range(10):
+        for i in range(8):
+
             MarketingCampaign.objects.create(
-                name=fake.catch_phrase(),
-                campaign_type=random.choice(["digital", "event", "email", "sms"]),
-                start_date=fake.date_between("-6m", "today"),
-                end_date=fake.date_between("today", "+6m"),
-                target_segment=fake.text(),
-                budget=random.uniform(1000, 50000),
-                leads_generated=random.randint(0, 200),
-                conversions=random.randint(0, 50),
-                engagement_rate=random.uniform(0, 100),
-                roi_estimate=random.uniform(-50, 200),
-                notes=fake.text(),
+                name=f"{random.choice(['AI','Cloud','Data'])} Training Campaign",
+                campaign_type=random.choice(["digital","email","event"]),
+                start_date=fake.date_between("-6m","today"),
+                end_date=fake.date_between("today","+3m"),
+                target_segment="Corporate organizations",
+                budget=random.uniform(500,12000),
+                leads_generated=random.randint(10,120),
+                conversions=random.randint(3,35),
+                engagement_rate=random.uniform(5,35),
+                roi_estimate=random.uniform(10,120),
+                notes="Corporate outreach campaign"
             )
 
-        self.stdout.write("Seeding communications...")
+        # -------------------------
+        # COMMUNICATION LOGS
+        # -------------------------
 
         for org in orgs:
-            for _ in range(random.randint(1, 5)):
+
+            for _ in range(random.randint(1,4)):
+
                 CommunicationLog.objects.create(
                     organization=org,
-                    contact=random.choice(contacts) if contacts else None,
-                    channel=random.choice(["email", "phone", "meeting", "sms", "whatsapp"]),
+                    contact=random.choice(contacts),
+                    channel=random.choice([
+                        "email","phone","meeting","sms","whatsapp"
+                    ]),
                     subject=fake.sentence(),
                     interaction_summary=fake.text(),
-                    sentiment_score=random.uniform(-1, 1),
-                    response_received=random.choice([True, False]),
-                    response_time_hours=random.uniform(0, 72),
-                    follow_up_required=random.choice([True, False]),
-                    follow_up_date=fake.date_between("today", "+30d"),
+                    sentiment_score=random.uniform(-0.4,0.9),
+                    response_received=random.choice([True,False]),
+                    response_time_hours=random.uniform(2,48),
+                    follow_up_required=random.choice([True,False]),
+                    follow_up_date=fake.date_between("today","+20d")
                 )
 
-        self.stdout.write("Seeding site visits...")
+        # -------------------------
+        # SITE VISITS
+        # -------------------------
 
-        for i in range(100):
+        self.stdout.write("Seeding analytics visits...")
+
+        for i in range(120):
+
             SiteVisit.objects.create(
                 user=None,
                 session_key=fake.uuid4(),
                 is_authenticated=False,
                 organization=random.choice(orgs),
                 visit_type=random.choice([
-                    "page_view", "login", "logout", "api_call", "form_submit"
+                    "page_view","login","logout","form_submit"
                 ]),
-                path=fake.uri_path(),
-                view_name="",
+                path="/dashboard/",
+                view_name="dashboard",
                 http_method="GET",
-                timestamp=fake.date_time_between("-1y", "now"),
-                duration_seconds=random.uniform(1, 300),
+                timestamp=fake.date_time_between("-1y","now"),
+                duration_seconds=random.uniform(15,220),
                 ip_address=fake.ipv4(),
                 user_agent=fake.user_agent(),
-                device_type=random.choice(["mobile", "desktop"]),
-                browser=fake.word(),
-                os=fake.word(),
-                referrer=fake.url(),
-                is_bounce=random.choice([True, False]),
-                converted=random.choice([True, False]),
+                device_type=random.choice(["mobile","desktop"]),
+                browser=random.choice(["Chrome","Edge","Firefox"]),
+                os=random.choice(["Windows","Android","MacOS"]),
+                referrer="https://google.com",
+                is_bounce=random.choice([True,False]),
+                converted=random.choice([True,False])
             )
 
-        self.stdout.write(self.style.SUCCESS("Database successfully seeded!"))
+        self.stdout.write(self.style.SUCCESS("Zimbabwe CRM dataset seeded successfully!"))

@@ -1,184 +1,631 @@
-{% load static %} {% load static i18n %}
-
 <!doctype html>
 <html lang="en">
-  <head>
+  <!-- [Head] start --><head>
+    <title>ClientPulse AI</title>
+    <!-- [Meta] -->
     <meta charset="utf-8" />
-    <base href="{% static 'dashboard/' %}" />
-    <title>SCIES</title>
-    <!--    Document Title-->
-    <!-- ===============================================-->
-
-    <!-- ===============================================-->
-    <!--    Favicons-->
-    <!-- ===============================================-->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="assets/img/favicons/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/img/favicons/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="assets/img/favicons/favicon-16x16.png"
-    />
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="assets/img/favicons/favicon.ico"
-    />
-    <link rel="manifest" href="assets/img/favicons/manifest.json" />
     <meta
-      name="msapplication-TileImage"
-      content="assets/img/favicons/mstile-150x150.png"
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui"
     />
-    <meta name="theme-color" content="#ffffff" />
-    <script src="vendors/simplebar/simplebar.min.js"></script>
-    <script src="assets/js/config.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Able Pro is trending dashboard template made using Bootstrap 5 design framework. Able Pro is available in Bootstrap, React, CodeIgniter, Angular,  and .net Technologies."
+    />
+    <meta
+      name="keywords"
+      content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard"
+    />
+    <meta name="author" content="Phoenixcoded" />
+    <!-- [Favicon] icon -->
+    <link rel="icon" href="app/assets/images/favicon.svg" type="image/x-icon" />
+    <!-- [Font] Family -->
 
-    <!-- ===============================================-->
-    <!--    Stylesheets-->
-    <!-- ===============================================-->
-    <link rel="preconnect" href="https://fonts.googleapis.com/" />
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link href="vendors/simplebar/simplebar.min.css" rel="stylesheet" />
+
+        <base href="/static/" />
     <link
       rel="stylesheet"
-      href="unicons.iconscout.com/release/v4.0.8/css/line.css"
+      href="app/assets/fonts/inter/inter.css"
+      id="main-font-link"
     />
+    <!-- [phosphor Icons] https://phosphoricons.com/ -->
+    <link rel="stylesheet" href="app/assets/fonts/phosphor/duotone/style.css" />
+    <!-- [Tabler Icons] https://tablericons.com -->
+    <link rel="stylesheet" href="app/assets/fonts/tabler-icons.min.css" />
+    <!-- [Feather Icons] https://feathericons.com -->
+    <link rel="stylesheet" href="app/assets/fonts/feather.css" />
+    <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+    <link rel="stylesheet" href="app/assets/fonts/fontawesome.css" />
+    <!-- [Material Icons] https://fonts.google.com/icons -->
+    <link rel="stylesheet" href="app/assets/fonts/material.css" />
+    <!-- [Template CSS Files] -->
     <link
-      href="assets/css/theme-rtl.min.css"
-      type="text/css"
       rel="stylesheet"
-      id="style-rtl"
+      href="app/assets/css/style.css"
+      id="main-style-link"
     />
-    <link
-      href="assets/css/theme.min.css"
-      type="text/css"
-      rel="stylesheet"
-      id="style-default"
-    />
-    <link
-      href="assets/css/user-rtl.min.css"
-      type="text/css"
-      rel="stylesheet"
-      id="user-style-rtl"
-    />
-    <link
-      href="assets/css/user.min.css"
-      type="text/css"
-      rel="stylesheet"
-      id="user-style-default"
-    />
+    <script src="app/assets/js/tech-stack.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
     <script>
-      var phoenixIsRTL = window.config.config.phoenixIsRTL;
-      if (phoenixIsRTL) {
-        var linkDefault = document.getElementById("style-default");
-        var userLinkDefault = document.getElementById("user-style-default");
-        linkDefault.setAttribute("disabled", true);
-        userLinkDefault.setAttribute("disabled", true);
-        document.querySelector("html").setAttribute("dir", "rtl");
-      } else {
-        var linkRTL = document.getElementById("style-rtl");
-        var userLinkRTL = document.getElementById("user-style-rtl");
-        linkRTL.setAttribute("disabled", true);
-        userLinkRTL.setAttribute("disabled", true);
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
       }
+      gtag("js", new Date());
+      gtag("config", "");
     </script>
-  </head>
-
-  <body>
-    <!-- ===============================================-->
-    <!--    Main Content-->
-    <!-- ===============================================-->
-    <main class="main" id="top">
-      <div class="container">
-        <div class="row flex-center min-vh-100 py-5">
-          <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3">
-            <a
-              class="d-flex flex-center text-decoration-none mb-4"
-              href="/login"
-            >
-              <div
-                class="d-flex align-items-center fw-bolder fs-3 d-inline-block"
-              >
-                <img src="assets/img/icons/logo.png" alt="phoenix" width="58" />
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "");
+    </script>
+    <script
+      defer="defer"
+      src="https://phpstack-207002-5085356.cloudwaysapps.com/pixel/"
+    ></script>
+    <link rel="stylesheet" href="app/assets/css/style-preset.css" /></head
+  ><!-- [Head] end --><!-- [Body] Start -->
+  <body
+    data-pc-preset="preset-1"
+    data-pc-sidebar-caption="true"
+    data-pc-layout="vertical"
+    data-pc-direction="ltr"
+    data-pc-theme_contrast=""
+    data-pc-theme="light"
+  >
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+      <div class="loader-track"><div class="loader-fill"></div></div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+    <div class="auth-main">
+      <div class="auth-wrapper v2">
+        <div class="auth-sidecontent">
+          <img
+            src="app/assets/images/authentication/img-auth-sideimg.jpg"
+            alt="images"
+            class="img-fluid img-auth-side"
+          />
+        </div>
+        <div class="auth-form">
+          <div class="card my-5">
+            <div class="card-body">
+              <div class="text-center">
+                <a href="#"
+                  ><img src="app/assets/images/logo-dark.svg" alt="img"
+                /></a>
+                <div class="d-grid my-3">
+                  <button
+                    type="button"
+                    class="btn mt-2 btn-light-primary bg-light text-muted"
+                  >
+                    <img
+                      src="app/assets/images/authentication/facebook.svg"
+                      alt="img"
+                    />
+                    <span>Sign In with Facebook</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn mt-2 btn-light-primary bg-light text-muted"
+                  >
+                    <img
+                      src="app/assets/images/authentication/twitter.svg"
+                      alt="img"
+                    />
+                    <span>Sign In with Twitter</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn mt-2 btn-light-primary bg-light text-muted"
+                  >
+                    <img
+                      src="app/assets/images/authentication/google.svg"
+                      alt="img"
+                    />
+                    <span>Sign In with Google</span>
+                  </button>
+                </div>
               </div>
-            </a>
-            <div class="text-center mb-7">
-              <h3 class="text-body-highlight">Sign In</h3>
-              <p class="text-body-tertiary">Get access to your account</p>
-            </div>
-            <div class="position-relative">
-              <hr class="bg-body-secondary mt-5 mb-4" />
-              <div class="divider-content-center"></div>
-            </div>
-            <div class="mb-3 text-start">
-              <label class="form-label" for="email">Email address</label>
-              <div class="form-icon-container">
+              <div class="saprator my-3"><span>OR</span></div>
+              <h4 class="text-center f-w-500 mb-3">Login with your email</h4>
+              <div class="mb-3">
                 <input
-                  class="form-control form-icon-input"
-                  id="email"
                   type="email"
-                  placeholder="name@example.com"
-                /><span class="fas fa-user text-body fs-9 form-icon"></span>
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="Email Address"
+                />
               </div>
-            </div>
-            <div class="mb-3 text-start">
-              <label class="form-label" for="password">Password</label>
-              <div class="form-icon-container" data-password="data-password">
+              <div class="mb-3">
                 <input
-                  class="form-control form-icon-input pe-6"
-                  id="password"
                   type="password"
+                  class="form-control"
+                  id="floatingInput1"
                   placeholder="Password"
-                  data-password-input="data-password-input"
-                /><span class="fas fa-key text-body fs-9 form-icon"></span
-                ><button
-                  class="btn px-3 py-0 h-100 position-absolute top-0 end-0 fs-7 text-body-tertiary"
-                  data-password-toggle="data-password-toggle"
-                >
-                  <span class="uil uil-eye show"></span
-                  ><span class="uil uil-eye-slash hide"></span>
-                </button>
+                />
               </div>
-            </div>
-            <button class="btn btn-primary w-100 mb-3">Sign In</button>
-            <div class="text-center">
+              <div
+                class="d-flex mt-1 justify-content-between align-items-center"
+              >
+                <div class="form-check">
+                  <input
+                    class="form-check-input input-primary"
+                    type="checkbox"
+                    id="customCheckc1"
+                    checked=""
+                  />
+                  <label class="form-check-label text-muted" for="customCheckc1"
+                    >Remember me?</label
+                  >
+                </div>
+                <h6 class="text-secondary f-w-400 mb-0">
+                  <a href="forgot-password-v2.html">Forgot Password?</a>
+                </h6>
+              </div>
+              <div class="d-grid mt-4">
+                <button type="button" class="btn btn-primary">Login</button>
+              </div>
+              <div class="d-flex justify-content-between align-items-end mt-4">
+                <h6 class="f-w-500 mb-0">Don't have an Account?</h6>
+                <a href="register-v2.html" class="link-primary"
+                  >Create Account</a
+                >
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
-    <!-- ===============================================-->
-    <!--    End of Main Content-->
-    <!-- ===============================================-->
-
-    <!-- ===============================================-->
-    <!--    JavaScripts-->
-    <!-- ===============================================-->
-    <script src="vendors/popper/popper.min.js"></script>
-    <script src="vendors/bootstrap/bootstrap.min.js"></script>
-    <script src="vendors/anchorjs/anchor.min.js"></script>
-    <script src="vendors/is/is.min.js"></script>
-    <script src="vendors/fontawesome/all.min.js"></script>
-    <script src="vendors/lodash/lodash.min.js"></script>
-    <script src="vendors/list.js/list.min.js"></script>
-    <script src="vendors/feather-icons/feather.min.js"></script>
-    <script src="vendors/dayjs/dayjs.min.js"></script>
-    <script src="assets/js/phoenix.js"></script>
+    </div>
+    <!-- [ Main Content ] end --><!-- Required Js -->
+    <script src="app/assets/js/plugins/popper.min.js"></script>
+    <script src="app/assets/js/plugins/simplebar.min.js"></script>
+    <script src="app/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="app/assets/js/plugins/i18next.min.js"></script>
+    <script src="app/assets/js/plugins/i18nextHttpBackend.min.js"></script>
+    <script src="app/assets/js/icon/custom-font.js"></script>
+    <script src="app/assets/js/script.js"></script>
+    <script src="app/assets/js/theme.js"></script>
+    <script src="app/assets/js/multi-lang.js"></script>
+    <script src="app/assets/js/plugins/feather.min.js"></script>
+    <script
+      defer="defer"
+      src="https://fomo.codedthemes.com/pixel/CDkpF1sQ8Tt5wpMZgqRvKpQiUhpWE3bc"
+    ></script>
+    <div class="floting-button">
+      <a
+        href="https://1.envato.market/zNkqj6"
+        class="btn btn btn-danger buynowlinks d-inline-flex align-items-center gap-2"
+        data-bs-toggle="tooltip"
+        title="Buy Now"
+        ><i class="ph-duotone ph-shopping-cart"></i> <span>Buy Now</span></a
+      >
+    </div>
+    <script>
+      layout_change("light");
+    </script>
+    <script>
+      change_box_container("false");
+    </script>
+    <script>
+      layout_caption_change("true");
+    </script>
+    <script>
+      layout_rtl_change("false");
+    </script>
+    <script>
+      preset_change("preset-1");
+    </script>
+    <script>
+      main_layout_change("vertical");
+    </script>
+    <div class="pct-c-btn">
+      <a
+        href="#"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvas_pc_layout"
+        ><i class="ph-duotone ph-gear-six"></i
+      ></a>
+    </div>
+    <div
+      class="offcanvas border-0 pct-offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvas_pc_layout"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Settings</h5>
+        <button
+          type="button"
+          class="btn btn-icon btn-link-danger ms-auto"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        >
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div class="pct-body customizer-body">
+        <div class="offcanvas-body py-0">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="pc-dark">
+                <h6 class="mb-1">Theme Mode</h6>
+                <p class="text-muted text-sm">
+                  Choose light or dark mode or Auto
+                </p>
+                <div class="row theme-color theme-layout">
+                  <div class="col-4">
+                    <div class="d-grid">
+                      <button
+                        class="preset-btn btn active"
+                        data-value="true"
+                        onclick="layout_change('light')"
+                        data-bs-toggle="tooltip"
+                        title="Light"
+                      >
+                        <svg class="pc-icon text-warning">
+                          <use xlink:href="#custom-sun-1"></use>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-grid">
+                      <button
+                        class="preset-btn btn"
+                        data-value="false"
+                        onclick="layout_change('dark')"
+                        data-bs-toggle="tooltip"
+                        title="Dark"
+                      >
+                        <svg class="pc-icon">
+                          <use xlink:href="#custom-moon"></use>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-grid">
+                      <button
+                        class="preset-btn btn"
+                        data-value="default"
+                        onclick="layout_change_default()"
+                        data-bs-toggle="tooltip"
+                        title="Automatically sets the theme based on user's operating system's color scheme."
+                      >
+                        <span
+                          class="pc-lay-icon d-flex align-items-center justify-content-center"
+                          ><i class="ph-duotone ph-cpu"></i
+                        ></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">Theme Contrast</h6>
+              <p class="text-muted text-sm">Choose theme contrast</p>
+              <div class="row theme-contrast">
+                <div class="col-6">
+                  <div class="d-grid">
+                    <button
+                      class="preset-btn btn"
+                      data-value="true"
+                      onclick="layout_theme_contrast_change('true')"
+                      data-bs-toggle="tooltip"
+                      title="True"
+                    >
+                      <svg class="pc-icon">
+                        <use xlink:href="#custom-mask"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="d-grid">
+                    <button
+                      class="preset-btn btn active"
+                      data-value="false"
+                      onclick="layout_theme_contrast_change('false')"
+                      data-bs-toggle="tooltip"
+                      title="False"
+                    >
+                      <svg class="pc-icon">
+                        <use xlink:href="#custom-mask-1-outline"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">Custom Theme</h6>
+              <p class="text-muted text-sm">Choose your primary theme color</p>
+              <div class="theme-color preset-color">
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Blue"
+                  class="active"
+                  data-value="preset-1"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Indigo"
+                  data-value="preset-2"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Purple"
+                  data-value="preset-3"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Pink"
+                  data-value="preset-4"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Red"
+                  data-value="preset-5"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Orange"
+                  data-value="preset-6"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Yellow"
+                  data-value="preset-7"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Green"
+                  data-value="preset-8"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Teal"
+                  data-value="preset-9"
+                  ><i class="ti ti-checks"></i
+                ></a>
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Cyan"
+                  data-value="preset-10"
+                  ><i class="ti ti-checks"></i
+                ></a>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">Theme layout</h6>
+              <p class="text-muted text-sm">Choose your layout</p>
+              <div class="theme-main-layout d-flex align-center gap-1 w-100">
+                <a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Vertical"
+                  class="active"
+                  data-value="vertical"
+                  ><img
+                    src="app/assets/images/customizer/caption-on.svg"
+                    alt="img"
+                    class="img-fluid"
+                  /> </a
+                ><a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Horizontal"
+                  data-value="horizontal"
+                  ><img
+                    src="app/assets/images/customizer/horizontal.svg"
+                    alt="img"
+                    class="img-fluid"
+                  /> </a
+                ><a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Color Header"
+                  data-value="color-header"
+                  ><img
+                    src="app/assets/images/customizer/color-header.svg"
+                    alt="img"
+                    class="img-fluid"
+                  /> </a
+                ><a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Compact"
+                  data-value="compact"
+                  ><img
+                    src="app/assets/images/customizer/compact.svg"
+                    alt="img"
+                    class="img-fluid"
+                  /> </a
+                ><a
+                  href="#!"
+                  data-bs-toggle="tooltip"
+                  title="Tab"
+                  data-value="tab"
+                  ><img
+                    src="app/assets/images/customizer/tab.svg"
+                    alt="img"
+                    class="img-fluid"
+                /></a>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">Sidebar Caption</h6>
+              <p class="text-muted text-sm">Sidebar Caption Hide/Show</p>
+              <div class="row theme-color theme-nav-caption">
+                <div class="col-6">
+                  <div class="d-grid">
+                    <button
+                      class="preset-btn btn-img btn active"
+                      data-value="true"
+                      onclick="layout_caption_change('true')"
+                      data-bs-toggle="tooltip"
+                      title="Caption Show"
+                    >
+                      <img
+                        src="app/assets/images/customizer/caption-on.svg"
+                        alt="img"
+                        class="img-fluid"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="d-grid">
+                    <button
+                      class="preset-btn btn-img btn"
+                      data-value="false"
+                      onclick="layout_caption_change('false')"
+                      data-bs-toggle="tooltip"
+                      title="Caption Hide"
+                    >
+                      <img
+                        src="app/assets/images/customizer/caption-off.svg"
+                        alt="img"
+                        class="img-fluid"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="pc-rtl">
+                <h6 class="mb-1">Theme Layout</h6>
+                <p class="text-muted text-sm">LTR/RTL</p>
+                <div class="row theme-color theme-direction">
+                  <div class="col-6">
+                    <div class="d-grid">
+                      <button
+                        class="preset-btn btn-img btn active"
+                        data-value="false"
+                        onclick="layout_rtl_change('false')"
+                        data-bs-toggle="tooltip"
+                        title="LTR"
+                      >
+                        <img
+                          src="app/assets/images/customizer/ltr.svg"
+                          alt="img"
+                          class="img-fluid"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="d-grid">
+                      <button
+                        class="preset-btn btn-img btn"
+                        data-value="true"
+                        onclick="layout_rtl_change('true')"
+                        data-bs-toggle="tooltip"
+                        title="RTL"
+                      >
+                        <img
+                          src="app/assets/images/customizer/rtl.svg"
+                          alt="img"
+                          class="img-fluid"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item pc-box-width">
+              <div class="pc-container-width">
+                <h6 class="mb-1">Layout Width</h6>
+                <p class="text-muted text-sm">
+                  Choose Full or Container Layout
+                </p>
+                <div class="row theme-color theme-container">
+                  <div class="col-6">
+                    <div class="d-grid">
+                      <button
+                        class="preset-btn btn-img btn active"
+                        data-value="false"
+                        onclick="change_box_container('false')"
+                        data-bs-toggle="tooltip"
+                        title="Full Width"
+                      >
+                        <img
+                          src="app/assets/images/customizer/full.svg"
+                          alt="img"
+                          class="img-fluid"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="d-grid">
+                      <button
+                        class="preset-btn btn-img btn"
+                        data-value="true"
+                        onclick="change_box_container('true')"
+                        data-bs-toggle="tooltip"
+                        title="Fixed Width"
+                      >
+                        <img
+                          src="app/assets/images/customizer/fixed.svg"
+                          alt="img"
+                          class="img-fluid"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="d-grid">
+                <button class="btn btn-light-danger" id="layoutreset">
+                  Reset Layout
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516"
+      integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg=="
+      data-cf-beacon='{"version":"2024.11.0","token":"db59679aec724f808b8e535e8076f80c","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+      crossorigin="anonymous"
+    ></script>
   </body>
-
-  <!-- Mirrored from prium.github.io/phoenix/v1.24.0/pages/authentication/simple/sign-in.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 18 Feb 2026 21:03:17 GMT -->
+  <!-- [Body] end -->
 </html>

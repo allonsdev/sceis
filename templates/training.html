@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+  <!-- [Head] start --><head>
+    <title>ClientPulse AI</title>
+    <!-- [Meta] -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="description"
+      content="Able Pro is trending dashboard template made using Bootstrap 5 design framework. Able Pro is available in Bootstrap, React, CodeIgniter, Angular,  and .net Technologies."
+    />
+    <meta
+      name="keywords"
+      content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard"
+    />
+    <meta name="author" content="Phoenixcoded" />
+    <base href="/static/" />
+
+    <link
+      rel="stylesheet"
+      href="app/assets/css/plugins/dataTables.bootstrap5.min.css"
+    />
+    <!-- [Page specific CSS] end -->
+    <!-- [Font] Family -->
+    <link
+      rel="stylesheet"
+      href="app/assets/fonts/inter/inter.css"
+      id="main-font-link"
+    />
+    <!-- [phosphor Icons] https://phosphoricons.com/ -->
+    <link rel="stylesheet" href="app/assets/fonts/phosphor/duotone/style.css" />
+    <!-- [Tabler Icons] https://tablericons.com -->
+    <link rel="stylesheet" href="app/assets/fonts/tabler-icons.min.css" />
+    <!-- [Feather Icons] https://feathericons.com -->
+    <link rel="stylesheet" href="app/assets/fonts/feather.css" />
+    <!-- [Font Awesome Icons] https://fontawesome.com/icons -->
+    <link rel="stylesheet" href="app/assets/fonts/fontawesome.css" />
+    <!-- [Material Icons] https://fonts.google.com/icons -->
+    <link rel="stylesheet" href="app/assets/fonts/material.css" />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- DataTables CSS -->
+    <link
+      href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.bootstrap5.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome for icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- [Template CSS Files] -->
+    <link
+      rel="stylesheet"
+      href="app/assets/css/style.css"
+      id="main-style-link"
+    />
+
+    <style>
+      /* Style DataTables export buttons */
+      .dt-buttons .btn {
+        border-radius: 0.25rem;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.875rem;
+      }
+
+      /* Cards spacing */
+      .card.social-widget-card {
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .card.social-widget-card:hover {
+        transform: translateY(-5px);
+      }
+
+      /* Page title */
+      .pc-content h2.mb-0 {
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+    </style>
+
+    <script src="app/assets/js/tech-stack.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "");
+    </script>
+    <script type="text/javascript">
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "");
+    </script>
+    <script
+      defer="defer"
+      src="https://phpstack-207002-5085356.cloudwaysapps.com/pixel/"
+    ></script>
+    <link rel="stylesheet" href="app/assets/css/style-preset.css" /></head
+  ><!-- [Head] end --><!-- [Body] Start -->
+  <body
+    data-pc-preset="preset-1"
+    data-pc-sidebar-caption="true"
+    data-pc-layout="vertical"
+    data-pc-direction="ltr"
+    data-pc-theme_contrast=""
+    data-pc-theme="light"
+  >
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+      <div class="loader-track"><div class="loader-fill"></div></div>
+    </div>
+    <!-- [ Pre-loader ] End --><!-- [ Sidebar Menu ] start -->
+    <nav class="pc-sidebar">
+      <div class="navbar-wrapper">
+        <div class="m-header">
+          <a href="/" class="b-brand text-primary">
+            <img
+              src="app/assets/images/logo.png"
+              class="img-fluid logo-lg"
+              alt="logo"
+            />
+          </a>
+        </div>
+
+        <div class="navbar-content">
+          <ul class="pc-navbar">
+            <li class="pc-item pc-caption">
+              <label data-i18n="Navigation">Navigation</label>
+            </li>
+
+            <!-- Dashboard -->
+            <li class="pc-item">
+              <a href="/dashboard" class="pc-link">
+                <span class="pc-micon"
+                  ><i class="fas fa-tachometer-alt"></i
+                ></span>
+                <span class="pc-mtext" data-i18n="Dashboard">Dashboard</span>
+              </a>
+            </li>
+
+            <!-- Client Alerts -->
+            <li class="pc-item">
+              <a href="/client" class="pc-link">
+                <span class="pc-micon"><i class="fas fa-bell"></i></span>
+                <span class="pc-mtext" data-i18n="Client Alerts"
+                  >Client Alerts</span
+                >
+              </a>
+            </li>
+
+            <!-- Communication -->
+            <li class="pc-item">
+              <a href="/communication" class="pc-link">
+                <span class="pc-micon"><i class="fas fa-comments"></i></span>
+                <span class="pc-mtext" data-i18n="Communication"
+                  >Communication</span
+                >
+              </a>
+            </li>
+
+            <!-- Campaigns -->
+            <li class="pc-item">
+              <a href="/campaigns" class="pc-link" target="_blank">
+                <span class="pc-micon"><i class="fas fa-bullhorn"></i></span>
+                <span class="pc-mtext" data-i18n="Campaigns">Campaigns</span>
+              </a>
+            </li>
+
+            <!-- Competitors -->
+            <li class="pc-item">
+              <a href="/competitors" class="pc-link">
+                <span class="pc-micon"><i class="fas fa-users"></i></span>
+                <span class="pc-mtext" data-i18n="Competitors"
+                  >Competitors</span
+                >
+              </a>
+            </li>
+
+            <!-- Organisation -->
+            <li class="pc-item">
+              <a href="/organisation" class="pc-link">
+                <span class="pc-micon"><i class="fas fa-building"></i></span>
+                <span class="pc-mtext" data-i18n="Organisation"
+                  >Organisation</span
+                >
+              </a>
+            </li>
+
+            <!-- Site Visit -->
+            <li class="pc-item">
+              <a href="/site-visit" class="pc-link">
+                <span class="pc-micon"
+                  ><i class="fas fa-map-marker-alt"></i
+                ></span>
+                <span class="pc-mtext" data-i18n="Site Visit">Site Visit</span>
+              </a>
+            </li>
+
+            <!-- Engagement -->
+            <li class="pc-item">
+              <a href="/engagement" class="pc-link">
+                <span class="pc-micon"><i class="fas fa-handshake"></i></span>
+                <span class="pc-mtext" data-i18n="Engagement">Engagement</span>
+              </a>
+            </li>
+
+            <!-- Training -->
+            <li class="pc-item">
+              <a href="/training" class="pc-link">
+                <span class="pc-micon"
+                  ><i class="fas fa-chalkboard-teacher"></i
+                ></span>
+                <span class="pc-mtext" data-i18n="Training">Training</span>
+              </a>
+            </li>
+
+            <!-- Task -->
+            <li class="pc-item">
+              <a href="/task" class="pc-link">
+                <span class="pc-micon"><i class="fas fa-tasks"></i></span>
+                <span class="pc-mtext" data-i18n="Task">Task</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- [ Sidebar Menu ] end --><!-- [ Header Topbar ] start -->
+    <header class="pc-header">
+      <div
+        class="header-wrapper d-flex align-items-center justify-content-between"
+      >
+        <!-- Left: Search bar -->
+        <div class="me-auto d-flex align-items-center">
+          <form class="form-search d-flex align-items-center mb-0">
+            <i class="search-icon"><i class="fas fa-search"></i></i>
+            <input
+              type="search"
+              class="form-control ms-2"
+              placeholder="Ctrl + K"
+            />
+          </form>
+        </div>
+
+        <!-- Right: Theme switcher & Logout -->
+        <div class="ms-auto d-flex align-items-center">
+          <!-- Theme Switcher -->
+          <div class="dropdown me-3">
+            <a
+              class="pc-head-link dropdown-toggle"
+              href="#"
+              data-bs-toggle="dropdown"
+            >
+              <i class="fas fa-sun"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
+              <a
+                href="#!"
+                class="dropdown-item"
+                onclick="layout_change('dark')"
+              >
+                <i class="fas fa-moon me-2"></i> Dark
+              </a>
+              <a
+                href="#!"
+                class="dropdown-item"
+                onclick="layout_change('light')"
+              >
+                <i class="fas fa-sun me-2"></i> Light
+              </a>
+              <a
+                href="#!"
+                class="dropdown-item"
+                onclick="layout_change_default()"
+              >
+                <i class="fas fa-cog me-2"></i> Default
+              </a>
+            </div>
+          </div>
+
+          <!-- Logout -->
+          <div>
+            <a href="{% url 'logout' %}" class="btn btn-primary">
+              <i class="fas fa-sign-out-alt me-2"></i> Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div
+      class="offcanvas pc-announcement-offcanvas offcanvas-end"
+      tabindex="-1"
+      id="announcement"
+      aria-labelledby="announcementLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="announcementLabel">
+          What's new announcement?
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <p class="text-span">Today</p>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="align-items-center d-flex flex-wrap gap-2 mb-3">
+              <div class="badge bg-light-success f-12">Big News</div>
+              <p class="mb-0 text-muted">2 min ago</p>
+              <span class="badge dot bg-warning"></span>
+            </div>
+            <h5 class="mb-3">Able Pro is Redesigned</h5>
+            <p class="text-muted">
+              Able Pro is completely renowed with high aesthetics User
+              Interface.
+            </p>
+            <img
+              src="app/assets/images/layout/img-announcement-1.png"
+              alt="img"
+              class="img-fluid mb-3"
+            />
+            <div class="row">
+              <div class="col-12">
+                <div class="d-grid">
+                  <a
+                    class="btn btn-outline-secondary"
+                    href="https://1.envato.market/zNkqj6"
+                    target="_blank"
+                    >Check Now</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="align-items-center d-flex flex-wrap gap-2 mb-3">
+              <div class="badge bg-light-warning f-12">Offer</div>
+              <p class="mb-0 text-muted">2 hour ago</p>
+              <span class="badge dot bg-warning"></span>
+            </div>
+            <h5 class="mb-3">Able Pro is in best offer price</h5>
+            <p class="text-muted">
+              Download Able Pro exclusive on themeforest with best price.
+            </p>
+            <a href="https://1.envato.market/zNkqj6" target="_blank"
+              ><img
+                src="app/assets/images/layout/img-announcement-2.png"
+                alt="img"
+                class="img-fluid"
+            /></a>
+          </div>
+        </div>
+        <p class="text-span mt-4">Yesterday</p>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="align-items-center d-flex flex-wrap gap-2 mb-3">
+              <div class="badge bg-light-primary f-12">Blog</div>
+              <p class="mb-0 text-muted">12 hour ago</p>
+              <span class="badge dot bg-warning"></span>
+            </div>
+            <h5 class="mb-3">Featured Dashboard Template</h5>
+            <p class="text-muted">
+              Do you know Able Pro is one of the featured dashboard template
+              selected by <span class="tf">Themeforest</span>
+              <span class="ct">Codedthemes</span> team.?
+            </p>
+            <img
+              src="app/assets/images/layout/img-announcement-3.png"
+              alt="img"
+              class="img-fluid"
+            />
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="align-items-center d-flex flex-wrap gap-2 mb-3">
+              <div class="badge bg-light-primary f-12">Announcement</div>
+              <p class="mb-0 text-muted">12 hour ago</p>
+              <span class="badge dot bg-warning"></span>
+            </div>
+            <h5 class="mb-3">Buy Once - Get Free Updated lifetime</h5>
+            <p class="text-muted">
+              Get the lifetime free updates once you purchase the Able Pro.
+            </p>
+            <img
+              src="app/assets/images/layout/img-announcement-4.png"
+              alt="img"
+              class="img-fluid"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- [ Header ] end --><!-- [ Main Content ] start -->
+    <!-- task_list.html -->
+    <section class="pc-container">
+      <div class="pc-content">
+        <!-- DASHBOARD CARDS -->
+        <div class="row mb-4">
+          <div class="col-md-6 col-xl-3">
+            <div class="card bg-primary">
+              <div class="card-body text-white">
+                <h3>{{ total_trainings }}</h3>
+                <span>Total Programs</span>
+                <i class="fa fa-graduation-cap"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <div class="card bg-success">
+              <div class="card-body text-white">
+                <h3>{{ active_trainings }}</h3>
+                <span>Active Programs</span>
+                <i class="fa fa-check-circle"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <div class="card bg-danger">
+              <div class="card-body text-white">
+                <h3>{{ inactive_trainings }}</h3>
+                <span>Inactive Programs</span>
+                <i class="fa fa-times-circle"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-xl-3">
+            <div class="card bg-warning">
+              <div class="card-body text-white">
+                <h3>{{ certified_trainings }}</h3>
+                <span>Certification Programs</span>
+                <i class="fa fa-certificate"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADD BUTTON -->
+        <div class="row mb-3">
+          <div class="col-md-12 text-end">
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addTrainingModal"
+            >
+              <i class="fas fa-plus"></i> Add Program
+            </button>
+          </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-header">
+                <h5>Training Programs</h5>
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    id="training-table"
+                    class="table table-striped table-bordered nowrap"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Delivery</th>
+                        <th>Duration</th>
+                        <th>Cost</th>
+                        <th>Certification</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {% for t in trainings %}
+                      <tr>
+                        <td>{{ t.title }}</td>
+
+                        <td>
+                          <span class="badge bg-info"> {{ t.category }} </span>
+                        </td>
+
+                        <td>
+                          <span class="badge bg-secondary">
+                            {{ t.delivery_mode }}
+                          </span>
+                        </td>
+
+                        <td>{{ t.duration_days }} days</td>
+
+                        <td>{{ t.cost_per_participant }}</td>
+
+                        <td>
+                          <span
+                            class="badge {% if t.certification_awarded %}bg-success{% else %}bg-danger{% endif %}"
+                          >
+                            {% if t.certification_awarded %}Yes{% else %}No{%endif %}
+                          </span>
+                        </td>
+
+                        <td>
+                          <span
+                            class="badge {% if t.active %}bg-success{% else %}bg-danger{% endif %}"
+                          >
+                            {% if t.active %}Active{% else %}Inactive{% endif %}
+                          </span>
+                        </td>
+
+                        <td>
+                          <button
+                            class="btn btn-sm btn-outline-primary edit-btn"
+                            data-id="{{ t.id }}"
+                          >
+                            <i class="fas fa-edit"></i> Edit
+                          </button>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADD MODAL -->
+        <div class="modal fade" id="addTrainingModal">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <form method="POST" action="{% url 'add_training_program' %}">
+                {% csrf_token %}
+
+                <div class="modal-header bg-primary text-white">
+                  <h5>Add Training Program</h5>
+                  <button
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+
+                <div class="modal-body">
+                  <div class="row g-3">
+                    {% for field in form %}
+                    <div class="col-md-6">
+                      <label class="form-label">{{ field.label }}</label>
+                      {{ field }}
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <div class="modal-footer">
+                  <button class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save
+                  </button>
+
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- EDIT MODAL -->
+        <div class="modal fade" id="editTrainingModal">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <form id="edit-training-form" method="POST">
+                {% csrf_token %}
+
+                <div class="modal-header bg-primary text-white">
+                  <h5>Edit Training</h5>
+                  <button
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                  ></button>
+                </div>
+
+                <div class="modal-body" id="edit-training-body"></div>
+
+                <div class="modal-footer">
+                  <button class="btn btn-primary">Update</button>
+
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- [ Main Content ] end -->
+    <footer class="pc-footer">
+      <div class="footer-wrapper container-fluid">
+        <div class="row">
+          <div class="col my-1">
+            <p class="m-0">
+              © AI-Powered Customer Intelligence
+              <a href="/" target="_blank">and Retention Management System</a>
+            </p>
+          </div>
+          <div class="col-md-auto my-1">
+            <ul class="list-inline footer-link mb-0">
+              <li class="list-inline-item">
+                <a href="/">Home</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="/" target="_blank">Documentation</a>
+              </li>
+              <li class="list-inline-item tf">
+                <a href="/" target="_blank">Support</a>
+              </li>
+              <li class="list-inline-item ct">
+                <a href="/" target="_blank">Support</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Required Js -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- DataTables Buttons -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="app/assets/js/plugins/popper.min.js"></script>
+    <script src="app/assets/js/plugins/simplebar.min.js"></script>
+    <script src="app/assets/js/plugins/bootstrap.min.js"></script>
+    <script src="app/assets/js/plugins/i18next.min.js"></script>
+    <script src="app/assets/js/plugins/i18nextHttpBackend.min.js"></script>
+    <script src="app/assets/js/icon/custom-font.js"></script>
+    <script src="app/assets/js/script.js"></script>
+    <script src="app/assets/js/theme.js"></script>
+    <script src="app/assets/js/multi-lang.js"></script>
+    <script src="app/assets/js/plugins/feather.min.js"></script>
+    <script
+      defer="defer"
+      src="https://fomo.codedthemes.com/pixel/CDkpF1sQ8Tt5wpMZgqRvKpQiUhpWE3bc"
+    ></script>
+
+    <script>
+      layout_change("light");
+    </script>
+    <script>
+      change_box_container("false");
+    </script>
+    <script>
+      layout_caption_change("true");
+    </script>
+    <script>
+      layout_rtl_change("false");
+    </script>
+    <script>
+      preset_change("preset-1");
+    </script>
+    <script>
+      main_layout_change("vertical");
+    </script>
+
+    <script>
+      <script>
+
+      $(document).ready(function(){
+
+      $("#training-table").DataTable({
+
+      responsive:true,
+      autoWidth:false,
+      pageLength:10,
+      dom:"Bfltip",
+
+      buttons:[
+      {extend:"copy",className:"btn btn-sm btn-outline-primary"},
+      {extend:"csv",className:"btn btn-sm btn-outline-success"},
+      {extend:"excel",className:"btn btn-sm btn-outline-success"},
+      {extend:"pdf",className:"btn btn-sm btn-outline-danger"},
+      {extend:"print",className:"btn btn-sm btn-outline-secondary"},
+      ]
+
+      });
+
+      $(".edit-btn").click(function(){
+
+      let id=$(this).data("id");
+
+      $.ajax({
+      url:`/training/edit/${id}/`,
+      type:"GET",
+      success:function(data){
+
+      $("#edit-training-body").html(data)
+      $("#edit-training-form").attr("action",`/training/edit/${id}/`)
+      $("#editTrainingModal").modal("show")
+
+      }
+      })
+
+      })
+
+      })
+    </script>
+
+    <!-- [Page Specific JS] start --><!-- datatable Js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="app/assets/js/plugins/dataTables.min.js"></script>
+    <script src="app/assets/js/plugins/dataTables.bootstrap5.min.js"></script>
+    <script>
+      // [ DOM/jquery ]
+      var total, pageTotal;
+      var table = $("#dom-jqry").DataTable();
+      // [ column Rendering ]
+      $("#colum-render").DataTable({
+        columnDefs: [
+          {
+            render: function (data, type, row) {
+              return data + " (" + row[3] + ")";
+            },
+            targets: 0,
+          },
+          {
+            visible: false,
+            targets: [3],
+          },
+        ],
+      });
+      // [ Multiple Table Control Elements ]
+      $("#multi-table").DataTable({
+        dom: '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+      });
+      // [ Complex Headers With Column Visibility ]
+      $("#complex-header").DataTable({
+        columnDefs: [
+          {
+            visible: false,
+            targets: -1,
+          },
+        ],
+      });
+      // [ Language file ]
+      $("#lang-file").DataTable({
+        language: {
+          url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json",
+        },
+      });
+      // [ Setting Defaults ]
+      $("#setting-default").DataTable();
+      // [ Row Grouping ]
+      var table1 = $("#row-grouping").DataTable({
+        columnDefs: [
+          {
+            visible: false,
+            targets: 2,
+          },
+        ],
+        order: [[2, "asc"]],
+        displayLength: 25,
+        drawCallback: function (settings) {
+          var api = this.api();
+          var rows = api
+            .rows({
+              page: "current",
+            })
+            .nodes();
+          var last = null;
+
+          api
+            .column(2, {
+              page: "current",
+            })
+            .data()
+            .each(function (group, i) {
+              if (last !== group) {
+                $(rows)
+                  .eq(i)
+                  .before(
+                    '<tr class="group"><td colspan="5">' + group + "</td></tr>",
+                  );
+
+                last = group;
+              }
+            });
+        },
+      });
+      // [ Order by the grouping ]
+      $("#row-grouping tbody").on("click", "tr.group", function () {
+        var currentOrder = table.order()[0];
+        if (currentOrder[0] === 2 && currentOrder[1] === "asc") {
+          table.order([2, "desc"]).draw();
+        } else {
+          table.order([2, "asc"]).draw();
+        }
+      });
+      // [ Footer callback ]
+      $("#footer-callback").DataTable({
+        footerCallback: function (row, data, start, end, display) {
+          var api = this.api(),
+            data;
+
+          // Remove the formatting to get integer data for summation
+          var intVal = function (i) {
+            return typeof i === "string"
+              ? i.replace(/[\$,]/g, "") * 1
+              : typeof i === "number"
+                ? i
+                : 0;
+          };
+
+          // Total over all pages
+          total = api
+            .column(4)
+            .data()
+            .reduce(function (a, b) {
+              return intVal(a) + intVal(b);
+            }, 0);
+
+          // Total over this page
+          pageTotal = api
+            .column(4, {
+              page: "current",
+            })
+            .data()
+            .reduce(function (a, b) {
+              return intVal(a) + intVal(b);
+            }, 0);
+
+          // Update footer
+          $(api.column(4).footer()).html(
+            "$" + pageTotal + " ( $" + total + " total)",
+          );
+        },
+      });
+      // [ Custom Toolbar Elements ]
+      $("#c-tool-ele").DataTable({
+        dom: '<"toolbar">frtip',
+      });
+      // [ Custom Toolbar Elements ]
+      $("div.toolbar").html("<b>Custom tool bar! Text/images etc.</b>");
+      // [ custom callback ]
+      $("#row-callback").DataTable({
+        createdRow: function (row, data, index) {
+          if (data[5].replace(/[\$,]/g, "") * 1 > 150000) {
+            $("td", row).eq(5).addClass("highlight");
+          }
+        },
+      });
+    </script>
+    <!-- [Page Specific JS] end -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516"
+      integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg=="
+      data-cf-beacon='{"version":"2024.11.0","token":"db59679aec724f808b8e535e8076f80c","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+      crossorigin="anonymous"
+    ></script>
+  </body>
+  <!-- [Body] end -->
+</html>
