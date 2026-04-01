@@ -1,0 +1,254 @@
+/* ═══════════════════════════════════════════════════
+   ClientPulse AI — Shared Theme
+   Add to: static/app/assets/css/pulse-theme.css
+   Include AFTER style.css in every template
+═══════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── CSS Variables ─────────────────────────────── */
+:root {
+  --p-blue:       #2563EB;
+  --p-blue-lt:    #EFF6FF;
+  --p-blue-mid:   #BFDBFE;
+  --p-green:      #059669;
+  --p-green-lt:   #ECFDF5;
+  --p-amber:      #D97706;
+  --p-amber-lt:   #FFFBEB;
+  --p-red:        #DC2626;
+  --p-red-lt:     #FEF2F2;
+  --p-indigo:     #4F46E5;
+  --p-indigo-lt:  #EEF2FF;
+
+  --p-bg:         #F1F5F9;
+  --p-surface:    #FFFFFF;
+  --p-border:     #E2E8F0;
+  --p-border-lt:  #F1F5F9;
+  --p-text:       #0F172A;
+  --p-text-2:     #334155;
+  --p-muted:      #64748B;
+  --p-muted-lt:   #94A3B8;
+
+  --p-radius:     14px;
+  --p-radius-sm:  8px;
+  --p-radius-lg:  20px;
+  --p-shadow:     0 1px 3px rgba(15,23,42,.06), 0 4px 16px rgba(15,23,42,.04);
+  --p-shadow-md:  0 4px 12px rgba(15,23,42,.08), 0 12px 32px rgba(15,23,42,.06);
+  --p-shadow-lg:  0 8px 24px rgba(15,23,42,.1),  0 24px 48px rgba(15,23,42,.08);
+
+  --p-font:       'Plus Jakarta Sans', sans-serif;
+  --p-mono:       'JetBrains Mono', monospace;
+}
+
+body { font-family: var(--p-font) !important; background: var(--p-bg) !important; }
+
+/* ── Metric Cards ──────────────────────────────── */
+.cp-card {
+  background: var(--p-surface);
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  box-shadow: var(--p-shadow);
+  padding: 1.5rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.cp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--p-shadow-md);
+}
+.cp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--card-accent, var(--p-blue));
+  border-radius: var(--p-radius) var(--p-radius) 0 0;
+}
+
+.cp-card.accent-blue   { --card-accent: var(--p-blue); }
+.cp-card.accent-green  { --card-accent: var(--p-green); }
+.cp-card.accent-amber  { --card-accent: var(--p-amber); }
+.cp-card.accent-red    { --card-accent: var(--p-red); }
+.cp-card.accent-indigo { --card-accent: var(--p-indigo); }
+
+.cp-metric-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; margin-bottom: 1.1rem;
+  transition: transform .2s;
+}
+.cp-card:hover .cp-metric-icon { transform: scale(1.08); }
+
+.cp-metric-icon.blue   { background: var(--p-blue-lt);   color: var(--p-blue); }
+.cp-metric-icon.green  { background: var(--p-green-lt);  color: var(--p-green); }
+.cp-metric-icon.amber  { background: var(--p-amber-lt);  color: var(--p-amber); }
+.cp-metric-icon.red    { background: var(--p-red-lt);    color: var(--p-red); }
+.cp-metric-icon.indigo { background: var(--p-indigo-lt); color: var(--p-indigo); }
+
+.cp-metric-value {
+  font-size: 2rem; font-weight: 800;
+  line-height: 1; color: var(--p-text);
+  letter-spacing: -.03em;
+}
+.cp-metric-label {
+  font-size: .72rem; font-weight: 600;
+  color: var(--p-muted); text-transform: uppercase;
+  letter-spacing: .07em; margin-top: .35rem;
+}
+.cp-metric-delta {
+  display: inline-flex; align-items: center; gap: .25rem;
+  font-size: .72rem; font-weight: 600;
+  padding: .15rem .5rem; border-radius: 99px;
+  margin-top: .6rem;
+}
+.cp-metric-delta.up   { background: var(--p-green-lt); color: var(--p-green); }
+.cp-metric-delta.down { background: var(--p-red-lt);   color: var(--p-red); }
+
+/* ── Chart Cards ───────────────────────────────── */
+.cp-chart-card {
+  background: var(--p-surface);
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  box-shadow: var(--p-shadow);
+  overflow: hidden;
+}
+.cp-chart-header {
+  padding: 1.25rem 1.5rem .75rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--p-border-lt);
+}
+.cp-chart-title {
+  font-size: .9rem; font-weight: 700;
+  color: var(--p-text); margin: 0;
+}
+.cp-chart-subtitle {
+  font-size: .72rem; color: var(--p-muted); margin: .15rem 0 0;
+}
+.cp-chart-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+/* ── Section Heading ───────────────────────────── */
+.cp-section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.cp-section-title {
+  font-size: .95rem; font-weight: 700; color: var(--p-text); margin: 0;
+}
+.cp-section-sub {
+  font-size: .75rem; color: var(--p-muted); margin: .2rem 0 0;
+}
+
+/* ── Table Card ────────────────────────────────── */
+.cp-table-card {
+  background: var(--p-surface);
+  border: 1px solid var(--p-border);
+  border-radius: var(--p-radius);
+  box-shadow: var(--p-shadow);
+  overflow: hidden;
+}
+.cp-table-card .card-header {
+  background: transparent;
+  border-bottom: 1px solid var(--p-border);
+  padding: 1.1rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cp-table-card .card-header h5 {
+  font-size: .9rem; font-weight: 700; color: var(--p-text); margin: 0;
+}
+.cp-table-card .card-body { padding: 0; }
+.cp-table-card .table { margin: 0; }
+.cp-table-card .table thead th {
+  background: var(--p-bg);
+  font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--p-muted); border-bottom: 1px solid var(--p-border);
+  padding: .75rem 1rem; white-space: nowrap;
+}
+.cp-table-card .table tbody tr {
+  border-bottom: 1px solid var(--p-border-lt);
+  transition: background .15s;
+}
+.cp-table-card .table tbody tr:last-child { border-bottom: none; }
+.cp-table-card .table tbody tr:hover { background: var(--p-bg); }
+.cp-table-card .table tbody td {
+  padding: .8rem 1rem; font-size: .83rem;
+  color: var(--p-text-2); vertical-align: middle;
+}
+
+/* ── Badges ─────────────────────────────────────── */
+.cp-badge {
+  display: inline-flex; align-items: center;
+  padding: .2rem .65rem; border-radius: 99px;
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.cp-badge-blue   { background: var(--p-blue-lt);   color: var(--p-blue); }
+.cp-badge-green  { background: var(--p-green-lt);  color: var(--p-green); }
+.cp-badge-amber  { background: var(--p-amber-lt);  color: var(--p-amber); }
+.cp-badge-red    { background: var(--p-red-lt);    color: var(--p-red); }
+.cp-badge-indigo { background: var(--p-indigo-lt); color: var(--p-indigo); }
+.cp-badge-gray   { background: #F1F5F9;            color: #64748B; }
+
+/* ── Action Buttons ────────────────────────────── */
+.cp-btn-primary {
+  background: var(--p-blue); color: #fff;
+  border: none; border-radius: var(--p-radius-sm);
+  padding: .55rem 1.1rem; font-weight: 600; font-size: .83rem;
+  display: inline-flex; align-items: center; gap: .4rem;
+  transition: background .15s, transform .15s, box-shadow .15s;
+  cursor: pointer; text-decoration: none;
+}
+.cp-btn-primary:hover {
+  background: #1D4ED8; color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37,99,235,.35);
+}
+.cp-btn-outline {
+  background: transparent; color: var(--p-blue);
+  border: 1.5px solid var(--p-blue-mid);
+  border-radius: var(--p-radius-sm);
+  padding: .5rem 1rem; font-weight: 600; font-size: .8rem;
+  display: inline-flex; align-items: center; gap: .4rem;
+  transition: all .15s; cursor: pointer; text-decoration: none;
+}
+.cp-btn-outline:hover {
+  background: var(--p-blue-lt); border-color: var(--p-blue); color: var(--p-blue);
+}
+
+/* ── Page header ───────────────────────────────── */
+.cp-page-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
+.cp-page-title {
+  font-size: 1.35rem; font-weight: 800;
+  color: var(--p-text); margin: 0; letter-spacing: -.02em;
+}
+.cp-page-sub {
+  font-size: .78rem; color: var(--p-muted); margin: .2rem 0 0;
+}
+
+/* ── Chart legend dots ─────────────────────────── */
+.cp-legend { display: flex; flex-wrap: wrap; gap: .75rem; }
+.cp-legend-item { display: flex; align-items: center; gap: .35rem; font-size: .72rem; font-weight: 500; color: var(--p-muted); }
+.cp-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Mono values ───────────────────────────────── */
+.cp-mono { font-family: var(--p-mono); }
+
+/* ── Fade-in animation ─────────────────────────── */
+@keyframes cpFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cp-animate { animation: cpFadeUp .4s ease both; }
+.cp-animate-d1 { animation-delay: .05s; }
+.cp-animate-d2 { animation-delay: .10s; }
+.cp-animate-d3 { animation-delay: .15s; }
+.cp-animate-d4 { animation-delay: .20s; }
+.cp-animate-d5 { animation-delay: .25s; }
+.cp-animate-d6 { animation-delay: .30s; }

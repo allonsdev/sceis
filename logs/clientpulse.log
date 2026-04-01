@@ -1,0 +1,792 @@
+[2026-03-31 10:54:16,587] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 10:54:51,336] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 10:54:55,458] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 10:54:58,973] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 10:55:02,554] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 10:56:28,707] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 10:57:11,859] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\urls.py changed, reloading.
+[2026-03-31 10:57:13,914] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 11:02:17,678] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\sceis\settings.py changed, reloading.
+[2026-03-31 11:02:20,202] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 11:02:23,433] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\sceis\settings.py changed, reloading.
+[2026-03-31 11:02:27,621] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 11:08:56,678] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:08:57,420] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:09:19,366] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:09:28,818] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:09:32,502] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:09:32,524] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:09:32,754] WARNING django.request: Not Found: /favicon.ico
+[2026-03-31 11:09:32,772] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:09:46,387] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:09:46,422] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:09:46,557] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:09:46,578] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:09:46,907] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:09:50,196] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:09:50,219] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:09:51,058] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:09:51,084] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:09:52,046] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:09:56,580] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:09:56,606] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:09:56,802] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:09:57,295] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:09:57,406] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:10:02,722] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:10:58,060] ERROR django.request: Internal Server Error: /dashboard/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\defaulttags.py", line 581, in render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 200, in render
+    template = context.template.engine.select_template(template_name)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\engine.py", line 234, in select_template
+    raise TemplateDoesNotExist(", ".join(not_found))
+django.template.exceptions.TemplateDoesNotExist: partials/base_includes.html
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 108, in dashboard_view
+    return render(request, "dashboard.html", context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\backends\django.py", line 109, in render
+    reraise(exc, self.backend)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\backends\django.py", line 130, in reraise
+    raise new from exc
+django.template.exceptions.TemplateDoesNotExist: partials/base_includes.html
+[2026-03-31 11:18:19,981] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:18:20,280] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:18:20,309] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:18:21,301] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:18:25,049] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:19:41,340] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-31 11:20:12,810] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:20:55,973] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:20:55,992] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2026-03-31 11:20:57,642] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:20:57,706] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:21:00,429] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:21:47,535] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:21:47,882] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:23:32,362] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:23:32,552] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:23:32,594] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:23:32,763] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:23:33,490] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:24:23,436] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:24:23,474] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:24:24,656] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:24:24,681] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:24:24,850] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:25:20,183] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:34:40,016] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:34:54,069] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: app_emailmessage
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 118, in email_intelligence_view
+    total_emails = emails.count()
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\query.py", line 610, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\sql\query.py", line 656, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\sql\query.py", line 638, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: app_emailmessage
+[2026-03-31 11:36:44,470] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:36:55,686] ERROR django.request: Internal Server Error: /churn/edit/10/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 321, in edit_churn_alert
+    return render(request, "partials/churn_alert_form.html", {"form": form})
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: partials/churn_alert_form.html
+[2026-03-31 11:36:57,859] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: app_emailmessage
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 118, in email_intelligence_view
+    total_emails = emails.count()
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\query.py", line 610, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\sql\query.py", line 656, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\sql\query.py", line 638, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: app_emailmessage
+[2026-03-31 11:37:03,075] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:37:03,183] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:37:03,201] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:37:04,951] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:37:09,139] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:37:47,325] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:38:09,447] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:38:09,628] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:38:09,660] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:38:10,688] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:38:15,047] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:40:54,222] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\models.py changed, reloading.
+[2026-03-31 11:41:05,482] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 11:41:53,828] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 11:45:51,741] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:45:54,517] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:52:53,732] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 119, in email_intelligence_view
+    high_risk_count = emails.filter(sentiment_score__lt=-0.3).count()
+                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\query.py", line 1542, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\query.py", line 1554, in _filter_or_exclude
+    raise TypeError("Cannot filter a query once a slice has been taken.")
+TypeError: Cannot filter a query once a slice has been taken.
+[2026-03-31 11:53:18,078] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:53:18,197] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:53:18,225] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:53:19,702] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:53:27,486] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:53:33,552] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:53:45,626] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:55:01,765] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:55:11,411] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:55:16,700] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:55:25,571] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:55:26,639] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 11:55:27,117] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:55:27,136] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 11:55:28,293] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:55:31,920] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 11:55:33,729] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:55:46,668] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:55:52,652] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:58:46,792] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:58:49,633] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 11:58:53,281] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 119, in email_intelligence_view
+    high_risk_count = emails.filter(sentiment_score__lt=-0.3).count()
+                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\query.py", line 1542, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\query.py", line 1554, in _filter_or_exclude
+    raise TypeError("Cannot filter a query once a slice has been taken.")
+TypeError: Cannot filter a query once a slice has been taken.
+[2026-03-31 12:00:31,277] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 12:00:52,105] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:00:59,704] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 137, in email_intelligence_view
+    return render(request, "email_intelligence.html", context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: email_intelligence.html
+[2026-03-31 12:01:08,272] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 12:01:11,898] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:01:13,574] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 137, in email_intelligence_view
+    return render(request, "email.html", context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: email.html
+[2026-03-31 12:01:35,218] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 12:01:37,433] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:01:47,231] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 137, in email_intelligence_view
+    return render(request, "emails.html", context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\engine.py", line 186, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 157, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 199, in compile_nodelist
+    nodelist = parser.parse()
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\defaulttags.py", line 894, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\defaulttags.py", line 994, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\defaulttags.py", line 1008, in do_if
+    nodelist = parser.parse(("endif",))
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\defaulttags.py", line 1685, in do_with
+    nodelist = parser.parse(("endwith",))
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 585, in parse
+    raise self.error(token, e)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 583, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\defaulttags.py", line 1646, in widthratio
+    parser.compile_filter(this_value_expr),
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 676, in compile_filter
+    return FilterExpression(token, self)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 776, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Template: G:\HIT400 PROJECTS\Mukomana\sceis\templates\emails.html, Could not parse the remainder: '|-1' from 'email.sentiment_score|-1'
+[2026-03-31 12:03:37,440] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 12:03:39,434] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:03:42,156] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 12:03:45,480] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:03:48,590] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 12:03:51,067] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:04:16,255] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:06:00,277] WARNING django.request: Not Found: /cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js
+[2026-03-31 12:06:00,425] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:06:00,454] WARNING django.request: Not Found: /assets/json/locales/en.json
+[2026-03-31 12:06:01,568] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 12:06:01,602] WARNING django.request: Not Found: /cdn-cgi/rum
+[2026-03-31 12:06:40,652] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:06:55,292] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:06:56,864] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:07:02,834] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:07:11,557] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:07:25,864] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:07:30,774] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:07:38,088] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:07:42,632] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:11:30,050] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:11:36,688] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:11:42,572] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:15:15,260] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:19:37,697] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:19:52,739] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:40:21,610] INFO app.email_automation: [Orchestrator] Fetched 10 unread emails.
+[2026-03-31 12:40:25,385] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:27,606] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:28,693] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:29,659] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:30,894] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:32,018] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:33,168] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:34,932] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:36,305] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:40:37,172] ERROR app.email_automation: [EmailAI] Analysis failed: 404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions
+[2026-03-31 12:42:40,873] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\admin.py changed, reloading.
+[2026-03-31 12:42:44,509] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:53:45,355] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 12:53:52,663] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:54:03,323] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 12:54:05,648] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:54:08,122] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 12:54:09,907] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:54:24,438] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 12:54:26,385] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:56:11,782] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 12:56:14,879] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 12:57:26,504] INFO app.email_automation: [Orchestrator] Fetched 0 unread emails.
+[2026-03-31 12:58:28,740] WARNING django.security.csrf: Forbidden (CSRF token from POST incorrect.): /login/
+[2026-03-31 12:58:33,579] WARNING django.security.csrf: Forbidden (CSRF token from POST incorrect.): /login/
+[2026-03-31 12:58:42,690] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:58:42,757] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 12:58:47,410] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 13:06:55,485] INFO app.email_automation: [Orchestrator] Fetched 1 unread emails.
+[2026-03-31 13:07:01,004] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 404 Not Found"
+[2026-03-31 13:07:01,029] ERROR app.email_automation: [EmailAI] Analysis failed: Error code: 404 - {'error': {'message': 'No endpoints found for mistralai/mistral-7b-instruct.', 'code': 404}, 'user_id': 'user_3BhiSB8Oy8vvUZR0UAtIzuxz2VZ'}
+[2026-03-31 13:09:17,033] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\sceis\settings.py changed, reloading.
+[2026-03-31 13:09:33,392] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 13:10:03,343] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 13:10:07,354] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 13:11:22,453] ERROR django.request: Internal Server Error: /admin/app/clientorganization/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\options.py", line 684, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'churn_badge'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\utils.py", line 293, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\utils.py", line 333, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\options.py", line 686, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: ClientOrganization has no field named 'churn_badge'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 221, in _get_response
+    response = response.render()
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 47, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\library.py", line 363, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 357, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 333, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 324, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 221, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\utils.py", line 302, in lookup_field
+    value = attr(obj)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\admin.py", line 42, in churn_badge
+    level = obj.churn_level()
+TypeError: 'str' object is not callable
+[2026-03-31 13:11:22,453] ERROR django.request: Internal Server Error: /admin/app/clientorganization/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\options.py", line 684, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'churn_badge'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\utils.py", line 293, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\utils.py", line 333, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\db\models\options.py", line 686, in get_field
+    raise FieldDoesNotExist(
+        "%s has no field named '%s'" % (self.object_name, field_name)
+    )
+django.core.exceptions.FieldDoesNotExist: ClientOrganization has no field named 'churn_badge'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 221, in _get_response
+    response = response.render()
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 174, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 160, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 166, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader_tags.py", line 66, in render
+    result = block.nodelist.render(context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1091, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\base.py", line 1052, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 47, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\library.py", line 363, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 357, in result_list
+    "results": list(results(cl)),
+               ~~~~^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 333, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 324, in __init__
+    super().__init__(*items)
+    ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\templatetags\admin_list.py", line 221, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\contrib\admin\utils.py", line 302, in lookup_field
+    value = attr(obj)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\admin.py", line 42, in churn_badge
+    level = obj.churn_level()
+TypeError: 'str' object is not callable
+[2026-03-31 13:16:17,812] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\admin.py changed, reloading.
+[2026-03-31 13:16:26,475] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 13:23:50,670] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 13:24:00,754] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 13:24:38,048] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 13:24:38,563] WARNING django.request: Not Found: /favicon.ico
+[2026-03-31 13:25:44,403] INFO app.email_automation: [Orchestrator] Fetched 1 unread emails.
+[2026-03-31 13:25:50,899] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-03-31 13:34:51,967] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 13:34:58,950] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 13:36:20,676] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 13:37:49,439] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 13:37:52,725] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 13:38:16,004] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 13:38:19,557] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 13:40:20,773] INFO app.email_automation: [Orchestrator] Fetched 1 unread emails.
+[2026-03-31 13:40:28,896] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-03-31 13:40:33,616] INFO app.email_automation: [FuzzyMatch] No match for 'Allons Mazani' (best=0.18, threshold=0.45)
+[2026-03-31 13:40:33,616] INFO app.email_automation: [Resolve] No org/contact match for sender: 'Allons Mazani <mazaniallons@gmail.com>'
+[2026-03-31 13:40:34,020] ERROR app.email_automation: [Orchestrator] Error processing email 16: NOT NULL constraint failed: app_churnalert.organization_id
+[2026-03-31 13:45:41,274] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 13:45:44,959] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 13:45:55,030] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-03-31 13:45:59,908] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 13:48:31,005] INFO app.email_automation: [Orchestrator] Fetched 0 unread emails.
+[2026-03-31 13:49:15,865] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 13:50:31,658] INFO app.email_automation: [Orchestrator] Fetched 1 unread emails.
+[2026-03-31 13:50:38,972] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-03-31 15:14:05,037] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 15:16:25,173] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 15:16:25,268] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 15:18:33,031] INFO app.email_automation: [Orchestrator] Fetched 1 unread emails.
+[2026-03-31 15:18:43,268] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-03-31 15:18:45,523] INFO app.email_automation: [Orchestrator] Fetched 0 unread emails.
+[2026-03-31 15:19:02,281] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 15:21:26,812] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 15:22:24,089] ERROR django.request: Internal Server Error: /email/generate-reply/
+[2026-03-31 15:22:48,946] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 15:43:42,033] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 18:42:17,507] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 18:51:44,240] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 20:44:54,424] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 20:46:23,265] WARNING django.security.csrf: Forbidden (CSRF token from POST incorrect.): /login/
+[2026-03-31 20:46:24,996] WARNING django.request: Not Found: /favicon.ico
+[2026-03-31 20:46:35,240] WARNING django.security.csrf: Forbidden (CSRF token from POST incorrect.): /login/
+[2026-03-31 20:48:29,841] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 20:48:38,445] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:15:06,193] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-03-31 21:15:15,349] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:17:57,439] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 21:18:00,851] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:20:49,770] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 21:20:54,102] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:20:55,864] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 21:20:57,882] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:21:14,509] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 21:21:17,880] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:21:42,415] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 21:21:45,126] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:21:47,300] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-03-31 21:21:49,182] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:22:21,459] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:26:03,945] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-03-31 21:26:10,644] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:30:31,865] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:32:29,065] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:32:29,417] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:36:12,868] INFO app.email_automation: [Orchestrator] Fetched 1 unread emails.
+[2026-03-31 21:36:21,922] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-03-31 21:36:46,134] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:38:05,625] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-03-31 21:41:14,065] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:41:14,174] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:41:38,694] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+[2026-03-31 21:49:20,606] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 21:50:40,692] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-03-31 21:50:42,071] WARNING django.request: Not Found: /favicon.ico
+[2026-03-31 22:16:11,145] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-03-31 22:16:16,816] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'University of Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:22,916] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'University of Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:25,398] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'National University of Science and Technology' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:26,831] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'National University of Science and Technology' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:29,269] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Midlands State University' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:30,668] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Midlands State University' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:33,473] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Chinhoyi University of Technology' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:34,712] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Chinhoyi University of Technology' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:40,034] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimbabwe Open University' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:40,772] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimbabwe Open University' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:44,719] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Econet Wireless Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-03-31 22:16:45,132] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Econet Wireless Zimbabwe' (inactive 1 minute(s)). Email sent: True

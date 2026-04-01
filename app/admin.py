@@ -39,7 +39,7 @@ class ClientOrganizationAdmin(admin.ModelAdmin):
     task_count.short_description = "Tasks"
 
     def churn_badge(self, obj):
-        level = obj.churn_level()
+        level = obj.churn_level  # ← fixed: property, no ()
 
         color = {
             "HIGH": "red",
@@ -56,7 +56,7 @@ class ClientOrganizationAdmin(admin.ModelAdmin):
     churn_badge.short_description = "Churn Risk"
 
     def churn_level_display(self, obj):
-        return obj.churn_level()
+        return obj.churn_level  # ← fixed: property, no ()
 
     churn_level_display.short_description = "Churn Level"
 
@@ -380,3 +380,48 @@ class SiteVisitAdmin(admin.ModelAdmin):
     )
 
     date_hierarchy = "timestamp"
+
+
+# =====================================================
+# EMAIL MESSAGE
+# =====================================================
+
+@admin.register(EmailMessage)
+class EmailMessageAdmin(admin.ModelAdmin):
+    list_display = (
+        "sender",
+        "subject",
+        "organization",
+        "contact",
+        "received_at",
+        "colored_sentiment",
+        "processed",
+    )
+    list_filter = (
+        "organization",
+        "contact",
+        "processed",
+        "received_at",
+    )
+    search_fields = ("sender", "subject", "body", "intent")
+    ordering = ("-received_at",)
+
+    def colored_sentiment(self, obj):
+        if obj.sentiment_score is None:
+            color = "gray"
+            label = "N/A"
+        elif obj.sentiment_score > 0.3:
+            color = "#10B981"  # green
+            label = f"{obj.sentiment_score:.2f}"
+        elif obj.sentiment_score < -0.3:
+            color = "#EF4444"  # red
+            label = f"{obj.sentiment_score:.2f}"
+        else:
+            color = "#FACC15"  # yellow
+            label = f"{obj.sentiment_score:.2f}"
+
+        return format_html(
+            '<span style="color:{}; font-weight:bold;">{}</span>', color, label
+        )
+
+    colored_sentiment.short_description = "Sentiment"

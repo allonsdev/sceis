@@ -1,0 +1,106 @@
+{# base_includes.html - include at top of each page body #}
+{# Usage: {% include "partials/base_includes.html" %} #}
+
+<!-- SIDEBAR -->
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+    <div class="m-header">
+    
+    </div>
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+        <li class="pc-item pc-caption"><label>Navigation</label></li>
+        <li class="pc-item {% if active == 'dashboard' %}active{% endif %}">
+          <a href="/dashboard" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-tachometer-alt"></i></span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'client' %}active{% endif %}">
+          <a href="/client" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-bell"></i></span>
+            <span class="pc-mtext">Client Alerts</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'email' %}active{% endif %}">
+          <a href="/email-intelligence" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-envelope-open-text"></i></span>
+            <span class="pc-mtext">Email Intel</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'communication' %}active{% endif %}">
+          <a href="/communication" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-comments"></i></span>
+            <span class="pc-mtext">Communication</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'campaigns' %}active{% endif %}">
+          <a href="/campaigns" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-bullhorn"></i></span>
+            <span class="pc-mtext">Campaigns</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'competitors' %}active{% endif %}">
+          <a href="/competitors" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-chess-knight"></i></span>
+            <span class="pc-mtext">Competitors</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'organisation' %}active{% endif %}">
+          <a href="/organisation" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-building"></i></span>
+            <span class="pc-mtext">Organisation</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'sitevisit' %}active{% endif %}">
+          <a href="/site-visit" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-map-marker-alt"></i></span>
+            <span class="pc-mtext">Site Visit</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'engagement' %}active{% endif %}">
+          <a href="/engagement" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-handshake"></i></span>
+            <span class="pc-mtext">Engagement</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'training' %}active{% endif %}">
+          <a href="/training" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-chalkboard-teacher"></i></span>
+            <span class="pc-mtext">Training</span>
+          </a>
+        </li>
+        <li class="pc-item {% if active == 'task' %}active{% endif %}">
+          <a href="/task" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-tasks"></i></span>
+            <span class="pc-mtext">Tasks</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="pc-header">
+  <div class="header-wrapper d-flex align-items-center justify-content-between">
+    <div class="me-auto d-flex align-items-center">
+      <form class="form-search d-flex align-items-center mb-0">
+        <i class="search-icon"><i class="fas fa-search"></i></i>
+        <input type="search" class="form-control ms-2" placeholder="Search…"/>
+      </form>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <div class="dropdown">
+        <a class="pc-head-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fas fa-sun"></i></a>
+        <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
+          <a href="#!" class="dropdown-item" onclick="layout_change('dark')"><i class="fas fa-moon me-2"></i>Dark</a>
+          <a href="#!" class="dropdown-item" onclick="layout_change('light')"><i class="fas fa-sun me-2"></i>Light</a>
+        </div>
+      </div>
+      <a href="{% url 'logout' %}" class="btn btn-primary btn-sm px-3">
+        <i class="fas fa-sign-out-alt me-1"></i>Logout
+      </a>
+    </div>
+  </div>
+</header>

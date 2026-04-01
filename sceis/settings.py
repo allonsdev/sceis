@@ -104,6 +104,27 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {"format": "[{asctime}] {levelname} {name}: {message}", "style": "{"},
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "verbose"},
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": BASE_DIR / "logs" / "clientpulse.log",   # create logs/ dir
+            "formatter": "verbose",
+        },
+    },
+    "root": {"handlers": ["console", "file"], "level": "INFO"},
+    "loggers": {
+        "app.services": {"handlers": ["console", "file"], "level": "DEBUG", "propagate": False},
+    },
+}
+ 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -122,6 +143,15 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+LOG_DIR = BASE_DIR / 'logs'
+LOG_DIR.mkdir(exist_ok=True)
+
+
+OPENROUTER_API_KEY = "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"          # ← your key
+OPENROUTER_MODEL   = "openai/gpt-5.2"
+
+
+
 # In production, collectstatic will put built assets here
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -134,10 +164,16 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
+
+GMAIL_USER     = "bkchagwedera@gmail.com"      # ← change
+GMAIL_APP_PASS = "tyjh uner stpb sjmy"       # ← 16-char app password
+ 
+ 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_email@gmail.com'
-EMAIL_HOST_PASSWORD = 'app_password'
+EMAIL_HOST_USER = 'bkchagwedera@gmail.com'
+EMAIL_HOST_PASSWORD = 'tyjh uner stpb sjmy'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+CRM_BASE_URL        = "127.0.0.1:8000"
