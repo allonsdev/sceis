@@ -790,3 +790,34 @@ TypeError: 'str' object is not callable
 [2026-03-31 22:16:40,772] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimbabwe Open University' (inactive 1 minute(s)). Email sent: True
 [2026-03-31 22:16:44,719] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Econet Wireless Zimbabwe' (inactive 1 minute(s)). Email sent: True
 [2026-03-31 22:16:45,132] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Econet Wireless Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:06,578] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'University of Zimbabwe' (no response to follow-up).
+[2026-04-02 05:50:06,807] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'National University of Science and Technology' (no response to follow-up).
+[2026-04-02 05:50:06,881] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Midlands State University' (no response to follow-up).
+[2026-04-02 05:50:07,019] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Chinhoyi University of Technology' (no response to follow-up).
+[2026-04-02 05:50:07,121] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Zimbabwe Open University' (no response to follow-up).
+[2026-04-02 05:50:07,308] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Econet Wireless Zimbabwe' (no response to follow-up).
+[2026-04-02 05:50:10,533] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-02 05:50:15,822] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'NetOne Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:18,986] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'NetOne Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:22,018] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'CBZ Holdings' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:26,028] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'CBZ Holdings' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:28,774] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Stanbic Bank Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:32,445] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Stanbic Bank Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:34,956] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Delta Corporation' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:38,542] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Delta Corporation' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:41,602] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Old Mutual Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:44,617] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Old Mutual Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:47,686] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'OK Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:49,490] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'OK Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:53,743] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimbabwe Revenue Authority' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:54,429] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimbabwe Revenue Authority' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:50:59,666] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Ministry of ICT Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:00,028] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Ministry of ICT Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:05,883] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimbabwe Electricity Supply Authority' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:06,388] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimbabwe Electricity Supply Authority' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:10,707] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'SeedCo Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:12,610] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'SeedCo Zimbabwe' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:17,091] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Innscor Africa' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:17,761] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Innscor Africa' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:23,700] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimnat Insurance' (inactive 1 minute(s)). Email sent: True
+[2026-04-02 05:51:24,018] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimnat Insurance' (inactive 1 minute(s)). Email sent: True
