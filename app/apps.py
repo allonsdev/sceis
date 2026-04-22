@@ -1,24 +1,31 @@
 from django.apps import AppConfig
-
 import threading
 import time
+import logging
+import os
 
-class AppConfig(AppConfig):
+class MyAppConfig(AppConfig):
     name = 'app'
-    
-    
+
     def ready(self):
+        # ✅ Prevent duplicate threads
+        if os.environ.get('RUN_MAIN') != 'true':
+            return
+
         from app.task_email_lifecycle import run_lifecycle_automation
 
         def background_worker():
+            print("🚀 THREAD STARTED")
+
             while True:
                 try:
+                    print("⏳ CALLING LIFECYCLE...")
                     run_lifecycle_automation()
                 except Exception as e:
-                    import logging
-                    logging.getLogger(__name__).error("Lifecycle worker error: %s", e)
+                    logging.getLogger(__name__).error(
+                        "Lifecycle worker error: %s", e
+                    )
 
-                time.sleep(60)  # run every 60 seconds
+                time.sleep(60)
 
-        thread = threading.Thread(target=background_worker, daemon=True)
-        thread.start()
+        threading.Thread(target=background_worker, daemon=True).start()

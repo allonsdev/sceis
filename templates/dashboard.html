@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>ClientPulse AI — Dashboard</title>
+  <title>MTB — Dashboard</title>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -38,9 +38,6 @@
   data-pc-theme_contrast=""
   data-pc-theme="light"
 >
-
-<!-- Pre-loader -->
-
 
 <!-- Sidebar -->
 <nav class="pc-sidebar">
@@ -308,7 +305,7 @@
           <tr>
             <th>Organisation</th>
             <th>Risk Level</th>
-            <th>Score</th>
+            <th>Risk Score</th>
             <th>Acknowledged</th>
             <th>Resolved</th>
           </tr>
@@ -322,7 +319,19 @@
               {% elif c.risk_level == "MEDIUM" %}<span class="cp-badge cp-badge-amber">Medium</span>
               {% else %}<span class="cp-badge cp-badge-green">Low</span>{% endif %}
             </td>
-            <td class="cp-mono" style="font-size:.78rem">{{ c.risk_score }}</td>
+            <td style="font-size:.82rem">
+              {% if c.risk_score >= 0.8 %}
+                <span class="cp-badge cp-badge-red">Critical</span>
+              {% elif c.risk_score >= 0.6 %}
+                <span class="cp-badge cp-badge-red">High</span>
+              {% elif c.risk_score >= 0.4 %}
+                <span class="cp-badge cp-badge-amber">Moderate</span>
+              {% elif c.risk_score >= 0.2 %}
+                <span class="cp-badge cp-badge-amber">Low</span>
+              {% else %}
+                <span class="cp-badge cp-badge-green">Very Low</span>
+              {% endif %}
+            </td>
             <td>{% if c.acknowledged %}<span class="cp-badge cp-badge-green">Yes</span>{% else %}<span class="cp-badge cp-badge-amber">No</span>{% endif %}</td>
             <td>{% if c.resolved %}<span class="cp-badge cp-badge-green">Yes</span>{% else %}<span class="cp-badge cp-badge-red">No</span>{% endif %}</td>
           </tr>
@@ -350,7 +359,6 @@
   </div>
 </footer>
 
-<!-- ── Scripts ── load jQuery ONCE ──────────────────────────── -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -386,11 +394,9 @@
   main_layout_change("vertical");
 </script>
 
-<!-- ── Page logic — ONE DOMContentLoaded, zero duplicates ─── -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-  // Safe DataTable helper — destroys before re-init to prevent tn/3
   function safeTable(selector, opts) {
     if (!$(selector).length) return;
     if ($.fn.dataTable.isDataTable(selector)) {

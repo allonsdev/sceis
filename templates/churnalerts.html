@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>ClientPulse AI — Client Alerts</title>
+  <title>MTB — Client Alerts</title>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <base href="/static/">
   <link rel="stylesheet" href="app/assets/css/plugins/dataTables.bootstrap5.min.css"/>
@@ -80,7 +80,7 @@
       <table id="churn-table" class="table table-hover mb-0">
         <thead>
           <tr>
-            <th>Organisation</th><th>Risk Level</th><th>Score</th><th>Trigger Reason</th>
+            <th>Organisation</th><th>Risk Level</th><th>Risk Score</th><th>Trigger Reason</th>
             <th>Recommended Action</th><th>Acknowledged</th><th>Resolved</th><th>Created</th><th>Actions</th>
           </tr>
         </thead>
@@ -93,7 +93,19 @@
               {% elif alert.risk_level == 'MEDIUM' %}<span class="cp-badge cp-badge-amber">Medium</span>
               {% else %}<span class="cp-badge cp-badge-green">Low</span>{% endif %}
             </td>
-            <td class="cp-mono" style="font-size:.78rem">{{ alert.risk_score|floatformat:2 }}</td>
+            <td style="font-size:.82rem">
+              {% if alert.risk_score >= 0.8 %}
+                <span class="cp-badge cp-badge-red">Critical</span>
+              {% elif alert.risk_score >= 0.6 %}
+                <span class="cp-badge cp-badge-red">High</span>
+              {% elif alert.risk_score >= 0.4 %}
+                <span class="cp-badge cp-badge-amber">Moderate</span>
+              {% elif alert.risk_score >= 0.2 %}
+                <span class="cp-badge cp-badge-amber">Low</span>
+              {% else %}
+                <span class="cp-badge cp-badge-green">Very Low</span>
+              {% endif %}
+            </td>
             <td style="max-width:180px;font-size:.8rem">{{ alert.trigger_reason|truncatewords:8 }}</td>
             <td style="max-width:180px;font-size:.8rem">{{ alert.recommended_action|default:"—"|truncatewords:8 }}</td>
             <td>{% if alert.acknowledged %}<span class="cp-badge cp-badge-green">Yes</span>{% else %}<span class="cp-badge cp-badge-amber">No</span>{% endif %}</td>

@@ -473,6 +473,7 @@ def _archive_org(org: ClientOrganization):
 
 
 def run_lifecycle_automation():
+    print("🔥 LIFECYCLE FUNCTION TRIGGERED allons")
     """
     Scans all active / at-risk organisations and applies the lifecycle rules:
 
@@ -487,7 +488,7 @@ def run_lifecycle_automation():
     """
     import logging
     log = logging.getLogger(__name__)
-
+    
     now = timezone.now()
     inactivity_cutoff   = now - _proto_delta(INACTIVITY_MINUTES)
     archive_cutoff      = now - _proto_delta(INACTIVITY_MINUTES + ARCHIVE_AFTER_MINUTES)
@@ -502,6 +503,7 @@ def run_lifecycle_automation():
 
     for org in active_orgs:
         last_contact = _last_contact_dt(org)
+        print("🔥 LIFECYCLE FUNCTION TRIGGEREDhhhh")
 
         # Determine effective "last seen" — use org creation if no comms at all
         last_seen = last_contact or org.created_at
@@ -514,6 +516,7 @@ def run_lifecycle_automation():
 
         # ── STAGE 2: Archive if follow-up was sent and still no reply ──────────
         if pending_followup_alert and last_seen <= archive_cutoff:
+            print("🔥 LIFECYCLE FUNCTION TRIGGERED hhhh")
             # Check if a new communication arrived AFTER the alert (= they replied)
             replied = last_contact and (
                 last_contact > pending_followup_alert.created_at
@@ -529,6 +532,7 @@ def run_lifecycle_automation():
         # ── STAGE 1: Send follow-up if inactive and not yet followed up ────────
         if last_seen <= inactivity_cutoff and not pending_followup_alert:
             # Cooldown guard — don't re-fire if recently done
+            print("🔥 LIFECYCLE FUNCTION TRIGGERED")
             recent_alert = ChurnAlert.objects.filter(
                 organization=org,
                 trigger_reason__icontains="lifecycle_followup",

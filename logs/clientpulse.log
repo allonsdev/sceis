@@ -821,3 +821,115 @@ TypeError: 'str' object is not callable
 [2026-04-02 05:51:17,761] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Innscor Africa' (inactive 1 minute(s)). Email sent: True
 [2026-04-02 05:51:23,700] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimnat Insurance' (inactive 1 minute(s)). Email sent: True
 [2026-04-02 05:51:24,018] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'Zimnat Insurance' (inactive 1 minute(s)). Email sent: True
+[2026-04-11 03:53:55,090] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'NetOne Zimbabwe' (no response to follow-up).
+[2026-04-11 03:53:55,157] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'CBZ Holdings' (no response to follow-up).
+[2026-04-11 03:53:55,205] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Stanbic Bank Zimbabwe' (no response to follow-up).
+[2026-04-11 03:55:39,511] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Old Mutual Zimbabwe' (no response to follow-up).
+[2026-04-11 03:55:39,584] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'OK Zimbabwe' (no response to follow-up).
+[2026-04-11 03:55:39,644] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Zimbabwe Revenue Authority' (no response to follow-up).
+[2026-04-11 03:55:39,678] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Ministry of ICT Zimbabwe' (no response to follow-up).
+[2026-04-11 03:55:39,763] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Zimbabwe Electricity Supply Authority' (no response to follow-up).
+[2026-04-11 03:55:39,804] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'SeedCo Zimbabwe' (no response to follow-up).
+[2026-04-11 03:55:39,857] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Innscor Africa' (no response to follow-up).
+[2026-04-11 03:55:39,893] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'Zimnat Insurance' (no response to follow-up).
+[2026-04-11 03:55:41,910] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-11 03:55:49,128] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'CABS Bank' (inactive 1 minute(s)). Email sent: True
+[2026-04-11 03:55:49,356] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'CABS Bank' (inactive 1 minute(s)). Email sent: True
+[2026-04-11 03:55:53,706] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'FBC Holdings' (inactive 1 minute(s)). Email sent: True
+[2026-04-11 03:55:54,469] INFO app.task_email_lifecycle: LIFECYCLE: Follow-up sent to 'FBC Holdings' (inactive 1 minute(s)). Email sent: True
+[2026-04-11 03:56:53,751] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'CABS Bank' (no response to follow-up).
+[2026-04-11 03:56:53,858] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'FBC Holdings' (no response to follow-up).
+[2026-04-11 03:57:37,284] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-11 03:57:37,554] WARNING django.request: Not Found: /favicon.ico
+[2026-04-11 03:57:53,552] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-11 03:58:11,624] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-21 08:59:01,574] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-21 09:14:25,766] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-21 09:14:37,804] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:24:18,798] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:26:42,781] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:26:42,927] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:27:52,381] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:27:52,456] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:36:09,613] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:37:00,964] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:37:09,206] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:37:09,291] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:51:40,152] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 19:51:49,019] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:52:10,027] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 19:52:12,287] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:53:21,497] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 19:53:23,023] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:53:27,095] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 19:53:28,918] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:53:34,637] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 19:53:36,385] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:53:41,679] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 19:53:43,125] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:53:51,423] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 19:53:53,160] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:54:18,125] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 19:55:48,364] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:59:13,723] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 19:59:15,886] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 19:59:44,650] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:00:18,079] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:00:19,995] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:01:28,843] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:01:30,347] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:01:34,175] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:01:36,024] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:01:41,905] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:01:43,311] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:02:01,554] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:02:02,904] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:02:16,638] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:02:18,501] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:02:22,902] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:02:25,219] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:02:35,757] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:02:36,980] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:04:30,369] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:05:29,809] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:05:31,951] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:06:17,805] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:06:56,073] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:06:58,430] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:07:10,165] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:07:11,385] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:07:18,061] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:09:52,311] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\apps.py changed, reloading.
+[2026-04-22 20:09:53,753] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:10:06,851] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:11:13,491] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\apps.py changed, reloading.
+[2026-04-22 20:11:14,799] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:11:25,696] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:11:57,020] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:11:59,861] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:12:04,124] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:12:05,800] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:12:18,511] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:12:27,172] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:12:29,067] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:12:32,416] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:12:34,069] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:12:49,237] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:12:50,965] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:12:55,859] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:12:57,095] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:13:01,148] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\task_email_lifecycle.py changed, reloading.
+[2026-04-22 20:13:03,856] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:13:23,613] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:15:23,575] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'FBC Holdings' (no response to follow-up).
+[2026-04-22 20:16:23,614] INFO app.task_email_lifecycle: LIFECYCLE: Archived org 'CABS Bank' (no response to follow-up).
+[2026-04-22 20:17:33,741] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 20:17:45,879] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-22 20:32:15,496] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-22 20:32:27,209] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:32:38,672] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-22 20:32:41,023] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:32:45,977] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-22 20:32:47,631] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-22 20:41:56,501] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-04-22 20:42:00,106] INFO django.utils.autoreload: Watching for file changes with StatReloader

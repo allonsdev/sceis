@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>ClientPulse AI — Competitors</title>
+  <title>MTB — Competitors</title>
   <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
   <base href="/static/">
   <link rel="stylesheet" href="app/assets/css/plugins/dataTables.bootstrap5.min.css"/>
@@ -15,6 +15,51 @@
   <link rel="stylesheet" href="app/assets/css/style.css" id="main-style-link"/>
   <link rel="stylesheet" href="app/assets/css/style-preset.css"/>
   <link rel="stylesheet" href="app/assets/css/pulse-theme.css"/>
+
+  <style>
+    /* ── Live-refresh indicator ─────────────────────────────── */
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(220, 38, 38, .08);
+      border: 1px solid rgba(220, 38, 38, .25);
+      border-radius: 999px;
+      padding: 3px 10px 3px 8px;
+      font-size: .72rem;
+      font-weight: 600;
+      color: #DC2626;
+      letter-spacing: .04em;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #DC2626;
+      animation: pulse-dot 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(.7); }
+    }
+
+    /* ── Countdown ring ─────────────────────────────────────── */
+    .refresh-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .75rem;
+      color: #64748b;
+    }
+    .refresh-wrap svg { flex-shrink: 0; }
+    #countdown-circle {
+      stroke-dasharray: 50.27;          /* 2π × r(8) */
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset .9s linear;
+    }
+
+    /* ── "Others" muted row ─────────────────────────────────── */
+    .others-row td { opacity: .55; font-style: italic; }
+  </style>
 </head>
 <body data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr" data-pc-theme="light">
 
@@ -23,14 +68,40 @@
 <section class="pc-container">
 <div class="pc-content">
 
-  <div class="cp-page-header cp-animate">
+  <!-- ── Page header ───────────────────────────────────────── -->
+  <div class="cp-page-header cp-animate d-flex align-items-center justify-content-between flex-wrap gap-2">
     <div>
       <h4 class="cp-page-title">Competitor Intelligence</h4>
       <p class="cp-page-sub">Market positioning, threat levels and share estimates</p>
     </div>
+
+    <div class="d-flex align-items-center gap-3">
+      <!-- Live badge -->
+      <span class="live-badge">
+        <span class="live-dot"></span>
+        LIVE
+      </span>
+
+      <!-- Countdown + timestamp -->
+      <div class="refresh-wrap">
+        <!-- SVG countdown ring -->
+        <svg width="20" height="20" viewBox="0 0 20 20">
+          <circle cx="10" cy="10" r="8" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+          <circle id="countdown-circle" cx="10" cy="10" r="8" fill="none"
+                  stroke="#2563EB" stroke-width="2"
+                  stroke-linecap="round"
+                  transform="rotate(-90 10 10)"/>
+        </svg>
+        <span>
+          Refreshing in <strong id="countdown-text">30</strong>s
+          &nbsp;·&nbsp;
+          Last updated: <strong>{{ last_refreshed|date:"H:i:s" }}</strong>
+        </span>
+      </div>
+    </div>
   </div>
 
-  <!-- Metrics -->
+  <!-- ── KPI Cards ─────────────────────────────────────────── -->
   <div class="row g-3 mb-4">
     <div class="col-6 col-xl-3 cp-animate cp-animate-d1">
       <div class="cp-card accent-blue">
@@ -62,12 +133,15 @@
     </div>
   </div>
 
-  <!-- Charts -->
+  <!-- ── Charts ────────────────────────────────────────────── -->
   <div class="row g-4 mb-4">
     <div class="col-md-7 cp-animate cp-animate-d2">
       <div class="cp-chart-card">
         <div class="cp-chart-header">
-          <div><div class="cp-chart-title">Threat Level Comparison</div><div class="cp-chart-subtitle">Score out of 10</div></div>
+          <div>
+            <div class="cp-chart-title">Threat Level Comparison</div>
+            <div class="cp-chart-subtitle">Score out of 10 · Top 5 competitors vs us</div>
+          </div>
         </div>
         <div class="cp-chart-body"><canvas id="threatChart" height="220"></canvas></div>
       </div>
@@ -75,36 +149,69 @@
     <div class="col-md-5 cp-animate cp-animate-d3">
       <div class="cp-chart-card">
         <div class="cp-chart-header">
-          <div><div class="cp-chart-title">Market Share Estimates</div><div class="cp-chart-subtitle">% share by competitor</div></div>
+          <div>
+            <div class="cp-chart-title">Market Share Estimates</div>
+            <div class="cp-chart-subtitle">% share · Our Company leads</div>
+          </div>
         </div>
         <div class="cp-chart-body"><canvas id="marketChart" height="220"></canvas></div>
       </div>
     </div>
   </div>
 
-  <!-- Table -->
+  <!-- ── Competitor Directory Table ───────────────────────── -->
   <div class="cp-table-card cp-animate cp-animate-d4">
-    <div class="card-header"><h5>Competitor Directory</h5></div>
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <h5 class="mb-0">Top 5 Competitor Directory</h5>
+      {% if others_count %}
+      <span class="cp-badge cp-badge-gray">+{{ others_count }} others tracked</span>
+      {% endif %}
+    </div>
     <div class="card-body">
       <table id="competitor-table" class="table table-hover mb-0">
         <thead>
-          <tr><th>Name</th><th>Country</th><th>Threat</th><th>Market Share</th><th>Strengths</th><th>Weaknesses</th></tr>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Threat</th>
+            <th>Market Share</th>
+            <th>Strengths</th>
+            <th>Weaknesses</th>
+          </tr>
         </thead>
         <tbody>
           {% for c in competitors %}
           <tr>
+            <td class="cp-mono" style="font-size:.78rem">{{ forloop.counter }}</td>
             <td class="fw-600" style="font-size:.84rem">{{ c.name }}</td>
             <td><span class="cp-badge cp-badge-gray">{{ c.country }}</span></td>
             <td>
-              {% if c.threat_level >= 7 %}<span class="cp-badge cp-badge-red">{{ c.threat_level }} / 10</span>
-              {% elif c.threat_level >= 4 %}<span class="cp-badge cp-badge-amber">{{ c.threat_level }} / 10</span>
-              {% else %}<span class="cp-badge cp-badge-green">{{ c.threat_level }} / 10</span>{% endif %}
+              {% if c.threat_level >= 7 %}
+                <span class="cp-badge cp-badge-red">{{ c.threat_level|floatformat:1 }} / 10</span>
+              {% elif c.threat_level >= 4 %}
+                <span class="cp-badge cp-badge-amber">{{ c.threat_level|floatformat:1 }} / 10</span>
+              {% else %}
+                <span class="cp-badge cp-badge-green">{{ c.threat_level|floatformat:1 }} / 10</span>
+              {% endif %}
             </td>
-            <td class="cp-mono" style="font-size:.78rem">{{ c.market_share_estimate }}%</td>
-            <td style="font-size:.8rem;max-width:160px">{{ c.strengths|truncatewords:8 }}</td>
-            <td style="font-size:.8rem;max-width:160px">{{ c.weaknesses|truncatewords:8 }}</td>
+            <td class="cp-mono" style="font-size:.78rem">{{ c.market_share_estimate|floatformat:1 }}%</td>
+            <td style="font-size:.8rem;max-width:180px">{{ c.strengths|truncatewords:10 }}</td>
+            <td style="font-size:.8rem;max-width:180px">{{ c.weaknesses|truncatewords:10 }}</td>
           </tr>
           {% endfor %}
+
+          {% if others_count %}
+          <tr class="others-row">
+            <td>—</td>
+            <td colspan="1" class="fw-600" style="font-size:.84rem">Others ({{ others_count }} competitors)</td>
+            <td><span class="cp-badge cp-badge-gray">Various</span></td>
+            <td><span class="cp-badge cp-badge-gray">Mixed</span></td>
+            <td class="cp-mono" style="font-size:.78rem">Combined</td>
+            <td style="font-size:.8rem">Varied focus areas across local and international markets</td>
+            <td style="font-size:.8rem">Limited visibility — lower threat tier</td>
+          </tr>
+          {% endif %}
         </tbody>
       </table>
     </div>
@@ -113,8 +220,15 @@
 </div>
 </section>
 
-<footer class="pc-footer"><div class="footer-wrapper container-fluid"><div class="row"><div class="col my-1"><p class="m-0">© AI-Powered Customer Intelligence</p></div></div></div></footer>
+<footer class="pc-footer">
+  <div class="footer-wrapper container-fluid">
+    <div class="row">
+      <div class="col my-1"><p class="m-0">© AI-Powered Customer Intelligence</p></div>
+    </div>
+  </div>
+</footer>
 
+<!-- ── Scripts ────────────────────────────────────────────── -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -128,30 +242,127 @@
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="app/assets/js/plugins/simplebar.min.js"></script>
-<script src="app/assets/js/script.js"></script><script src="app/assets/js/theme.js"></script>
+<script src="app/assets/js/script.js"></script>
+<script src="app/assets/js/theme.js"></script>
+
 <script>
-  layout_change("light"); main_layout_change("vertical"); preset_change("preset-1");
-  document.addEventListener('DOMContentLoaded',function(){
-    $("#competitor-table").DataTable({ pageLength:10, dom:"Bfltip", buttons:[{extend:"csvHtml5",className:"btn btn-sm cp-btn-outline me-1"},{extend:"excelHtml5",className:"btn btn-sm cp-btn-outline me-1"}] });
-    const names=[{% for c in competitors %}"{{ c.name }}",{% endfor %}];
-    new Chart(document.getElementById("threatChart"),{
-      type:"bar", data:{ labels:names, datasets:[{ label:"Threat Level",
-        data:[{% for c in competitors %}{{ c.threat_level }},{% endfor %}],
-        backgroundColor: names.map((_,i)=>{const v=[{% for c in competitors %}{{ c.threat_level }},{% endfor %}][i]; return v>=7?"rgba(220,38,38,.2)":v>=4?"rgba(217,119,6,.2)":"rgba(5,150,105,.2)";}),
-        borderColor: names.map((_,i)=>{const v=[{% for c in competitors %}{{ c.threat_level }},{% endfor %}][i]; return v>=7?"#DC2626":v>=4?"#D97706":"#059669";}),
-        borderWidth:2, borderRadius:6
-      }]},
-      options:{ responsive:true, scales:{ x:{grid:{display:false}}, y:{max:10,grid:{color:"#F1F5F9"},ticks:{stepSize:2}} }, plugins:{legend:{display:false}} }
+  layout_change("light");
+  main_layout_change("vertical");
+  preset_change("preset-1");
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // ── DataTable ────────────────────────────────────────────
+    $("#competitor-table").DataTable({
+      pageLength: 10,
+      dom: "Bfltip",
+      buttons: [
+        { extend: "csvHtml5",   className: "btn btn-sm cp-btn-outline me-1" },
+        { extend: "excelHtml5", className: "btn btn-sm cp-btn-outline me-1" }
+      ]
     });
-    new Chart(document.getElementById("marketChart"),{
-      type:"doughnut", data:{ labels:names,
-        datasets:[{ data:[{% for c in competitors %}{{ c.market_share_estimate|default:0 }},{% endfor %}],
-          backgroundColor:["#2563EB","#059669","#D97706","#DC2626","#4F46E5","#0891B2","#7C3AED"],
-          borderWidth:2, borderColor:"#fff", hoverOffset:4
+
+    // ── Chart data from Django context ───────────────────────
+    const threatLabels  = {{ threat_labels|safe }};
+    const threatValues  = {{ threat_values|safe }};
+    const marketLabels  = {{ market_labels|safe }};
+    const marketValues  = {{ market_values|safe }};
+
+    // ── Threat bar chart ─────────────────────────────────────
+    new Chart(document.getElementById("threatChart"), {
+      type: "bar",
+      data: {
+        labels: threatLabels,
+        datasets: [{
+          label: "Threat Level",
+          data: threatValues,
+          backgroundColor: threatValues.map(v =>
+            v === 0
+              ? "rgba(37,99,235,.15)"          // Our Company — blue
+              : v >= 7
+                ? "rgba(220,38,38,.2)"
+                : v >= 4
+                  ? "rgba(217,119,6,.2)"
+                  : "rgba(5,150,105,.2)"
+          ),
+          borderColor: threatValues.map(v =>
+            v === 0 ? "#2563EB" : v >= 7 ? "#DC2626" : v >= 4 ? "#D97706" : "#059669"
+          ),
+          borderWidth: 2,
+          borderRadius: 6
         }]
       },
-      options:{ responsive:true, plugins:{ legend:{ position:"bottom", labels:{ font:{size:10}, padding:8 } } }, cutout:"62%" }
+      options: {
+        responsive: true,
+        scales: {
+          x: { grid: { display: false } },
+          y: { max: 10, grid: { color: "#F1F5F9" }, ticks: { stepSize: 2 } }
+        },
+        plugins: { legend: { display: false } }
+      }
     });
+
+    // ── Market doughnut chart ─────────────────────────────────
+    // Our Company is always index 0 — give it the dominant blue
+    const marketColors = marketLabels.map((label, i) => {
+      if (label === "Our Company") return "#2563EB";
+      const palette = [
+        "#059669", "#D97706", "#DC2626", "#4F46E5",
+        "#0891B2", "#7C3AED", "#94a3b8"
+      ];
+      return palette[(i - 1) % palette.length];
+    });
+
+    new Chart(document.getElementById("marketChart"), {
+      type: "doughnut",
+      data: {
+        labels: marketLabels,
+        datasets: [{
+          data: marketValues,
+          backgroundColor: marketColors,
+          borderWidth: 2,
+          borderColor: "#fff",
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { font: { size: 10 }, padding: 8 }
+          }
+        },
+        cutout: "62%"
+      }
+    });
+
+    // ── 30-second live refresh with countdown ring ────────────
+    const REFRESH_MS  = 30000;
+    const circleEl    = document.getElementById("countdown-circle");
+    const countdownEl = document.getElementById("countdown-text");
+    const FULL_DASH   = 50.27;   // 2π × r(8)
+
+    let remaining = REFRESH_MS / 1000;   // seconds
+
+    function tick() {
+      remaining--;
+      if (remaining <= 0) {
+        location.reload();
+        return;
+      }
+
+      // Update text
+      countdownEl.textContent = remaining;
+
+      // Shrink the stroke: full at 30 s → 0 at 0 s
+      const fraction  = remaining / (REFRESH_MS / 1000);
+      circleEl.style.strokeDashoffset = FULL_DASH * (1 - fraction);
+    }
+
+    // Kick off immediately, then every second
+    tick();
+    setInterval(tick, 1000);
   });
 </script>
 </body>

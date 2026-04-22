@@ -1,8 +1,11 @@
 import re
 import json
 import logging
+import smtplib
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from typing import Optional, Tuple
 
 import requests
@@ -10,6 +13,202 @@ from django.conf import settings
 from django.utils import timezone
 
 logger = logging.getLogger(__name__)
+
+
+# ─────────────────────────────────────────────
+# ENQUIRY DETECTION
+# ─────────────────────────────────────────────
+
+ENQUIRY_KEYWORDS = [
+    "enquir", "inquir",          # covers enquiry/enquiries/inquiry/inquiries
+    "quote", "quotation",
+    "pricing", "price list",
+    "how much", "cost of",
+    "available", "availability",
+    "more information", "more info",
+    "interested in", "looking for",
+    "can you provide", "please send",
+    "information on", "details on",
+    "training options", "course",
+    "brochure", "prospectus",
+    "register", "registration",
+    "sign up", "enrol", "enroll",
+    "get started", "find out more",
+]
+
+ENQUIRIES_EMAIL = "mtbenquiries@gmail.com"
+
+
+def _is_enquiry(subject: str, body: str) -> bool:
+    """
+    Return True if the email looks like a sales/training enquiry.
+    Checks subject first (higher signal), then body (lower weight).
+    """
+    text_subject = subject.lower()
+    text_body    = (body or "")[:1500].lower()   # cap to avoid scanning huge bodies
+
+    # A keyword hit in the subject is a strong signal
+    for kw in ENQUIRY_KEYWORDS:
+        if kw in text_subject:
+            return True
+
+    # Two or more keyword hits in the body confirms it
+    body_hits = sum(1 for kw in ENQUIRY_KEYWORDS if kw in text_body)
+    return body_hits >= 2
+
+
+# ─────────────────────────────────────────────
+# ENQUIRY EMAIL FORWARDER
+# ─────────────────────────────────────────────
+
+class EnquiryForwarder:
+    """
+    Sends a nicely-formatted forward/notification email to the enquiries
+    mailbox using the same Gmail SMTP credentials as the main account.
+
+    Settings required (same as GmailReader):
+        GMAIL_USER     = "you@gmail.com"
+        GMAIL_APP_PASS = "xxxx xxxx xxxx xxxx"
+    """
+
+    SMTP_HOST = "smtp.gmail.com"
+    SMTP_PORT = 587
+
+    def __init__(self):
+        self.user     = getattr(settings, "GMAIL_USER", "")
+        self.password = getattr(settings, "GMAIL_APP_PASS", "")
+
+    def forward(
+        self,
+        original_sender: str,
+        original_subject: str,
+        original_body: str,
+        received_at,
+        ai_summary: str = "",
+        task_title: str = "",
+        org_name: str = "",
+    ) -> bool:
+        """
+        Compose and send the enquiry notification. Returns True on success.
+        """
+        if not self.user or not self.password:
+            logger.warning("[EnquiryForwarder] GMAIL credentials not configured — skipping forward.")
+            return False
+
+        try:
+            msg = MIMEMultipart("alternative")
+            msg["From"]    = self.user
+            msg["To"]      = ENQUIRIES_EMAIL
+            msg["Subject"] = f"[ENQUIRY] {original_subject}"
+
+            # ── Plain-text body ───────────────────────────────────────
+            plain = (
+                f"A new enquiry email has been received and assigned to you.\n\n"
+                f"{'─' * 60}\n"
+                f"From    : {original_sender}\n"
+                f"Subject : {original_subject}\n"
+                f"Received: {received_at}\n"
+                f"Org     : {org_name or 'Unknown / unmatched'}\n"
+                f"Task    : {task_title or 'N/A'}\n"
+                f"{'─' * 60}\n\n"
+                f"AI Summary:\n{ai_summary or 'Not available'}\n\n"
+                f"{'─' * 60}\n"
+                f"Original Message:\n\n"
+                f"{original_body}\n"
+            )
+
+            # ── HTML body ─────────────────────────────────────────────
+            html = f"""
+<html>
+<body style="font-family:Arial,sans-serif;font-size:14px;color:#1e293b;background:#f8fafc;padding:20px">
+  <div style="max-width:640px;margin:auto;background:#fff;border-radius:10px;
+              border:1px solid #e2e8f0;overflow:hidden">
+
+    <!-- Header -->
+    <div style="background:#2563EB;padding:18px 24px">
+      <h2 style="margin:0;color:#fff;font-size:16px;letter-spacing:.5px">
+        📬 New Enquiry Received
+      </h2>
+    </div>
+
+    <!-- Meta -->
+    <div style="padding:20px 24px;border-bottom:1px solid #e2e8f0;background:#f1f5f9">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:4px 0;color:#64748b;width:100px">From</td>
+          <td style="padding:4px 0;font-weight:600">{original_sender}</td>
+        </tr>
+        <tr>
+          <td style="padding:4px 0;color:#64748b">Subject</td>
+          <td style="padding:4px 0;font-weight:600">{original_subject}</td>
+        </tr>
+        <tr>
+          <td style="padding:4px 0;color:#64748b">Received</td>
+          <td style="padding:4px 0">{received_at}</td>
+        </tr>
+        <tr>
+          <td style="padding:4px 0;color:#64748b">Organisation</td>
+          <td style="padding:4px 0">{org_name or '<em style="color:#94a3b8">Unknown / unmatched</em>'}</td>
+        </tr>
+        <tr>
+          <td style="padding:4px 0;color:#64748b">CRM Task</td>
+          <td style="padding:4px 0">
+            <span style="background:#dbeafe;color:#1d4ed8;padding:2px 8px;
+                         border-radius:4px;font-size:12px;font-weight:600">
+              {task_title or 'N/A'}
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- AI Summary -->
+    <div style="padding:20px 24px;border-bottom:1px solid #e2e8f0">
+      <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:#64748b;
+                text-transform:uppercase;letter-spacing:.05em">AI Summary</p>
+      <p style="margin:0;line-height:1.6;color:#334155">
+        {ai_summary or '<em style="color:#94a3b8">Not available</em>'}
+      </p>
+    </div>
+
+    <!-- Original message -->
+    <div style="padding:20px 24px">
+      <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:#64748b;
+                text-transform:uppercase;letter-spacing:.05em">Original Message</p>
+      <div style="background:#f8fafc;border-left:3px solid #2563EB;
+                  padding:12px 16px;border-radius:0 6px 6px 0;
+                  font-size:13px;line-height:1.7;color:#475569;
+                  white-space:pre-wrap">{original_body[:2000]}</div>
+    </div>
+
+    <!-- Footer -->
+    <div style="padding:14px 24px;background:#f1f5f9;border-top:1px solid #e2e8f0;
+                font-size:11px;color:#94a3b8;text-align:center">
+      This message was automatically generated by the MTB CRM Enquiry Router.
+    </div>
+  </div>
+</body>
+</html>
+"""
+
+            msg.attach(MIMEText(plain, "plain"))
+            msg.attach(MIMEText(html, "html"))
+
+            with smtplib.SMTP(self.SMTP_HOST, self.SMTP_PORT) as server:
+                server.ehlo()
+                server.starttls()
+                server.login(self.user, self.password)
+                server.sendmail(self.user, ENQUIRIES_EMAIL, msg.as_string())
+
+            logger.info(
+                f"[EnquiryForwarder] Forwarded enquiry '{original_subject}' "
+                f"to {ENQUIRIES_EMAIL}"
+            )
+            return True
+
+        except Exception as exc:
+            logger.error(f"[EnquiryForwarder] Failed to send: {exc}")
+            return False
 
 
 # ─────────────────────────────────────────────
@@ -27,7 +226,7 @@ class GmailReader:
     IMAP_PORT = 993
 
     def __init__(self):
-        self.user = getattr(settings, "GMAIL_USER", "")
+        self.user     = getattr(settings, "GMAIL_USER", "")
         self.password = getattr(settings, "GMAIL_APP_PASS", "")
 
     def fetch_unread_emails(self, max_results: int = 50) -> list[dict]:
@@ -54,15 +253,14 @@ class GmailReader:
                 raw = msg_data[0][1]
                 msg = emaillib.message_from_bytes(raw)
 
-                body = self._extract_body(msg)
-                received_str = msg.get("Date", "")
-                received_at = self._parse_date(received_str)
+                body        = self._extract_body(msg)
+                received_at = self._parse_date(msg.get("Date", ""))
 
                 emails.append({
-                    "gmail_id": uid.decode(),
-                    "sender": msg.get("From", ""),
-                    "subject": msg.get("Subject", ""),
-                    "body": body,
+                    "gmail_id":   uid.decode(),
+                    "sender":     msg.get("From", ""),
+                    "subject":    msg.get("Subject", ""),
+                    "body":       body,
                     "received_at": received_at,
                 })
 
@@ -102,7 +300,6 @@ class GmailReader:
 # SENDER RESOLUTION HELPERS
 # ─────────────────────────────────────────────
 
-# Common role/department prefixes that are NOT org names
 _ROLE_PREFIX_RE = re.compile(
     r"^(procurement\s+office|finance\s+dept(\.)?|hr\s+department|accounts?\s*(dept|office|payable|receivable)?|"
     r"admin(istration)?|secretary|director|manager|ceo|cfo|cto|it\s+dept(\.)?|"
@@ -111,7 +308,6 @@ _ROLE_PREFIX_RE = re.compile(
     re.IGNORECASE,
 )
 
-# Words that add noise but carry no identity signal
 _STOP_WORDS = {
     "of", "the", "and", "for", "a", "an", "in", "at", "by", "to",
     "ltd", "limited", "pvt", "inc", "co", "corp", "corporation",
@@ -120,55 +316,28 @@ _STOP_WORDS = {
 
 
 def _extract_org_name_from_sender(sender_str: str) -> Optional[str]:
-    """
-    Pull the likely organisation name out of a raw sender string.
-
-    Examples handled:
-      "Procurement Office University of Zimbabwe <proc@uz.ac.zw>"  → "University of Zimbabwe"
-      "John Doe - Acme Corp <john@acme.com>"                        → "Acme Corp"
-      "Finance Dept, Harare City Council <fin@hcc.co.zw>"           → "Harare City Council"
-      "admin@example.com"                                            → None
-    """
-    # Remove the <email@address> part
     display_name = re.sub(r"<[^>]+>", "", sender_str).strip().strip('"').strip("'")
 
     if not display_name or "@" in display_name:
-        # Nothing useful left — it was a bare email address
         return None
 
-    # Strip "Name - " or "Name, " separators (keep the org part after separator)
     if re.search(r"\s[-,]\s", display_name):
-        # Take the last segment after the separator as the org name
         parts = re.split(r"\s[-,]\s", display_name)
         display_name = parts[-1].strip()
 
-    # Strip common role/dept prefixes
     cleaned = _ROLE_PREFIX_RE.sub("", display_name).strip()
-
     return cleaned if cleaned else display_name
 
 
 def _similarity(a: str, b: str) -> float:
-    """
-    Combined similarity score using:
-      - SequenceMatcher (character-level, 40%)
-      - Token overlap    (word-level,      60%)
-
-    Stop words are excluded from token comparison so
-    "University of Zimbabwe" matches "Zimbabwe University" well.
-    """
     a, b = a.lower().strip(), b.lower().strip()
 
     def tokens(s: str) -> set:
         return {w for w in re.findall(r"\w+", s) if w not in _STOP_WORDS}
 
     seq_score = SequenceMatcher(None, a, b).ratio()
-
     a_tok, b_tok = tokens(a), tokens(b)
-    if a_tok and b_tok:
-        overlap = len(a_tok & b_tok) / max(len(a_tok), len(b_tok))
-    else:
-        overlap = 0.0
+    overlap = len(a_tok & b_tok) / max(len(a_tok), len(b_tok)) if (a_tok and b_tok) else 0.0
 
     return round(0.4 * seq_score + 0.6 * overlap, 4)
 
@@ -178,22 +347,11 @@ def _fuzzy_match_organization(
     OrgModel,
     threshold: float = 0.45,
 ) -> Optional[object]:
-    """
-    Scan all ClientOrganization rows and return the best name/legal_name match
-    above `threshold`, or None.
-
-    Threshold guide
-    ───────────────
-    0.45  loose  — catches "Univ of Zimbabwe" → "University of Zimbabwe"
-    0.60  strict — only very close matches; fewer false positives
-    """
     if not candidate_name:
         return None
 
-    best_org = None
-    best_score = 0.0
+    best_org, best_score = None, 0.0
 
-    # Only pull the columns we need — avoids loading large text fields
     for org in OrgModel.objects.only("id", "name", "legal_name"):
         score = max(
             _similarity(candidate_name, org.name),
@@ -201,19 +359,13 @@ def _fuzzy_match_organization(
         )
         if score > best_score:
             best_score = score
-            best_org = org
+            best_org   = org
 
     if best_org and best_score >= threshold:
-        logger.info(
-            f"[FuzzyMatch] '{candidate_name}' → '{best_org.name}' "
-            f"(score={best_score:.2f}, threshold={threshold})"
-        )
+        logger.info(f"[FuzzyMatch] '{candidate_name}' → '{best_org.name}' (score={best_score:.2f})")
         return best_org
 
-    logger.info(
-        f"[FuzzyMatch] No match for '{candidate_name}' "
-        f"(best={best_score:.2f}, threshold={threshold})"
-    )
+    logger.info(f"[FuzzyMatch] No match for '{candidate_name}' (best={best_score:.2f})")
     return None
 
 
@@ -225,17 +377,12 @@ from openai import OpenAI
 
 
 class EmailAIAnalyzer:
-    """
-    Sends email content to OpenRouter and returns structured JSON analysis.
-    Falls back to keyword heuristics when the API key is absent or the call fails.
-    """
-
     SYSTEM_PROMPT = """
 You are an intelligent CRM email analyst. Analyze client emails and return ONLY valid JSON (no markdown, no explanation).
 
 Return this exact JSON structure:
 {
-  "intent": "complaint|inquiry|renewal|churn_risk|positive|support|competitor_mention|other",
+  "intent": "complaint|inquiry|enquiry|renewal|churn_risk|positive|support|competitor_mention|other",
   "sentiment_score": <float -1.0 to 1.0>,
   "churn_risk": <float 0.0 to 1.0>,
   "churn_reason": "<brief reason if churn_risk > 0.4, else empty>",
@@ -248,13 +395,14 @@ Return this exact JSON structure:
   "competitor_mentioned": "<name or empty>",
   "suggested_reply_tone": "empathetic|professional|urgent|celebratory",
   "summary": "<1-2 sentence summary of the email>",
-  "key_topics": ["topic1", "topic2"]
+  "key_topics": ["topic1", "topic2"],
+  "is_enquiry": true|false
 }
 """
 
     def __init__(self):
         self.api_key = getattr(settings, "OPENROUTER_API_KEY", "")
-        self.model = getattr(settings, "OPENROUTER_MODEL", "openai/gpt-4o")
+        self.model   = getattr(settings, "OPENROUTER_MODEL", "openai/gpt-4o")
 
     def analyze(self, subject: str, body: str, sender: str) -> Optional[dict]:
         if not self.api_key:
@@ -283,9 +431,14 @@ Return this exact JSON structure:
                 max_tokens=500,
             )
             content = completion.choices[0].message.content
-            # Strip markdown fences if the model wrapped the JSON
             content = re.sub(r"```json|```", "", content).strip()
-            return json.loads(content)
+            result  = json.loads(content)
+
+            # Ensure is_enquiry is always present (older model responses may omit it)
+            if "is_enquiry" not in result:
+                result["is_enquiry"] = _is_enquiry(subject, body)
+
+            return result
 
         except Exception as exc:
             logger.error(f"[EmailAI] Analysis failed: {exc}")
@@ -301,9 +454,10 @@ Return this exact JSON structure:
         ]
         churn_risk = 0.75 if any(k in text for k in churn_keywords) else 0.1
         sentiment  = -0.6 if churn_risk > 0.4 else 0.3
+        is_enq     = _is_enquiry(subject, body)
 
         return {
-            "intent":               "churn_risk" if churn_risk > 0.4 else "inquiry",
+            "intent":               "enquiry" if is_enq else ("churn_risk" if churn_risk > 0.4 else "inquiry"),
             "sentiment_score":      sentiment,
             "churn_risk":           churn_risk,
             "churn_reason":         "Keyword-based churn signal detected" if churn_risk > 0.4 else "",
@@ -317,6 +471,7 @@ Return this exact JSON structure:
             "suggested_reply_tone": "empathetic" if churn_risk > 0.4 else "professional",
             "summary":              f"Email from client regarding: {subject}",
             "key_topics":           [],
+            "is_enquiry":           is_enq,
         }
 
 
@@ -327,11 +482,18 @@ Return this exact JSON structure:
 class EmailOrchestrator:
     """
     Main entry point. Call .run() from a management command or Celery task.
+
+    Enquiry routing
+    ───────────────
+    If an email is detected as an enquiry (keyword scan + AI flag), it is:
+      1. Assigned to the User whose email is ENQUIRIES_EMAIL.
+      2. Forwarded to ENQUIRIES_EMAIL via SMTP with a formatted HTML notification.
     """
 
     def __init__(self):
-        self.reader   = GmailReader()
-        self.analyzer = EmailAIAnalyzer()
+        self.reader    = GmailReader()
+        self.analyzer  = EmailAIAnalyzer()
+        self.forwarder = EnquiryForwarder()
 
     # ── public entry point ────────────────────
 
@@ -345,11 +507,23 @@ class EmailOrchestrator:
         User       = get_user_model()
         admin_user = User.objects.filter(is_superuser=True).first()
 
+        # ── Resolve the enquiries user once ──────────────────────────────
+        enquiries_user = User.objects.filter(
+            email__iexact=ENQUIRIES_EMAIL
+        ).first()
+
+        if not enquiries_user:
+            logger.warning(
+                f"[Orchestrator] No User found with email '{ENQUIRIES_EMAIL}'. "
+                f"Enquiry tasks will fall back to account manager / admin."
+            )
+
         summary = {
-            "emails_processed":    0,
-            "tasks_created":       0,
+            "emails_processed":     0,
+            "tasks_created":        0,
             "churn_alerts_created": 0,
-            "errors":              0,
+            "enquiries_routed":     0,
+            "errors":               0,
         }
 
         raw_emails = self.reader.fetch_unread_emails(max_results=50)
@@ -357,23 +531,29 @@ class EmailOrchestrator:
 
         for raw in raw_emails:
             try:
-                # ── Skip duplicates ───────────────────────
+                # ── Skip duplicates ───────────────────────────────────────
                 if EmailMessage.objects.filter(gmail_id=raw["gmail_id"]).exists():
                     continue
 
-                # ── AI analysis ───────────────────────────
+                # ── AI analysis ───────────────────────────────────────────
                 analysis = self.analyzer.analyze(
                     subject=raw["subject"],
                     body=raw["body"],
                     sender=raw["sender"],
                 )
 
-                # ── Resolve sender → org / contact ────────
+                # ── Enquiry detection (keyword OR AI flag) ────────────────
+                email_is_enquiry = (
+                    bool(analysis.get("is_enquiry"))
+                    or _is_enquiry(raw["subject"], raw["body"])
+                )
+
+                # ── Resolve sender → org / contact ────────────────────────
                 org, contact = self._resolve_sender(
                     raw["sender"], ClientOrganization, ClientContact
                 )
 
-                # ── Persist email record ──────────────────
+                # ── Persist email record ──────────────────────────────────
                 EmailMessage.objects.create(
                     gmail_id=raw["gmail_id"],
                     sender=raw["sender"],
@@ -387,22 +567,34 @@ class EmailOrchestrator:
                     processed=True,
                 )
 
-                # ── Create Task ───────────────────────────
+                # ── Create Task ───────────────────────────────────────────
+                task_obj = None
                 if analysis.get("create_task"):
                     due = timezone.now().date() + timedelta(
                         days=int(analysis.get("task_due_days", 3))
                     )
-                    # Prefer org's account manager, fall back to any superuser
-                    assigned_to = (
-                        org.account_manager
-                        if org and org.account_manager
-                        else admin_user
+
+                    # Enquiry tasks → enquiries_user; else → account manager / admin
+                    if email_is_enquiry and enquiries_user:
+                        assigned_to = enquiries_user
+                    else:
+                        assigned_to = (
+                            org.account_manager
+                            if org and org.account_manager
+                            else admin_user
+                        )
+
+                    task_title = analysis.get(
+                        "task_title",
+                        f"Email follow-up: {raw['subject'][:80]}"
                     )
-                    Task.objects.create(
-                        title=analysis.get(
-                            "task_title",
-                            f"Email follow-up: {raw['subject'][:80]}"
-                        ),
+
+                    # Prefix enquiry tasks for easy identification
+                    if email_is_enquiry and not task_title.lower().startswith("[enquiry]"):
+                        task_title = f"[ENQUIRY] {task_title}"
+
+                    task_obj = Task.objects.create(
+                        title=task_title,
                         description=(
                             f"{analysis.get('task_description', '')}\n\n"
                             f"--- Original Email ---\n"
@@ -418,11 +610,27 @@ class EmailOrchestrator:
                     )
                     summary["tasks_created"] += 1
 
-                # ── Create Churn Alert ────────────────────
+                # ── Forward enquiry email ─────────────────────────────────
+                if email_is_enquiry:
+                    sent = self.forwarder.forward(
+                        original_sender=raw["sender"],
+                        original_subject=raw["subject"],
+                        original_body=raw["body"],
+                        received_at=raw["received_at"],
+                        ai_summary=analysis.get("summary", ""),
+                        task_title=task_obj.title if task_obj else "",
+                        org_name=org.name if org else "",
+                    )
+                    if sent:
+                        summary["enquiries_routed"] += 1
+                        logger.info(
+                            f"[Orchestrator] Enquiry routed → {ENQUIRIES_EMAIL} | "
+                            f"Subject: {raw['subject']!r}"
+                        )
+
+                # ── Create Churn Alert ────────────────────────────────────
                 churn_risk = float(analysis.get("churn_risk", 0))
                 if churn_risk >= 0.4:
-                    # org may be None for unmatched senders — ensure your
-                    # ChurnAlert.organization field has null=True, blank=True
                     ChurnAlert.objects.create(
                         organization=org,
                         risk_score=churn_risk,
@@ -435,7 +643,7 @@ class EmailOrchestrator:
                     )
                     summary["churn_alerts_created"] += 1
 
-                # ── Log Competitor Mention ────────────────
+                # ── Log Competitor Mention ────────────────────────────────
                 competitor_name = analysis.get("competitor_mentioned", "").strip()
                 if competitor_name:
                     Competitor.objects.get_or_create(
@@ -462,38 +670,38 @@ class EmailOrchestrator:
         OrgModel,
         ContactModel,
     ) -> Tuple[Optional[object], Optional[object]]:
-        
+
         email_match = re.search(r"[\w.+-]+@[\w-]+\.[a-zA-Z]+", sender_str)
         if email_match:
             email_addr = email_match.group(0).lower()
             domain     = email_addr.split("@")[-1]
 
-            # ── 1. Exact contact match ────────────
+            # 1. Exact contact match
             contact = ContactModel.objects.filter(email__iexact=email_addr).first()
             if contact:
                 logger.info(f"[Resolve] Exact contact match: {email_addr}")
                 return contact.organization, contact
 
-            # ── 2. Exact org primary_email match ──  ← NEW
+            # 2. Exact org primary_email match
             org = OrgModel.objects.filter(primary_email__iexact=email_addr).first()
             if org:
                 logger.info(f"[Resolve] Exact primary_email match: {email_addr} → {org.name}")
                 return org, None
 
-            # ── 3. Domain match ───────────────────
+            # 3. Domain match
             org = OrgModel.objects.filter(primary_email__icontains=domain).first()
             if org:
                 logger.info(f"[Resolve] Domain match: {domain} → {org.name}")
                 return org, None
 
-        # ── 4. Fuzzy name match ───────────────
+        # 4. Fuzzy name match
         candidate_name = _extract_org_name_from_sender(sender_str)
         if candidate_name:
             org = _fuzzy_match_organization(candidate_name, OrgModel, threshold=0.45)
             if org:
                 return org, None
 
-        # ── 5. No match ───────────────────────
+        # 5. No match
         logger.info(f"[Resolve] No org/contact match for sender: {sender_str!r}")
         return None, None
 
