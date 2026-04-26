@@ -933,3 +933,179 @@ TypeError: 'str' object is not callable
 [2026-04-22 20:32:47,631] INFO django.utils.autoreload: Watching for file changes with StatReloader
 [2026-04-22 20:41:56,501] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
 [2026-04-22 20:42:00,106] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:45:19,799] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:46:06,144] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 198, in email_intelligence_view
+    emails_qs = EmailMessage.objects.select_related("organization", "contact").order_by("-received_at")
+                ^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'EmailMessage' has no attribute 'objects'
+[2026-04-24 19:50:12,940] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\models.py changed, reloading.
+[2026-04-24 19:50:14,855] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:51:26,010] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:51:59,919] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 198, in email_intelligence_view
+    emails_qs = EmailMessage.objects.select_related("organization", "contact").order_by("-received_at")
+                ^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'EmailMessage' has no attribute 'objects'
+[2026-04-24 19:52:07,446] ERROR django.request: Internal Server Error: /email-intelligence/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 198, in email_intelligence_view
+    emails_qs = EmailMessage.objects.select_related("organization", "contact").order_by("-received_at")
+                ^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'EmailMessage' has no attribute 'objects'
+[2026-04-24 19:56:45,854] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-24 19:56:48,288] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:56:53,139] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-24 19:56:54,681] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:56:56,678] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-24 19:56:57,962] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:57:02,758] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-24 19:57:04,271] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:57:14,667] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-24 19:57:16,102] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 19:57:30,515] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 19:59:36,280] ERROR django.request: Internal Server Error: /bulk-messaging/
+Traceback (most recent call last):
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py", line 783, in bulk_messaging_view
+    return render(request, "bulk_messaging.html", context)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "G:\HIT400 PROJECTS\Delphine\delph\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: bulk_messaging.html
+[2026-04-24 20:00:22,146] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\views.py changed, reloading.
+[2026-04-24 20:00:24,877] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-24 20:00:32,111] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:01:50,441] WARNING app.views: [BulkMsg] Failed to send to blessing.mlambo@nationaluniversityofscienceandtechnology.co.zw: Connection unexpectedly closed
+[2026-04-24 20:01:50,444] WARNING app.views: [BulkMsg] Failed to send to blessing.mpofu@oldmutualzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,449] WARNING app.views: [BulkMsg] Failed to send to blessing.mpofu@stanbicbankzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,451] WARNING app.views: [BulkMsg] Failed to send to blessing.ndlovu@nationaluniversityofscienceandtechnology.co.zw: please run connect() first
+[2026-04-24 20:01:50,454] WARNING app.views: [BulkMsg] Failed to send to blessing.sibanda@ministryofictzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,457] WARNING app.views: [BulkMsg] Failed to send to chipo.dube@zimbabweelectricitysupplyauthority.co.zw: please run connect() first
+[2026-04-24 20:01:50,459] WARNING app.views: [BulkMsg] Failed to send to chipo.dube@zimnatinsurance.co.zw: please run connect() first
+[2026-04-24 20:01:50,461] WARNING app.views: [BulkMsg] Failed to send to chipo.mpofu@chinhoyiuniversityoftechnology.co.zw: please run connect() first
+[2026-04-24 20:01:50,465] WARNING app.views: [BulkMsg] Failed to send to farai.chakabva@cbzholdings.co.zw: please run connect() first
+[2026-04-24 20:01:50,468] WARNING app.views: [BulkMsg] Failed to send to farai.zhou@fbcholdings.co.zw: please run connect() first
+[2026-04-24 20:01:50,470] WARNING app.views: [BulkMsg] Failed to send to kudakwashe.zhou@deltacorporation.co.zw: please run connect() first
+[2026-04-24 20:01:50,472] WARNING app.views: [BulkMsg] Failed to send to kudakwashe.zhou@zimnatinsurance.co.zw: please run connect() first
+[2026-04-24 20:01:50,473] WARNING app.views: [BulkMsg] Failed to send to nyasha.mutasa@seedcozimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,475] WARNING app.views: [BulkMsg] Failed to send to nyasha.zhou@midlandsstateuniversity.co.zw: please run connect() first
+[2026-04-24 20:01:50,478] WARNING app.views: [BulkMsg] Failed to send to panashe.chakabva@chinhoyiuniversityoftechnology.co.zw: please run connect() first
+[2026-04-24 20:01:50,482] WARNING app.views: [BulkMsg] Failed to send to panashe.mlambo@seedcozimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,484] WARNING app.views: [BulkMsg] Failed to send to precious.banda@econetwirelesszimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,486] WARNING app.views: [BulkMsg] Failed to send to precious.chakabva@okzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,488] WARNING app.views: [BulkMsg] Failed to send to precious.moyo@netonezimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,490] WARNING app.views: [BulkMsg] Failed to send to precious.mpofu@stanbicbankzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,492] WARNING app.views: [BulkMsg] Failed to send to precious.ndlovu@oldmutualzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,496] WARNING app.views: [BulkMsg] Failed to send to rutendo.banda@fbcholdings.co.zw: please run connect() first
+[2026-04-24 20:01:50,498] WARNING app.views: [BulkMsg] Failed to send to rutendo.chakabva@cbzholdings.co.zw: please run connect() first
+[2026-04-24 20:01:50,500] WARNING app.views: [BulkMsg] Failed to send to rutendo.gumbo@netonezimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,502] WARNING app.views: [BulkMsg] Failed to send to rutendo.mutasa@okzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,504] WARNING app.views: [BulkMsg] Failed to send to rutendo.ndlovu@zimnatinsurance.co.zw: please run connect() first
+[2026-04-24 20:01:50,506] WARNING app.views: [BulkMsg] Failed to send to rutendo.nyathi@zimbabweelectricitysupplyauthority.co.zw: please run connect() first
+[2026-04-24 20:01:50,508] WARNING app.views: [BulkMsg] Failed to send to rutendo.sibanda@cabsbank.co.zw: please run connect() first
+[2026-04-24 20:01:50,510] WARNING app.views: [BulkMsg] Failed to send to rutendo.sibanda@okzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,515] WARNING app.views: [BulkMsg] Failed to send to ruvimbo.ndlovu@zimbabwerevenueauthority.co.zw: please run connect() first
+[2026-04-24 20:01:50,517] WARNING app.views: [BulkMsg] Failed to send to ruvimbo.phiri@cabsbank.co.zw: please run connect() first
+[2026-04-24 20:01:50,519] WARNING app.views: [BulkMsg] Failed to send to ruvimbo.sibanda@universityofzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,521] WARNING app.views: [BulkMsg] Failed to send to simbarashe.chakabva@stanbicbankzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,523] WARNING app.views: [BulkMsg] Failed to send to simbarashe.chakabva@universityofzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,525] WARNING app.views: [BulkMsg] Failed to send to simbarashe.mpofu@midlandsstateuniversity.co.zw: please run connect() first
+[2026-04-24 20:01:50,527] WARNING app.views: [BulkMsg] Failed to send to simbarashe.shumba@innscorafrica.co.zw: please run connect() first
+[2026-04-24 20:01:50,532] WARNING app.views: [BulkMsg] Failed to send to tanaka.chirisa@zimbabweopenuniversity.co.zw: please run connect() first
+[2026-04-24 20:01:50,534] WARNING app.views: [BulkMsg] Failed to send to tanaka.mlambo@zimbabweopenuniversity.co.zw: please run connect() first
+[2026-04-24 20:01:50,536] WARNING app.views: [BulkMsg] Failed to send to tanaka.moyo@fbcholdings.co.zw: please run connect() first
+[2026-04-24 20:01:50,538] WARNING app.views: [BulkMsg] Failed to send to tapiwa.mpofu@chinhoyiuniversityoftechnology.co.zw: please run connect() first
+[2026-04-24 20:01:50,540] WARNING app.views: [BulkMsg] Failed to send to tapiwa.mutasa@chinhoyiuniversityoftechnology.co.zw: please run connect() first
+[2026-04-24 20:01:50,542] WARNING app.views: [BulkMsg] Failed to send to tapiwa.mutasa@ministryofictzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,545] WARNING app.views: [BulkMsg] Failed to send to tapiwa.shumba@zimbabweopenuniversity.co.zw: please run connect() first
+[2026-04-24 20:01:50,548] WARNING app.views: [BulkMsg] Failed to send to tariro.chirisa@fbcholdings.co.zw: please run connect() first
+[2026-04-24 20:01:50,550] WARNING app.views: [BulkMsg] Failed to send to tariro.mpofu@zimnatinsurance.co.zw: please run connect() first
+[2026-04-24 20:01:50,552] WARNING app.views: [BulkMsg] Failed to send to tariro.nyathi@zimbabwerevenueauthority.co.zw: please run connect() first
+[2026-04-24 20:01:50,554] WARNING app.views: [BulkMsg] Failed to send to tariro.zhou@innscorafrica.co.zw: please run connect() first
+[2026-04-24 20:01:50,557] WARNING app.views: [BulkMsg] Failed to send to tatenda.chakabva@seedcozimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,561] WARNING app.views: [BulkMsg] Failed to send to tatenda.mutasa@zimbabweopenuniversity.co.zw: please run connect() first
+[2026-04-24 20:01:50,565] WARNING app.views: [BulkMsg] Failed to send to tawanda.banda@okzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,567] WARNING app.views: [BulkMsg] Failed to send to tawanda.chikowore@zimbabwerevenueauthority.co.zw: please run connect() first
+[2026-04-24 20:01:50,569] WARNING app.views: [BulkMsg] Failed to send to tawanda.chirisa@deltacorporation.co.zw: please run connect() first
+[2026-04-24 20:01:50,570] WARNING app.views: [BulkMsg] Failed to send to tawanda.dube@seedcozimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,573] WARNING app.views: [BulkMsg] Failed to send to tawanda.gumbo@econetwirelesszimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,576] WARNING app.views: [BulkMsg] Failed to send to tawanda.mutasa@netonezimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,580] WARNING app.views: [BulkMsg] Failed to send to tawanda.ndlovu@netonezimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,583] WARNING app.views: [BulkMsg] Failed to send to tawanda.sibanda@oldmutualzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,585] WARNING app.views: [BulkMsg] Failed to send to tendai.gumbo@midlandsstateuniversity.co.zw: please run connect() first
+[2026-04-24 20:01:50,587] WARNING app.views: [BulkMsg] Failed to send to tendai.mlambo@stanbicbankzimbabwe.co.zw: please run connect() first
+[2026-04-24 20:01:50,590] WARNING app.views: [BulkMsg] Failed to send to tendai.mpofu@cbzholdings.co.zw: please run connect() first
+[2026-04-24 20:01:52,322] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:15:47,070] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:15:47,185] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:15:51,546] ERROR django.request: Internal Server Error: /email/sync/
+[2026-04-24 20:15:56,036] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:15:59,109] ERROR django.request: Internal Server Error: /email/sync/
+[2026-04-24 20:16:03,948] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:16:15,294] ERROR django.request: Internal Server Error: /email/sync/
+[2026-04-24 20:16:24,745] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:16:29,300] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:21:18,134] ERROR django.request: Internal Server Error: /email/sync/
+[2026-04-24 20:21:20,143] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 20:21:20,244] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-24 21:22:17,115] WARNING django.request: Not Found: /shop/
+[2026-04-26 16:03:27,255] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-26 16:04:11,575] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-26 16:04:17,446] ERROR django.request: Internal Server Error: /email/sync/
+[2026-04-26 16:07:15,140] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-04-26 16:07:17,614] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-26 16:07:52,263] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-04-26 16:07:54,392] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-26 16:08:00,968] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-04-26 16:08:03,492] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-26 16:08:11,262] INFO django.utils.autoreload: G:\HIT400 PROJECTS\Mukomana\sceis\app\email_automation.py changed, reloading.
+[2026-04-26 16:08:14,376] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-26 16:22:12,888] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2026-04-26 16:23:10,889] WARNING django.request: Not Found: /product/66e3b2e4-1332-4077-a0f8-6f74ae8d253a/
+[2026-04-26 16:24:00,298] WARNING django.request: Not Found: /favicon.ico
+[2026-04-26 16:24:33,237] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-26 16:24:56,235] INFO app.email_automation: [Orchestrator] Fetched 4 unread emails.
+[2026-04-26 16:25:00,703] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+[2026-04-26 16:25:00,726] ERROR app.email_automation: [EmailAI] Analysis failed: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+[2026-04-26 16:25:00,735] INFO app.email_automation: [FuzzyMatch] No match for 'OpenRouter Team' (best=0.16)
+[2026-04-26 16:25:00,736] INFO app.email_automation: [Resolve] No org/contact match for sender: 'OpenRouter Team <welcome@openrouter.ai>'
+[2026-04-26 16:25:13,488] INFO app.email_automation: [EnquiryForwarder] Forwarded enquiry 'How does OpenRouter pricing work?' to mtbenquiries@gmail.com
+[2026-04-26 16:25:15,641] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+[2026-04-26 16:25:15,643] ERROR app.email_automation: [EmailAI] Analysis failed: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+[2026-04-26 16:25:15,651] INFO app.email_automation: [FuzzyMatch] No match for 'OpenRouter Team' (best=0.16)
+[2026-04-26 16:25:15,652] INFO app.email_automation: [Resolve] No org/contact match for sender: 'OpenRouter Team <welcome@openrouter.ai>'
+[2026-04-26 16:25:21,888] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+[2026-04-26 16:25:21,889] ERROR app.email_automation: [EmailAI] Analysis failed: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+[2026-04-26 16:25:21,899] INFO app.email_automation: [FuzzyMatch] No match for 'OpenRouter Team' (best=0.16)
+[2026-04-26 16:25:21,900] INFO app.email_automation: [Resolve] No org/contact match for sender: 'OpenRouter Team <welcome@openrouter.ai>'
+[2026-04-26 16:25:27,503] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+[2026-04-26 16:25:27,505] ERROR app.email_automation: [EmailAI] Analysis failed: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+[2026-04-26 16:25:27,514] INFO app.email_automation: [FuzzyMatch] No match for 'OpenRouter Team' (best=0.16)
+[2026-04-26 16:25:27,515] INFO app.email_automation: [Resolve] No org/contact match for sender: 'OpenRouter Team <welcome@openrouter.ai>'
+[2026-04-26 16:25:32,473] ERROR app.email_automation: [Orchestrator] Error processing email 28: NOT NULL constraint failed: app_churnalert.organization_id
+[2026-04-26 16:26:18,644] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-26 16:26:29,915] WARNING django.request: Not Found: /assets/images/logo-dark.svg
+[2026-04-26 16:26:48,516] INFO httpx: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 401 Unauthorized"
+[2026-04-26 16:26:48,516] ERROR app.views: [BulkMsg] AI generation failed: Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}
+[2026-04-26 16:29:38,601] WARNING django.request: Not Found: /assets/images/logo-dark.svg

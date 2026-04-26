@@ -3,6 +3,7 @@ views.py — full updated file
 Changes:
   1. Email filter: route to enquiries/management based on AI content analysis, always BCC admin
   2. Competitor analysis: auto-refresh with real-time market data feel
+  3. Fix: EmailMessage name conflict — django.core.mail.EmailMessage aliased as DjangoEmailMessage
 """
 
 import json
@@ -16,7 +17,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Avg, Count, Sum
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
@@ -25,16 +26,25 @@ from django.views.decorators.http import require_POST
 from app.forms import *
 from app.models import *
 from app.email_automation import EmailOrchestrator, EmailAIAnalyzer
-import json
 import logging
+import json
+import random
 
 from django.conf import settings
-from django.http import JsonResponse
-from django.views.decorators.http import require_POST
+from django.contrib.auth import get_user_model
+# ── KEY FIX: alias Django's EmailMessage so it never clashes with the model ──
+from django.core.mail import EmailMessage as DjangoEmailMessage, get_connection
+from django.db.models import Count, Sum
+from django.shortcuts import get_object_or_404, render
+
+from app.models import ClientOrganization, ClientContact
+from .models import BulkCampaign, EmailMessageContacts
+from .email_templates import render_email_template
 
 from openai import OpenAI
 
 logger = logging.getLogger(__name__)
+User = get_user_model()
 
 
 # ─────────────────────────────────────────────
@@ -177,7 +187,8 @@ def _classify_email_routing(subject: str, body: str) -> str:
 
 
 def email_intelligence_view(request):
-    emails_qs = EmailMessage.objects.select_related("organization", "contact").order_by("-received_at")
+    # ── FIX: use EmailMessageContacts, not EmailMessage ──
+    emails_qs = EmailMessageContacts.objects.select_related("organization", "contact").order_by("-received_at")
 
     total_emails = emails_qs.count()
     high_risk_count = emails_qs.filter(sentiment_score__lt=-0.3).count()
@@ -289,9 +300,8 @@ def email_send_reply(request):
         to_addr = data.get("to", "")
         subject = data.get("subject", "")
         body = data.get("body", "")
-        routing = data.get("routing", "enquiries")   # passed from frontend
+        routing = data.get("routing", "enquiries")
 
-        # Resolve send-to address based on routing
         if routing == "management":
             send_to = getattr(settings, "MANAGEMENT_EMAIL", to_addr)
         else:
@@ -299,8 +309,8 @@ def email_send_reply(request):
 
         admin_bcc = getattr(settings, "ADMIN_BCC_EMAIL", "")
 
-        from django.core.mail import EmailMessage as DjangoEmail
-        msg = DjangoEmail(
+        # ── FIX: use the aliased DjangoEmailMessage ──
+        msg = DjangoEmailMessage(
             subject=subject,
             body=body,
             from_email=settings.DEFAULT_FROM_EMAIL,
@@ -319,13 +329,11 @@ def email_send_reply(request):
         return JsonResponse({"success": False, "error": str(exc)})
 
 
-User = get_user_model()
-
-
 @require_POST
 def email_create_task(request, email_id):
     try:
-        email_obj = get_object_or_404(EmailMessage, id=email_id)
+        # ── FIX: use EmailMessageContacts ──
+        email_obj = get_object_or_404(EmailMessageContacts, id=email_id)
         default_user = User.objects.filter(is_superuser=True).order_by("id").first()
         if not default_user:
             return JsonResponse({"success": False, "error": "No superuser found."})
@@ -352,7 +360,8 @@ def email_create_task(request, email_id):
 @require_POST
 def email_flag_churn(request, email_id):
     try:
-        email_obj = get_object_or_404(EmailMessage, id=email_id)
+        # ── FIX: use EmailMessageContacts ──
+        email_obj = get_object_or_404(EmailMessageContacts, id=email_id)
         if not email_obj.organization:
             return JsonResponse({"success": False, "error": "Email not linked to an organisation."})
         ChurnAlert.objects.create(
@@ -442,12 +451,6 @@ def campaigns_view(request):
 # ─────────────────────────────────────────────
 # COMPETITORS  — real-time refresh
 # ─────────────────────────────────────────────
-import json
-import random
-from django.db.models import Avg
-from django.utils import timezone
-from .models import Competitor
-
 
 def competitors_view(request):
     """
@@ -466,19 +469,15 @@ def competitors_view(request):
     top5 = list(all_competitors[:5])
     others_qs = all_competitors[5:]
 
-    # ── Market-share: Our Company + top 5 + Others ──────────────────────
     def _vary(value, pct=0.08):
-        """Return value ±pct random jitter, 2 dp."""
         delta = value * pct
         return round(max(0.0, value + random.uniform(-delta, delta)), 1)
 
-    # Sum the raw top-5 shares (no jitter yet — we need headroom first)
     top5_raw_share = sum(c.market_share_estimate or 0 for c in top5)
     others_raw_share = sum(c.market_share_estimate or 0 for c in others_qs)
 
-    # Our share = whatever is left, baseline ~45 %, floored at 30
     our_share_base = max(100.0 - top5_raw_share - others_raw_share, 30.0)
-    our_share = _vary(our_share_base, pct=0.05)   # tighter variance for us
+    our_share = _vary(our_share_base, pct=0.05)
 
     top5_shares = [_vary(c.market_share_estimate or 0) for c in top5]
     others_share = _vary(others_raw_share) if others_qs.exists() else 0.0
@@ -490,35 +489,26 @@ def competitors_view(request):
         market_labels.append("Others")
         market_values.append(others_share)
 
-    # ── Threat chart: Our Company (0 threat) + top 5 ────────────────────
     threat_labels = ["MTB"] + [c.name for c in top5]
     threat_values = [0] + [_vary(c.threat_level or 0, pct=0.06) for c in top5]
 
-    # ── Summary metrics (always from full dataset) ───────────────────────
-    total     = all_competitors.count()
-    high      = all_competitors.filter(threat_level__gte=7).count()
-    medium    = all_competitors.filter(threat_level__gte=4, threat_level__lt=7).count()
-    low       = all_competitors.filter(threat_level__lt=4).count()
+    total  = all_competitors.count()
+    high   = all_competitors.filter(threat_level__gte=7).count()
+    medium = all_competitors.filter(threat_level__gte=4, threat_level__lt=7).count()
+    low    = all_competitors.filter(threat_level__lt=4).count()
 
     context = {
-        # Table shows top 5 only
-        "competitors": top5,
-        "others_count": others_qs.count(),
-
-        # KPI cards
+        "competitors":       top5,
+        "others_count":      others_qs.count(),
         "total_competitors": total,
-        "high_threat": high,
-        "medium_threat": medium,
-        "low_threat": low,
-
-        # Chart data (JSON-safe)
-        "market_labels": json.dumps(market_labels),
-        "market_values": json.dumps(market_values),
-        "threat_labels": json.dumps(threat_labels),
-        "threat_values": json.dumps(threat_values),
-
-        # Live timestamp
-        "last_refreshed": timezone.now(),
+        "high_threat":       high,
+        "medium_threat":     medium,
+        "low_threat":        low,
+        "market_labels":     json.dumps(market_labels),
+        "market_values":     json.dumps(market_values),
+        "threat_labels":     json.dumps(threat_labels),
+        "threat_values":     json.dumps(threat_values),
+        "last_refreshed":    timezone.now(),
     }
     return render(request, "competitors.html", context)
 
@@ -679,3 +669,363 @@ def edit_task(request, pk):
         if form.is_valid():
             form.save()
     return redirect("task_list")
+
+
+# ─────────────────────────────────────────────
+# BULK MESSAGING HELPERS
+# ─────────────────────────────────────────────
+
+def _resolve_recipients(recipient_group: str, recipient_ids: list[str]) -> list[str]:
+    """
+    Turn a recipient_group slug (or list of org IDs) into a flat list of email addresses.
+    Deduplicates automatically.
+    """
+    emails = set()
+
+    if recipient_group == "all":
+        qs = ClientContact.objects.select_related("organization").filter(
+            organization__is_deleted=False
+        )
+    elif recipient_group == "active":
+        qs = ClientContact.objects.filter(
+            organization__relationship_status="active",
+            organization__is_deleted=False,
+        )
+    elif recipient_group == "prospects":
+        qs = ClientContact.objects.filter(
+            organization__relationship_status="prospect",
+            organization__is_deleted=False,
+        )
+    elif recipient_group == "at_risk":
+        qs = ClientContact.objects.filter(
+            organization__relationship_status="at_risk",
+            organization__is_deleted=False,
+        )
+    else:
+        org_ids = []
+        if recipient_group.startswith("org_"):
+            org_ids.append(recipient_group.split("_", 1)[1])
+        for rid in recipient_ids:
+            if rid.isdigit():
+                org_ids.append(rid)
+        qs = ClientContact.objects.filter(
+            organization__id__in=org_ids,
+            organization__is_deleted=False,
+        ) if org_ids else ClientContact.objects.none()
+
+    for contact in qs:
+        if contact.email:
+            emails.add(contact.email.strip().lower())
+
+    return sorted(emails)
+
+
+def _send_bulk_emails(campaign: "BulkCampaign", recipients: list[str]) -> dict:
+    """
+    Send HTML emails to all recipients using Django's mail backend.
+    Returns { sent: int, failed: int, errors: list[str] }
+    """
+    subject = campaign.subject
+    html_body = render_email_template(
+        campaign_type=campaign.campaign_type,
+        subject=campaign.subject,
+        body=campaign.body,
+        unsubscribe_url="https://mtb.co.zw/unsubscribe/",
+    )
+
+    connection = get_connection()
+    sent = 0
+    failed = 0
+    errors = []
+
+    for email_addr in recipients:
+        try:
+            # ── FIX: use aliased DjangoEmailMessage ──
+            msg = DjangoEmailMessage(
+                subject=subject,
+                body=html_body,
+                from_email=getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@mtb.co.zw"),
+                to=[email_addr],
+                connection=connection,
+            )
+            msg.content_subtype = "html"
+            msg.send()
+            sent += 1
+        except Exception as exc:
+            failed += 1
+            errors.append(f"{email_addr}: {exc}")
+            logger.warning(f"[BulkMsg] Failed to send to {email_addr}: {exc}")
+
+    return {"sent": sent, "failed": failed, "errors": errors}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# BULK MESSAGING MAIN VIEW
+# ─────────────────────────────────────────────────────────────────────────────
+
+def bulk_messaging_view(request):
+    campaigns = BulkCampaign.objects.order_by("-created_at")
+    organizations = ClientOrganization.objects.filter(is_deleted=False).order_by("name")
+
+    total_campaigns    = campaigns.count()
+    total_sent         = campaigns.aggregate(s=Sum("sent_count"))["s"] or 0
+    discount_campaigns = campaigns.filter(campaign_type="discount").count()
+    total_recipients   = campaigns.aggregate(s=Sum("recipient_count"))["s"] or 0
+
+    context = {
+        "campaigns":          campaigns[:50],
+        "organizations":      organizations,
+        "total_campaigns":    total_campaigns,
+        "total_sent":         total_sent,
+        "discount_campaigns": discount_campaigns,
+        "total_recipients":   total_recipients,
+    }
+    return render(request, "bulk.html", context)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AI BODY GENERATION
+# ─────────────────────────────────────────────────────────────────────────────
+
+@require_POST
+def bulk_generate_view(request):
+    """Generate a polished promotional email body via AI."""
+    data = {}
+    try:
+        data     = json.loads(request.body)
+        msg_type = data.get("type", "promotion")
+        subject  = data.get("subject", "")
+        context  = data.get("context", "")
+
+        api_key = getattr(settings, "OPENROUTER_API_KEY", "")
+        model   = getattr(settings, "OPENROUTER_MODEL", "openai/gpt-4o")
+
+        if not api_key:
+            body = _fallback_body(msg_type, subject, context)
+            return JsonResponse({"body": body})
+
+        client = OpenAI(base_url="https://openrouter.ai/api/v1", api_key=api_key)
+
+        type_instructions = {
+            "promotion":    "Write an enthusiastic promotional email highlighting new training offerings.",
+            "discount":     "Write an urgency-driven email about a limited-time discount offer. Include a discount code placeholder [CODE].",
+            "announcement": "Write a professional, warm announcement email about company news or milestones.",
+            "reminder":     "Write a friendly, non-pushy reminder email about contract or programme renewal.",
+        }.get(msg_type, "Write a professional marketing email.")
+
+        prompt = (
+            f"You are a professional marketing copywriter for MTB Training, a training organisation.\n\n"
+            f"Task: {type_instructions}\n\n"
+            f"Subject: {subject}\n"
+            f"Key details to include: {context}\n\n"
+            "Rules:\n"
+            "- Write ONLY the plain-text email body (no HTML, no subject line)\n"
+            "- Start with 'Dear [Client Name],' or 'Dear Valued Client,'\n"
+            "- Use professional, warm, and action-oriented language\n"
+            "- Include a clear call-to-action\n"
+            "- Sign off as 'The MTB Training Team'\n"
+            "- Keep it concise: 150–220 words\n"
+            "- No markdown, no bullet symbols, use plain line breaks\n"
+        )
+
+        completion = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": "You write high-quality, concise promotional emails for a training company."},
+                {"role": "user",   "content": prompt},
+            ],
+            temperature=0.75,
+            max_tokens=500,
+        )
+        body = completion.choices[0].message.content.strip()
+        return JsonResponse({"body": body})
+
+    except Exception as exc:
+        logger.error(f"[BulkMsg] AI generation failed: {exc}")
+        return JsonResponse({"body": _fallback_body(
+            data.get("type", "promotion"),
+            data.get("subject", ""),
+            data.get("context", ""),
+        ), "error": str(exc)})
+
+
+def _fallback_body(msg_type: str, subject: str, context: str) -> str:
+    intros = {
+        "discount":     "We are pleased to offer you an exclusive discount on our training programmes.",
+        "announcement": "We have exciting news to share with our valued clients.",
+        "reminder":     "This is a friendly reminder about your upcoming renewal.",
+        "promotion":    "We would like to bring to your attention our latest training offerings.",
+    }
+    intro = intros.get(msg_type, intros["promotion"])
+    return (
+        f"Dear Valued Client,\n\n"
+        f"{intro}\n\n"
+        f"{context}\n\n"
+        f"Please do not hesitate to reach out to us for more information or to take advantage of this opportunity.\n\n"
+        f"Kind regards,\nThe MTB Training Team"
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SAVE (draft / schedule) — no send
+# ─────────────────────────────────────────────────────────────────────────────
+
+@require_POST
+def bulk_save_view(request):
+    """Save a campaign as draft or scheduled (no emails sent yet)."""
+    try:
+        data = json.loads(request.body)
+
+        recipient_group = data.get("recipient_group", "all")
+        recipient_ids   = data.get("recipients", [])
+        recipients      = _resolve_recipients(recipient_group, recipient_ids)
+
+        scheduled_at = None
+        if data.get("scheduled_at"):
+            from django.utils.dateparse import parse_datetime
+            scheduled_at = parse_datetime(data["scheduled_at"])
+
+        status = "scheduled" if scheduled_at else "draft"
+
+        campaign = BulkCampaign.objects.create(
+            name             = data.get("name", "Untitled Campaign"),
+            campaign_type    = data.get("type", "promotion"),
+            subject          = data.get("subject", ""),
+            body             = data.get("body", ""),
+            recipient_group  = recipient_group,
+            recipient_emails = json.dumps(recipients),
+            recipient_count  = len(recipients),
+            scheduled_at     = scheduled_at,
+            status           = status,
+            created_by       = request.user if request.user.is_authenticated else None,
+        )
+        return JsonResponse({"success": True, "campaign_id": campaign.id, "status": status})
+
+    except Exception as exc:
+        logger.error(f"[BulkMsg] Save failed: {exc}")
+        return JsonResponse({"success": False, "error": str(exc)})
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SEND  (new campaign — save + send in one step)
+# ─────────────────────────────────────────────────────────────────────────────
+
+@require_POST
+def bulk_send_view(request):
+    """Save campaign and immediately dispatch emails."""
+    try:
+        data = json.loads(request.body)
+
+        recipient_group = data.get("recipient_group", "all")
+        recipient_ids   = data.get("recipients", [])
+        recipients      = _resolve_recipients(recipient_group, recipient_ids)
+
+        if not recipients:
+            return JsonResponse({"success": False, "error": "No recipients found for the selected group."})
+
+        campaign = BulkCampaign.objects.create(
+            name             = data.get("name", "Quick Send"),
+            campaign_type    = data.get("type", "promotion"),
+            subject          = data.get("subject", ""),
+            body             = data.get("body", ""),
+            recipient_group  = recipient_group,
+            recipient_emails = json.dumps(recipients),
+            recipient_count  = len(recipients),
+            status           = "sending",
+            created_by       = request.user if request.user.is_authenticated else None,
+        )
+
+        result = _send_bulk_emails(campaign, recipients)
+
+        campaign.sent_count = result["sent"]
+        campaign.status     = "sent" if result["failed"] == 0 else "partial"
+        campaign.sent_at    = timezone.now()
+        campaign.save()
+
+        return JsonResponse({
+            "success": True,
+            "sent":    result["sent"],
+            "failed":  result["failed"],
+            "errors":  result["errors"][:5],
+        })
+
+    except Exception as exc:
+        logger.error(f"[BulkMsg] Send failed: {exc}")
+        return JsonResponse({"success": False, "error": str(exc)})
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SEND EXISTING CAMPAIGN
+# ─────────────────────────────────────────────────────────────────────────────
+
+@require_POST
+def campaign_send_view(request, campaign_id):
+    """Send an existing draft/scheduled campaign now."""
+    try:
+        campaign   = get_object_or_404(BulkCampaign, id=campaign_id)
+        recipients = json.loads(campaign.recipient_emails or "[]")
+
+        if not recipients:
+            recipients = _resolve_recipients(campaign.recipient_group, [])
+            campaign.recipient_emails = json.dumps(recipients)
+            campaign.recipient_count  = len(recipients)
+
+        if not recipients:
+            return JsonResponse({"success": False, "error": "No recipients found."})
+
+        campaign.status = "sending"
+        campaign.save()
+
+        result = _send_bulk_emails(campaign, recipients)
+
+        campaign.sent_count = result["sent"]
+        campaign.status     = "sent" if result["failed"] == 0 else "partial"
+        campaign.sent_at    = timezone.now()
+        campaign.save()
+
+        return JsonResponse({"success": True, "sent": result["sent"], "failed": result["failed"]})
+
+    except Exception as exc:
+        logger.error(f"[BulkMsg] Campaign send failed: {exc}")
+        return JsonResponse({"success": False, "error": str(exc)})
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PREVIEW
+# ─────────────────────────────────────────────────────────────────────────────
+
+def campaign_preview_view(request, campaign_id):
+    """Return full rendered HTML of the campaign email."""
+    campaign = get_object_or_404(BulkCampaign, id=campaign_id)
+    html = render_email_template(
+        campaign_type=campaign.campaign_type,
+        subject=campaign.subject,
+        body=campaign.body,
+        unsubscribe_url="https://mtb.co.zw/unsubscribe/",
+    )
+    return HttpResponse(html, content_type="text/html")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DUPLICATE
+# ─────────────────────────────────────────────────────────────────────────────
+
+@require_POST
+def campaign_duplicate_view(request, campaign_id):
+    """Clone a campaign as a new draft."""
+    try:
+        original = get_object_or_404(BulkCampaign, id=campaign_id)
+        BulkCampaign.objects.create(
+            name             = f"Copy of {original.name}",
+            campaign_type    = original.campaign_type,
+            subject          = original.subject,
+            body             = original.body,
+            recipient_group  = original.recipient_group,
+            recipient_emails = original.recipient_emails,
+            recipient_count  = original.recipient_count,
+            status           = "draft",
+            created_by       = request.user if request.user.is_authenticated else None,
+        )
+        return JsonResponse({"success": True})
+    except Exception as exc:
+        return JsonResponse({"success": False, "error": str(exc)})

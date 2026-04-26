@@ -39,7 +39,7 @@ class ClientOrganizationAdmin(admin.ModelAdmin):
     task_count.short_description = "Tasks"
 
     def churn_badge(self, obj):
-        level = obj.churn_level  # ← fixed: property, no ()
+        level = obj.churn_level
 
         color = {
             "HIGH": "red",
@@ -56,7 +56,7 @@ class ClientOrganizationAdmin(admin.ModelAdmin):
     churn_badge.short_description = "Churn Risk"
 
     def churn_level_display(self, obj):
-        return obj.churn_level  # ← fixed: property, no ()
+        return obj.churn_level
 
     churn_level_display.short_description = "Churn Level"
 
@@ -259,12 +259,9 @@ class TaskAdmin(admin.ModelAdmin):
     def days_to_deadline(self, obj):
         if not obj.due_date:
             return "No deadline"
-
         days = (obj.due_date - timezone.now().date()).days
-
         if days < 0:
             return f"Overdue by {abs(days)} days"
-
         return f"{days} days remaining"
 
     days_to_deadline.short_description = "Days"
@@ -386,7 +383,7 @@ class SiteVisitAdmin(admin.ModelAdmin):
 # EMAIL MESSAGE
 # =====================================================
 
-@admin.register(EmailMessage)
+@admin.register(EmailMessageContacts)
 class EmailMessageAdmin(admin.ModelAdmin):
     list_display = (
         "sender",
@@ -411,13 +408,13 @@ class EmailMessageAdmin(admin.ModelAdmin):
             color = "gray"
             label = "N/A"
         elif obj.sentiment_score > 0.3:
-            color = "#10B981"  # green
+            color = "#10B981"
             label = f"{obj.sentiment_score:.2f}"
         elif obj.sentiment_score < -0.3:
-            color = "#EF4444"  # red
+            color = "#EF4444"
             label = f"{obj.sentiment_score:.2f}"
         else:
-            color = "#FACC15"  # yellow
+            color = "#FACC15"
             label = f"{obj.sentiment_score:.2f}"
 
         return format_html(
@@ -425,3 +422,165 @@ class EmailMessageAdmin(admin.ModelAdmin):
         )
 
     colored_sentiment.short_description = "Sentiment"
+
+
+# =====================================================
+# BULK CAMPAIGN
+# =====================================================
+
+@admin.register(BulkCampaign)
+class BulkCampaignAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "type_badge",
+        "status_badge",
+        "recipient_count",
+        "sent_count",
+        "delivery_rate_display",
+        "scheduled_at",
+        "sent_at",
+        "created_by",
+        "created_at",
+    )
+
+    list_filter = (
+        "campaign_type",
+        "status",
+        "recipient_group",
+        "created_at",
+        "scheduled_at",
+        "sent_at",
+    )
+
+    search_fields = (
+        "name",
+        "subject",
+        "body",
+        "created_by__username",
+    )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+        "sent_at",
+        "sent_count",
+        "recipient_count",
+        "delivery_rate_display",
+        "recipient_emails_preview",
+    )
+
+    ordering = ("-created_at",)
+    date_hierarchy = "created_at"
+
+    fieldsets = (
+        ("Campaign Details", {
+            "fields": ("name", "campaign_type", "subject", "body")
+        }),
+        ("Recipients", {
+            "fields": ("recipient_group", "recipient_count", "recipient_emails_preview")
+        }),
+        ("Scheduling & Status", {
+            "fields": ("status", "scheduled_at", "sent_at", "sent_count", "delivery_rate_display")
+        }),
+        ("Meta", {
+            "fields": ("created_by", "created_at", "updated_at"),
+            "classes": ("collapse",),
+        }),
+    )
+
+    # ── Custom display columns ─────────────────────────────────────────
+
+    def type_badge(self, obj):
+        styles = {
+            "promotion":    ("background:#EFF6FF", "color:#2563EB"),
+            "discount":     ("background:#FDF4FF", "color:#7C3AED"),
+            "announcement": ("background:#ECFDF5", "color:#059669"),
+            "reminder":     ("background:#FFF7ED", "color:#EA580C"),
+            "seasonal":     ("background:#FFF1F2", "color:#DC2626"),
+        }
+        bg, fg = styles.get(obj.campaign_type, ("background:#F1F5F9", "color:#64748B"))
+        return format_html(
+            '<span style="{};{};padding:3px 10px;border-radius:6px;'
+            'font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">'
+            '{}</span>',
+            bg, fg, obj.get_campaign_type_display()
+        )
+
+    type_badge.short_description = "Type"
+
+    def status_badge(self, obj):
+        styles = {
+            "draft":     ("#F1F5F9", "#64748B"),
+            "scheduled": ("#FEF3C7", "#D97706"),
+            "sending":   ("#EFF6FF", "#2563EB"),
+            "sent":      ("#D1FAE5", "#059669"),
+            "partial":   ("#FFF7ED", "#EA580C"),
+            "failed":    ("#FEE2E2", "#DC2626"),
+        }
+        bg, fg = styles.get(obj.status, ("#F1F5F9", "#64748B"))
+        return format_html(
+            '<span style="background:{};color:{};padding:3px 10px;border-radius:6px;'
+            'font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">'
+            '{}</span>',
+            bg, fg, obj.get_status_display()
+        )
+
+    status_badge.short_description = "Status"
+
+    def delivery_rate_display(self, obj):
+        rate = obj.delivery_rate
+        if rate >= 90:
+            color = "#059669"
+        elif rate >= 60:
+            color = "#D97706"
+        elif rate > 0:
+            color = "#DC2626"
+        else:
+            color = "#94A3B8"
+
+        bar_width = int(rate)
+        return format_html(
+            '<div style="display:flex;align-items:center;gap:8px;min-width:140px">'
+            '  <div style="flex:1;height:8px;background:#E2E8F0;border-radius:99px;overflow:hidden">'
+            '    <div style="width:{}%;height:100%;background:{};border-radius:99px"></div>'
+            '  </div>'
+            '  <span style="color:{};font-weight:700;font-size:12px;white-space:nowrap">{}%</span>'
+            '</div>',
+            bar_width, color, color, rate
+        )
+
+    delivery_rate_display.short_description = "Delivery Rate"
+
+    def recipient_emails_preview(self, obj):
+        """Show first 10 resolved recipient addresses in a scrollable box."""
+        import json
+        try:
+            emails = json.loads(obj.recipient_emails or "[]")
+        except (ValueError, TypeError):
+            emails = []
+
+        if not emails:
+            return format_html('<span style="color:#94A3B8">No recipients resolved yet</span>')
+
+        total   = len(emails)
+        preview = emails[:10]
+        items   = "".join(
+            f'<li style="padding:2px 0;font-family:monospace;font-size:12px">{e}</li>'
+            for e in preview
+        )
+        more = f'<li style="color:#94A3B8;font-size:12px">… and {total - 10} more</li>' if total > 10 else ""
+
+        return format_html(
+            '<div style="max-height:180px;overflow-y:auto;background:#F8FAFC;'
+            'border:1px solid #E2E8F0;border-radius:6px;padding:8px 12px">'
+            '<ul style="margin:0;padding:0;list-style:none">{}{}</ul>'
+            '<p style="margin:6px 0 0 0;font-size:11px;color:#64748B">'
+            'Total: {} recipient{}</p>'
+            '</div>',
+            format_html(items),
+            format_html(more),
+            total,
+            "s" if total != 1 else "",
+        )
+
+    recipient_emails_preview.short_description = "Resolved Recipients"

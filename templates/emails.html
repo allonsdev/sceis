@@ -7,16 +7,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <base href="/static/">
 
-  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <!-- DataTables -->
   <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
-  <!-- FontAwesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-
-  <!-- Template CSS -->
   <link rel="stylesheet" href="app/assets/css/style.css" id="main-style-link"/>
   <link rel="stylesheet" href="app/assets/css/style-preset.css"/>
 
@@ -34,17 +28,12 @@
       --pulse-radius:    12px;
       --pulse-shadow:    0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
     }
-
     body { font-family: 'DM Sans', sans-serif; background: var(--pulse-surface); }
 
-    /* ── Metric Cards ── */
     .metric-card {
-      background: var(--pulse-card);
-      border: 1px solid var(--pulse-border);
-      border-radius: var(--pulse-radius);
-      box-shadow: var(--pulse-shadow);
-      padding: 1.5rem;
-      transition: transform .2s, box-shadow .2s;
+      background: var(--pulse-card); border: 1px solid var(--pulse-border);
+      border-radius: var(--pulse-radius); box-shadow: var(--pulse-shadow);
+      padding: 1.5rem; transition: transform .2s, box-shadow .2s;
     }
     .metric-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
     .metric-icon {
@@ -55,22 +44,15 @@
     .metric-value { font-size: 2rem; font-weight: 700; line-height: 1; color: var(--pulse-text); }
     .metric-label { font-size: .8rem; font-weight: 500; color: var(--pulse-muted); text-transform: uppercase; letter-spacing: .06em; margin-top: .25rem; }
 
-    /* ── Email Inbox ── */
     .email-card {
-      background: var(--pulse-card);
-      border: 1px solid var(--pulse-border);
-      border-radius: var(--pulse-radius);
-      box-shadow: var(--pulse-shadow);
-      margin-bottom: 1rem;
-      overflow: hidden;
-      transition: box-shadow .2s;
+      background: var(--pulse-card); border: 1px solid var(--pulse-border);
+      border-radius: var(--pulse-radius); box-shadow: var(--pulse-shadow);
+      margin-bottom: 1rem; overflow: hidden; transition: box-shadow .2s;
     }
     .email-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
     .email-header {
-      padding: 1rem 1.25rem;
-      display: flex; align-items: center; gap: 1rem;
-      border-bottom: 1px solid var(--pulse-border);
-      cursor: pointer;
+      padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem;
+      border-bottom: 1px solid var(--pulse-border); cursor: pointer;
     }
     .email-avatar {
       width: 40px; height: 40px; border-radius: 50%;
@@ -83,86 +65,48 @@
     .email-subject { font-size: .8rem; color: var(--pulse-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .email-time { font-size: .75rem; color: var(--pulse-muted); font-family: 'DM Mono', monospace; white-space: nowrap; }
 
-    .risk-pill {
-      padding: .2rem .65rem; border-radius: 99px;
-      font-size: .7rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
-    }
+    .risk-pill { padding: .2rem .65rem; border-radius: 99px; font-size: .7rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
     .risk-high   { background: #FEE2E2; color: #DC2626; }
     .risk-medium { background: #FEF3C7; color: #D97706; }
     .risk-low    { background: #D1FAE5; color: #059669; }
     .risk-none   { background: #F1F5F9; color: #64748B; }
 
-    .intent-badge {
-      padding: .2rem .65rem; border-radius: 6px;
-      font-size: .7rem; font-weight: 600; letter-spacing: .04em;
-      background: #EFF6FF; color: #2563EB;
-    }
+    .intent-badge { padding: .2rem .65rem; border-radius: 6px; font-size: .7rem; font-weight: 600; letter-spacing: .04em; background: #EFF6FF; color: #2563EB; }
 
-    /* sentiment bar */
     .sentiment-bar-wrap { height: 4px; background: #E2E8F0; border-radius: 99px; overflow: hidden; }
     .sentiment-bar { height: 100%; border-radius: 99px; transition: width .4s; }
 
-    /* AI analysis panel */
-    .ai-panel {
-      background: #F8FAFC;
-      border-top: 1px solid var(--pulse-border);
-      padding: 1.25rem;
-      display: none;
-    }
+    .ai-panel { background: #F8FAFC; border-top: 1px solid var(--pulse-border); padding: 1.25rem; display: none; }
     .ai-panel.open { display: block; }
     .ai-label { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--pulse-muted); margin-bottom: .25rem; }
     .ai-value { font-size: .88rem; color: var(--pulse-text); }
 
-    /* Sync button */
     .btn-sync {
-      background: linear-gradient(135deg, #2563EB, #1D4ED8);
-      color: #fff; border: none; border-radius: 8px;
-      padding: .6rem 1.25rem; font-weight: 600; font-size: .875rem;
-      display: flex; align-items: center; gap: .5rem;
-      transition: opacity .2s, transform .15s;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #fff; border: none;
+      border-radius: 8px; padding: .6rem 1.25rem; font-weight: 600; font-size: .875rem;
+      display: flex; align-items: center; gap: .5rem; transition: opacity .2s, transform .15s;
     }
     .btn-sync:hover { opacity: .9; transform: translateY(-1px); color: #fff; }
     .btn-sync:disabled { opacity: .6; transform: none; }
 
-    /* section title */
-    .section-title {
-      font-size: 1.1rem; font-weight: 700; color: var(--pulse-text); margin-bottom: 0;
-    }
+    .section-title { font-size: 1.1rem; font-weight: 700; color: var(--pulse-text); margin-bottom: 0; }
     .section-subtitle { font-size: .8rem; color: var(--pulse-muted); }
 
-    /* Composed Email Preview */
     .compose-card {
-      background: var(--pulse-card);
-      border: 1px solid var(--pulse-border);
-      border-radius: var(--pulse-radius);
-      box-shadow: var(--pulse-shadow);
-      padding: 1.5rem;
+      background: var(--pulse-card); border: 1px solid var(--pulse-border);
+      border-radius: var(--pulse-radius); box-shadow: var(--pulse-shadow); padding: 1.5rem;
     }
-    .compose-card textarea {
-      font-family: 'DM Mono', monospace;
-      font-size: .83rem;
-      border: 1px solid var(--pulse-border);
-      border-radius: 8px;
-      resize: vertical;
-    }
+    .compose-card textarea { font-family: 'DM Mono', monospace; font-size: .83rem; border: 1px solid var(--pulse-border); border-radius: 8px; resize: vertical; }
 
-    /* spinner */
     .spin { animation: spin 1s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
-<body
-  data-pc-preset="preset-1"
-  data-pc-sidebar-caption="true"
-  data-pc-layout="vertical"
-  data-pc-direction="ltr"
-  data-pc-theme="light"
->
+<body data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr" data-pc-theme="light">
 
-<!-- Pre-loader -->
 <div class="loader-bg"><div class="loader-track"><div class="loader-fill"></div></div></div>
 
-<!-- Sidebar -->
+<!-- ── SIDEBAR ─────────────────────────────────────────────── -->
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
     <div class="m-header">
@@ -173,20 +117,76 @@
     <div class="navbar-content">
       <ul class="pc-navbar">
         <li class="pc-item pc-caption"><label>Navigation</label></li>
-        <li class="pc-item"><a href="/dashboard" class="pc-link"><span class="pc-micon"><i class="fas fa-tachometer-alt"></i></span><span class="pc-mtext">Dashboard</span></a></li>
-        <li class="pc-item"><a href="/client" class="pc-link"><span class="pc-micon"><i class="fas fa-bell"></i></span><span class="pc-mtext">Client Alerts</span></a></li>
-        <li class="pc-item"><a href="/communication" class="pc-link"><span class="pc-micon"><i class="fas fa-comments"></i></span><span class="pc-mtext">Communication</span></a></li>
-        <li class="pc-item"><a href="/campaigns" class="pc-link"><span class="pc-micon"><i class="fas fa-bullhorn"></i></span><span class="pc-mtext">Campaigns</span></a></li>
-        <li class="pc-item"><a href="/competitors" class="pc-link"><span class="pc-micon"><i class="fas fa-users"></i></span><span class="pc-mtext">Competitors</span></a></li>
-        <li class="pc-item"><a href="/organisation" class="pc-link"><span class="pc-micon"><i class="fas fa-building"></i></span><span class="pc-mtext">Organisation</span></a></li>
-        <li class="pc-item"><a href="/site-visit" class="pc-link"><span class="pc-micon"><i class="fas fa-map-marker-alt"></i></span><span class="pc-mtext">Site Visit</span></a></li>
-        <li class="pc-item"><a href="/engagement" class="pc-link"><span class="pc-micon"><i class="fas fa-handshake"></i></span><span class="pc-mtext">Engagement</span></a></li>
-        <li class="pc-item"><a href="/training" class="pc-link"><span class="pc-micon"><i class="fas fa-chalkboard-teacher"></i></span><span class="pc-mtext">Training</span></a></li>
-        <li class="pc-item"><a href="/task" class="pc-link"><span class="pc-micon"><i class="fas fa-tasks"></i></span><span class="pc-mtext">Task</span></a></li>
-        <li class="pc-item pc-hasmenu active">
+        <li class="pc-item">
+          <a href="/dashboard" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-gauge-high"></i></span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/client" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-triangle-exclamation"></i></span>
+            <span class="pc-mtext">Client Alerts</span>
+          </a>
+        </li>
+        <li class="pc-item active">
           <a href="/email-intelligence" class="pc-link">
             <span class="pc-micon"><i class="fas fa-envelope-open-text"></i></span>
-            <span class="pc-mtext">Email Intel</span>
+            <span class="pc-mtext">Email Intelligence</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/communication" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-comments"></i></span>
+            <span class="pc-mtext">Communication</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/campaigns" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-bullhorn"></i></span>
+            <span class="pc-mtext">Campaigns</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/bulk-messaging" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-paper-plane"></i></span>
+            <span class="pc-mtext">Bulk Messaging</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/competitors" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-chess-knight"></i></span>
+            <span class="pc-mtext">Competitors</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/organisation" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-building"></i></span>
+            <span class="pc-mtext">Organisation</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/site-visit" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-location-dot"></i></span>
+            <span class="pc-mtext">Site Visit</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/engagement" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-handshake"></i></span>
+            <span class="pc-mtext">Engagement</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/training" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-chalkboard-user"></i></span>
+            <span class="pc-mtext">Training</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/task" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-circle-check"></i></span>
+            <span class="pc-mtext">Tasks</span>
           </a>
         </li>
       </ul>
@@ -194,79 +194,68 @@
   </div>
 </nav>
 
-<!-- Header -->
+<!-- ── HEADER ──────────────────────────────────────────────── -->
 <header class="pc-header">
   <div class="header-wrapper d-flex align-items-center justify-content-between">
     <div class="me-auto d-flex align-items-center">
       <form class="form-search d-flex align-items-center mb-0">
-        <i class="search-icon"><i class="fas fa-search"></i></i>
+        <i class="search-icon"><i class="fas fa-magnifying-glass"></i></i>
         <input type="search" class="form-control ms-2" placeholder="Search emails…"/>
       </form>
     </div>
     <div class="ms-auto d-flex align-items-center gap-3">
       <div class="dropdown">
-        <a class="pc-head-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fas fa-sun"></i></a>
+        <a class="pc-head-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fas fa-circle-half-stroke"></i></a>
         <div class="dropdown-menu dropdown-menu-end">
           <a href="#!" class="dropdown-item" onclick="layout_change('dark')"><i class="fas fa-moon me-2"></i>Dark</a>
           <a href="#!" class="dropdown-item" onclick="layout_change('light')"><i class="fas fa-sun me-2"></i>Light</a>
         </div>
       </div>
-      <a href="{% url 'logout' %}" class="btn btn-primary btn-sm"><i class="fas fa-sign-out-alt me-1"></i>Logout</a>
+      <a href="{% url 'logout' %}" class="btn btn-primary btn-sm"><i class="fas fa-right-from-bracket me-1"></i>Logout</a>
     </div>
   </div>
 </header>
 
-<!-- Main -->
+<!-- ── MAIN ────────────────────────────────────────────────── -->
 <section class="pc-container">
 <div class="pc-content">
 
-  <!-- Page header -->
   <div class="d-flex align-items-center justify-content-between mb-4">
     <div>
       <h4 class="mb-0" style="font-weight:700">Email Intelligence</h4>
       <p class="text-muted mb-0" style="font-size:.85rem">AI-powered inbox analysis · churn detection · auto task creation</p>
     </div>
-    <div class="d-flex gap-2">
-      <button class="btn-sync" id="syncBtn" onclick="syncEmails()">
-        <i class="fas fa-sync" id="syncIcon"></i> Sync Inbox
-      </button>
-    </div>
+    <button class="btn-sync" id="syncBtn" onclick="syncEmails()">
+      <i class="fas fa-rotate" id="syncIcon"></i> Sync Inbox
+    </button>
   </div>
 
-  <!-- Metric Cards -->
+  <!-- Metrics -->
   <div class="row g-3 mb-4">
     <div class="col-6 col-md-3">
       <div class="metric-card">
-        <div class="metric-icon" style="background:#EFF6FF">
-          <i class="fas fa-envelope" style="color:#2563EB"></i>
-        </div>
+        <div class="metric-icon" style="background:#EFF6FF"><i class="fas fa-envelope" style="color:#2563EB"></i></div>
         <div class="metric-value">{{ total_emails }}</div>
         <div class="metric-label">Total Emails</div>
       </div>
     </div>
     <div class="col-6 col-md-3">
       <div class="metric-card">
-        <div class="metric-icon" style="background:#FEE2E2">
-          <i class="fas fa-exclamation-triangle" style="color:#DC2626"></i>
-        </div>
+        <div class="metric-icon" style="background:#FEE2E2"><i class="fas fa-circle-exclamation" style="color:#DC2626"></i></div>
         <div class="metric-value">{{ high_risk_count }}</div>
         <div class="metric-label">High Churn Risk</div>
       </div>
     </div>
     <div class="col-6 col-md-3">
       <div class="metric-card">
-        <div class="metric-icon" style="background:#D1FAE5">
-          <i class="fas fa-tasks" style="color:#059669"></i>
-        </div>
+        <div class="metric-icon" style="background:#D1FAE5"><i class="fas fa-list-check" style="color:#059669"></i></div>
         <div class="metric-value">{{ tasks_created }}</div>
         <div class="metric-label">Tasks Created</div>
       </div>
     </div>
     <div class="col-6 col-md-3">
       <div class="metric-card">
-        <div class="metric-icon" style="background:#FEF3C7">
-          <i class="fas fa-robot" style="color:#D97706"></i>
-        </div>
+        <div class="metric-icon" style="background:#FEF3C7"><i class="fas fa-robot" style="color:#D97706"></i></div>
         <div class="metric-value">{{ processed_count }}</div>
         <div class="metric-label">AI Processed</div>
       </div>
@@ -282,16 +271,14 @@
           <div class="section-title">Inbox</div>
           <div class="section-subtitle">{{ emails|length }} email{{ emails|length|pluralize }} — click to expand AI analysis</div>
         </div>
-        <div class="d-flex gap-2">
-          <select class="form-select form-select-sm" id="intentFilter" onchange="filterEmails()" style="width:auto">
-            <option value="">All Intents</option>
-            <option value="churn_risk">Churn Risk</option>
-            <option value="complaint">Complaint</option>
-            <option value="renewal">Renewal</option>
-            <option value="inquiry">Inquiry</option>
-            <option value="positive">Positive</option>
-          </select>
-        </div>
+        <select class="form-select form-select-sm" id="intentFilter" onchange="filterEmails()" style="width:auto">
+          <option value="">All Intents</option>
+          <option value="churn_risk">Churn Risk</option>
+          <option value="complaint">Complaint</option>
+          <option value="renewal">Renewal</option>
+          <option value="inquiry">Inquiry</option>
+          <option value="positive">Positive</option>
+        </select>
       </div>
 
       <div id="emailList">
@@ -320,22 +307,18 @@
             </div>
           </div>
 
-          <!-- Sentiment bar -->
           {% if email.sentiment_score is not None %}
           <div style="padding: 0 1.25rem">
             <div class="sentiment-bar-wrap">
               {% if email.sentiment_score >= 0 %}
                 <div class="sentiment-bar" style="width:{% widthratio email.sentiment_score 1 100 %}%; background:#10B981; margin-left:50%"></div>
               {% else %}
-  {% if email.sentiment_score < 0 %}
-  <div class="sentiment-bar" style="width:{% widthratio email.neg_sentiment 1 50 %}%; background:#EF4444; margin-left:{% widthratio email.neg_sentiment 1 50 %}%"></div>
-{% endif %}
+                <div class="sentiment-bar" style="width:{% widthratio email.neg_sentiment 1 50 %}%; background:#EF4444; margin-left:{% widthratio email.neg_sentiment 1 50 %}%"></div>
               {% endif %}
             </div>
           </div>
           {% endif %}
 
-          <!-- AI Analysis Panel -->
           <div class="ai-panel" id="ai-{{ email.id }}">
             <div class="row g-3">
               <div class="col-md-8">
@@ -363,7 +346,7 @@
                   <i class="fas fa-reply me-1"></i>Reply
                 </button>
                 <button class="btn btn-sm btn-outline-danger" onclick="createChurnAlert('{{ email.id }}')">
-                  <i class="fas fa-exclamation-triangle me-1"></i>Flag Churn
+                  <i class="fas fa-triangle-exclamation me-1"></i>Flag Churn
                 </button>
                 <button class="btn btn-sm btn-outline-success" onclick="createTaskFromEmail('{{ email.id }}')">
                   <i class="fas fa-plus me-1"></i>Create Task
@@ -383,10 +366,8 @@
 
     <!-- Right Panel -->
     <div class="col-lg-4">
-
-      <!-- AI Reply Composer -->
       <div class="compose-card mb-4">
-        <div class="section-title mb-1">✍️ AI Reply Composer</div>
+        <div class="section-title mb-1"><i class="fas fa-pen-to-square me-1 text-primary"></i> AI Reply Composer</div>
         <div class="section-subtitle mb-3">Generate a professional reply</div>
         <div class="mb-2">
           <label class="form-label small fw-semibold">To</label>
@@ -423,9 +404,8 @@
         </div>
       </div>
 
-      <!-- Quick Churn Stats -->
       <div class="metric-card">
-        <div class="section-title mb-3">🔥 Churn Risk Summary</div>
+        <div class="section-title mb-3"><i class="fas fa-fire me-1 text-danger"></i> Churn Risk Summary</div>
         {% for alert in recent_alerts %}
         <div class="d-flex align-items-center justify-content-between py-2 border-bottom">
           <div>
@@ -441,7 +421,6 @@
         {% endfor %}
         <a href="/client" class="btn btn-outline-primary btn-sm w-100 mt-3">View All Alerts</a>
       </div>
-
     </div>
   </div>
 
@@ -469,16 +448,14 @@
   </div>
 </div>
 
-<!-- Footer -->
 <footer class="pc-footer">
   <div class="footer-wrapper container-fluid">
     <div class="row">
-      <div class="col my-1"><p class="m-0">© AI-Powered Customer Intelligence and Retention Management System</p></div>
+      <div class="col my-1"><p class="m-0">&copy; AI-Powered Customer Intelligence and Retention Management System</p></div>
     </div>
   </div>
 </footer>
 
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="app/assets/js/plugins/simplebar.min.js"></script>
@@ -502,8 +479,9 @@
     });
   }
 
+  // ── FIX: robust sync handler that handles any response shape ──────────────
   async function syncEmails() {
-    const btn = document.getElementById("syncBtn");
+    const btn  = document.getElementById("syncBtn");
     const icon = document.getElementById("syncIcon");
     btn.disabled = true;
     icon.classList.add("spin");
@@ -513,9 +491,28 @@
         method: "POST",
         headers: { "X-CSRFToken": getCookie("csrftoken"), "Content-Type": "application/json" }
       });
+
+      if (!resp.ok) {
+        throw new Error(`Server returned ${resp.status}`);
+      }
+
       const data = await resp.json();
-      alert(`✅ Sync complete!\nEmails: ${data.emails_processed}\nTasks: ${data.tasks_created}\nAlerts: ${data.churn_alerts_created}`);
+
+      // Guard every field — use 0 as fallback so nothing shows "undefined"
+      const processed = data.emails_processed  ?? data.processed  ?? 0;
+      const tasks     = data.tasks_created      ?? data.tasks      ?? 0;
+      const alerts    = data.churn_alerts_created ?? data.churn_alerts ?? data.alerts ?? 0;
+      const errors    = data.errors             ?? 0;
+
+      alert(
+        `Sync complete!\n\n` +
+        `Emails processed : ${processed}\n` +
+        `Tasks created    : ${tasks}\n` +
+        `Churn alerts     : ${alerts}` +
+        (errors ? `\nErrors           : ${errors}` : "")
+      );
       location.reload();
+
     } catch (e) {
       alert("Sync failed: " + e.message);
     } finally {
@@ -525,9 +522,9 @@
   }
 
   async function generateReply() {
-    const to = document.getElementById("replyTo").value;
+    const to      = document.getElementById("replyTo").value;
     const subject = document.getElementById("replySubject").value;
-    const tone = document.getElementById("replyTone").value;
+    const tone    = document.getElementById("replyTone").value;
     const context = document.getElementById("replyContext").value;
 
     const resp = await fetch("/email/generate-reply/", {
@@ -540,7 +537,7 @@
   }
 
   function openReplyModal(emailId, to, subject) {
-    document.getElementById("replyTo").value = to;
+    document.getElementById("replyTo").value      = to;
     document.getElementById("replySubject").value = "Re: " + subject;
     new bootstrap.Modal(document.getElementById("replyModal")).show();
   }
@@ -558,8 +555,8 @@
   }
 
   async function sendReply() {
-    const body = document.getElementById("modalReplyBody").value;
-    const to = document.getElementById("replyTo").value;
+    const body    = document.getElementById("modalReplyBody").value;
+    const to      = document.getElementById("replyTo").value;
     const subject = document.getElementById("replySubject").value;
     const resp = await fetch("/email/send/", {
       method: "POST",
@@ -567,7 +564,7 @@
       body: JSON.stringify({ to, subject, body })
     });
     const data = await resp.json();
-    alert(data.success ? "✅ Email sent!" : "❌ " + data.error);
+    alert(data.success ? "Email sent!" : "Error: " + data.error);
   }
 
   async function createTaskFromEmail(emailId) {
@@ -576,7 +573,7 @@
       headers: { "X-CSRFToken": getCookie("csrftoken") }
     });
     const data = await resp.json();
-    alert(data.success ? "✅ Task created!" : "❌ " + data.error);
+    alert(data.success ? "Task created!" : "Error: " + data.error);
   }
 
   async function createChurnAlert(emailId) {
@@ -585,7 +582,7 @@
       headers: { "X-CSRFToken": getCookie("csrftoken") }
     });
     const data = await resp.json();
-    alert(data.success ? "✅ Churn alert created!" : "❌ " + data.error);
+    alert(data.success ? "Churn alert created!" : "Error: " + data.error);
   }
 
   function getCookie(name) {

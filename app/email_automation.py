@@ -500,7 +500,7 @@ class EmailOrchestrator:
     def run(self) -> dict:
         from django.contrib.auth import get_user_model
         from app.models import (
-            EmailMessage, ClientOrganization, ClientContact,
+            EmailMessageContacts, ClientOrganization, ClientContact,
             ChurnAlert, Task, Competitor,
         )
 
@@ -532,7 +532,7 @@ class EmailOrchestrator:
         for raw in raw_emails:
             try:
                 # ── Skip duplicates ───────────────────────────────────────
-                if EmailMessage.objects.filter(gmail_id=raw["gmail_id"]).exists():
+                if EmailMessageContacts.objects.filter(gmail_id=raw["gmail_id"]).exists():
                     continue
 
                 # ── AI analysis ───────────────────────────────────────────
@@ -554,7 +554,7 @@ class EmailOrchestrator:
                 )
 
                 # ── Persist email record ──────────────────────────────────
-                EmailMessage.objects.create(
+                EmailMessageContacts.objects.create(
                     gmail_id=raw["gmail_id"],
                     sender=raw["sender"],
                     subject=raw["subject"],

@@ -1,0 +1,860 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <title>MTB — Bulk Messaging</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <base href="/static/">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="app/assets/css/style.css" id="main-style-link"/>
+  <link rel="stylesheet" href="app/assets/css/style-preset.css"/>
+
+  <style>
+    :root {
+      --pulse-primary:   #2563EB;
+      --pulse-success:   #059669;
+      --pulse-danger:    #DC2626;
+      --pulse-warning:   #D97706;
+      --pulse-surface:   #F8FAFC;
+      --pulse-border:    #E2E8F0;
+      --pulse-text:      #0F172A;
+      --pulse-muted:     #64748B;
+      --pulse-card:      #FFFFFF;
+      --pulse-radius:    12px;
+      --pulse-shadow:    0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.04);
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--pulse-surface); }
+
+    .metric-card {
+      background: var(--pulse-card); border: 1px solid var(--pulse-border);
+      border-radius: var(--pulse-radius); box-shadow: var(--pulse-shadow);
+      padding: 1.5rem; transition: transform .2s, box-shadow .2s;
+    }
+    .metric-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+    .metric-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 1rem;
+    }
+    .metric-value { font-size: 2rem; font-weight: 700; line-height: 1; color: var(--pulse-text); }
+    .metric-label { font-size: .8rem; font-weight: 500; color: var(--pulse-muted); text-transform: uppercase; letter-spacing: .06em; margin-top: .25rem; }
+
+    .campaign-card {
+      background: var(--pulse-card); border: 1px solid var(--pulse-border);
+      border-radius: var(--pulse-radius); box-shadow: var(--pulse-shadow);
+      margin-bottom: 1rem; overflow: hidden; transition: box-shadow .2s;
+    }
+    .campaign-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+    .campaign-header {
+      padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem;
+      border-bottom: 1px solid var(--pulse-border);
+    }
+    .campaign-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .campaign-meta { flex: 1; min-width: 0; }
+    .campaign-name { font-weight: 600; font-size: .92rem; color: var(--pulse-text); }
+    .campaign-desc { font-size: .78rem; color: var(--pulse-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .status-pill { padding: .2rem .65rem; border-radius: 99px; font-size: .7rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+    .status-draft     { background: #F1F5F9; color: #64748B; }
+    .status-scheduled { background: #FEF3C7; color: #D97706; }
+    .status-sent      { background: #D1FAE5; color: #059669; }
+    .status-failed    { background: #FEE2E2; color: #DC2626; }
+
+    .type-badge { padding: .2rem .65rem; border-radius: 6px; font-size: .7rem; font-weight: 600; letter-spacing: .04em; }
+    .type-promo    { background: #EFF6FF; color: #2563EB; }
+    .type-discount { background: #FDF4FF; color: #9333EA; }
+    .type-announce { background: #ECFDF5; color: #059669; }
+    .type-reminder { background: #FFF7ED; color: #EA580C; }
+
+    .campaign-body { padding: 1rem 1.25rem; background: #FAFBFC; }
+
+    .compose-card {
+      background: var(--pulse-card); border: 1px solid var(--pulse-border);
+      border-radius: var(--pulse-radius); box-shadow: var(--pulse-shadow); padding: 1.5rem;
+    }
+    .compose-card textarea { font-family: 'DM Mono', monospace; font-size: .83rem; border: 1px solid var(--pulse-border); border-radius: 8px; resize: vertical; }
+
+    .template-card {
+      border: 2px solid var(--pulse-border); border-radius: var(--pulse-radius);
+      padding: 1rem; cursor: pointer; transition: border-color .2s, box-shadow .2s; margin-bottom: .75rem;
+    }
+    .template-card:hover { border-color: var(--pulse-primary); box-shadow: 0 0 0 3px rgba(37,99,235,.08); }
+    .template-card.selected { border-color: var(--pulse-primary); background: #EFF6FF; }
+    .template-card .t-name { font-weight: 600; font-size: .85rem; color: var(--pulse-text); }
+    .template-card .t-desc { font-size: .75rem; color: var(--pulse-muted); margin-top: .1rem; }
+
+    .btn-send {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8); color: #fff; border: none;
+      border-radius: 8px; padding: .6rem 1.4rem; font-weight: 600; font-size: .875rem;
+      display: flex; align-items: center; gap: .5rem; transition: opacity .2s, transform .15s;
+    }
+    .btn-send:hover { opacity: .9; transform: translateY(-1px); color: #fff; }
+    .btn-send:disabled { opacity: .6; transform: none; }
+
+    .preview-shell { border: 1px solid var(--pulse-border); border-radius: var(--pulse-radius); overflow: hidden; background: #fff; }
+    .preview-shell iframe { width: 100%; border: none; min-height: 420px; }
+
+    .section-title   { font-size: 1.1rem; font-weight: 700; color: var(--pulse-text); margin-bottom: 0; }
+    .section-subtitle{ font-size: .8rem; color: var(--pulse-muted); }
+
+    .stats-bar { display: flex; gap: 1.5rem; padding: .75rem 1.25rem; border-top: 1px solid var(--pulse-border); font-size: .78rem; color: var(--pulse-muted); }
+    .stat-item strong { color: var(--pulse-text); font-weight: 600; }
+
+    .spin { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .send-progress { display: none; }
+    .send-progress.active { display: block; }
+  </style>
+</head>
+<body data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr" data-pc-theme="light">
+
+<div class="loader-bg"><div class="loader-track"><div class="loader-fill"></div></div></div>
+
+<!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+<nav class="pc-sidebar">
+  <div class="navbar-wrapper">
+    <div class="m-header">
+      <a href="/" class="b-brand text-primary">
+        <img src="app/assets/images/logo.png" class="img-fluid logo-lg" alt="logo"/>
+      </a>
+    </div>
+    <div class="navbar-content">
+      <ul class="pc-navbar">
+        <li class="pc-item pc-caption"><label>Navigation</label></li>
+        <li class="pc-item">
+          <a href="/dashboard" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-gauge-high"></i></span>
+            <span class="pc-mtext">Dashboard</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/client" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-triangle-exclamation"></i></span>
+            <span class="pc-mtext">Client Alerts</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/email-intelligence" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-envelope-open-text"></i></span>
+            <span class="pc-mtext">Email Intelligence</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/communication" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-comments"></i></span>
+            <span class="pc-mtext">Communication</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/campaigns" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-bullhorn"></i></span>
+            <span class="pc-mtext">Campaigns</span>
+          </a>
+        </li>
+        <li class="pc-item active">
+          <a href="/bulk-messaging" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-paper-plane"></i></span>
+            <span class="pc-mtext">Bulk Messaging</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/competitors" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-chess-knight"></i></span>
+            <span class="pc-mtext">Competitors</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/organisation" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-building"></i></span>
+            <span class="pc-mtext">Organisation</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/site-visit" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-location-dot"></i></span>
+            <span class="pc-mtext">Site Visit</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/engagement" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-handshake"></i></span>
+            <span class="pc-mtext">Engagement</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/training" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-chalkboard-user"></i></span>
+            <span class="pc-mtext">Training</span>
+          </a>
+        </li>
+        <li class="pc-item">
+          <a href="/task" class="pc-link">
+            <span class="pc-micon"><i class="fas fa-circle-check"></i></span>
+            <span class="pc-mtext">Tasks</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HEADER ──────────────────────────────────────────────── -->
+<header class="pc-header">
+  <div class="header-wrapper d-flex align-items-center justify-content-between">
+    <div class="me-auto d-flex align-items-center">
+      <form class="form-search d-flex align-items-center mb-0">
+        <i class="search-icon"><i class="fas fa-magnifying-glass"></i></i>
+        <input type="search" class="form-control ms-2" placeholder="Search campaigns…"/>
+      </form>
+    </div>
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <div class="dropdown">
+        <a class="pc-head-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i class="fas fa-circle-half-stroke"></i></a>
+        <div class="dropdown-menu dropdown-menu-end pc-h-dropdown">
+          <a href="#!" class="dropdown-item" onclick="layout_change('dark')"><i class="fas fa-moon me-2"></i>Dark</a>
+          <a href="#!" class="dropdown-item" onclick="layout_change('light')"><i class="fas fa-sun me-2"></i>Light</a>
+        </div>
+      </div>
+      <a href="{% url 'logout' %}" class="btn btn-primary btn-sm px-3">
+        <i class="fas fa-right-from-bracket me-1"></i>Logout
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ── MAIN ────────────────────────────────────────────────── -->
+<section class="pc-container">
+<div class="pc-content">
+
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h4 class="mb-0" style="font-weight:700">Bulk Messaging</h4>
+      <p class="text-muted mb-0" style="font-size:.85rem">Send promotions, discounts &amp; announcements to your clients at scale</p>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#newCampaignModal">
+        <i class="fas fa-plus me-1"></i> New Campaign
+      </button>
+      <button class="btn-send" onclick="openComposer()">
+        <i class="fas fa-paper-plane"></i> Quick Send
+      </button>
+    </div>
+  </div>
+
+  <!-- Metrics -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+      <div class="metric-card">
+        <div class="metric-icon" style="background:#EFF6FF"><i class="fas fa-paper-plane" style="color:#2563EB"></i></div>
+        <div class="metric-value">{{ total_campaigns }}</div>
+        <div class="metric-label">Total Campaigns</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="metric-card">
+        <div class="metric-icon" style="background:#D1FAE5"><i class="fas fa-envelope-circle-check" style="color:#059669"></i></div>
+        <div class="metric-value">{{ total_sent }}</div>
+        <div class="metric-label">Emails Sent</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="metric-card">
+        <div class="metric-icon" style="background:#FDF4FF"><i class="fas fa-tag" style="color:#9333EA"></i></div>
+        <div class="metric-value">{{ discount_campaigns }}</div>
+        <div class="metric-label">Discount Blasts</div>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="metric-card">
+        <div class="metric-icon" style="background:#FEF3C7"><i class="fas fa-users" style="color:#D97706"></i></div>
+        <div class="metric-value">{{ total_recipients }}</div>
+        <div class="metric-label">Total Recipients</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Campaign list -->
+    <div class="col-lg-8">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div>
+          <div class="section-title">Campaigns</div>
+          <div class="section-subtitle">{{ campaigns|length }} campaign{{ campaigns|length|pluralize }}</div>
+        </div>
+        <div class="d-flex gap-2">
+          <select class="form-select form-select-sm" id="typeFilter" onchange="filterCampaigns()" style="width:auto">
+            <option value="">All Types</option>
+            <option value="promotion">Promotion</option>
+            <option value="discount">Discount</option>
+            <option value="announcement">Announcement</option>
+            <option value="reminder">Reminder</option>
+          </select>
+          <select class="form-select form-select-sm" id="statusFilter" onchange="filterCampaigns()" style="width:auto">
+            <option value="">All Statuses</option>
+            <option value="draft">Draft</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="sent">Sent</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="campaignList">
+        {% for campaign in campaigns %}
+        <div class="campaign-card" data-type="{{ campaign.campaign_type }}" data-status="{{ campaign.status }}">
+          <div class="campaign-header">
+            <div class="campaign-icon
+              {% if campaign.campaign_type == 'discount' %}style="background:#FDF4FF"
+              {% elif campaign.campaign_type == 'announcement' %}style="background:#ECFDF5"
+              {% elif campaign.campaign_type == 'reminder' %}style="background:#FFF7ED"
+              {% else %}style="background:#EFF6FF"{% endif %}
+            ">
+              {% if campaign.campaign_type == 'discount' %}
+                <i class="fas fa-tag" style="color:#9333EA"></i>
+              {% elif campaign.campaign_type == 'announcement' %}
+                <i class="fas fa-bullhorn" style="color:#059669"></i>
+              {% elif campaign.campaign_type == 'reminder' %}
+                <i class="fas fa-clock-rotate-left" style="color:#EA580C"></i>
+              {% else %}
+                <i class="fas fa-star" style="color:#2563EB"></i>
+              {% endif %}
+            </div>
+            <div class="campaign-meta">
+              <div class="campaign-name">{{ campaign.name }}</div>
+              <div class="campaign-desc">{{ campaign.subject|truncatechars:65 }}</div>
+            </div>
+            <div class="d-flex flex-column align-items-end gap-1">
+              <span class="status-pill status-{{ campaign.status }}">{{ campaign.status }}</span>
+              <span class="type-badge type-{{ campaign.campaign_type }}">{{ campaign.campaign_type }}</span>
+            </div>
+          </div>
+
+          <div class="stats-bar">
+            <div class="stat-item"><strong>{{ campaign.recipient_count }}</strong> recipients</div>
+            <div class="stat-item"><strong>{{ campaign.sent_count }}</strong> sent</div>
+            {% if campaign.scheduled_at %}
+              <div class="stat-item"><i class="fas fa-calendar-days me-1"></i>{{ campaign.scheduled_at|date:"d M Y H:i" }}</div>
+            {% endif %}
+            <div class="ms-auto d-flex gap-1">
+              <button class="btn btn-xs btn-outline-primary" style="font-size:.72rem;padding:.2rem .6rem"
+                onclick="previewCampaign('{{ campaign.id }}')">
+                <i class="fas fa-eye"></i> Preview
+              </button>
+              {% if campaign.status == 'draft' %}
+              <button class="btn btn-xs btn-outline-success" style="font-size:.72rem;padding:.2rem .6rem"
+                onclick="sendCampaign('{{ campaign.id }}', '{{ campaign.name|escapejs }}')">
+                <i class="fas fa-paper-plane"></i> Send
+              </button>
+              {% endif %}
+              <button class="btn btn-xs btn-outline-secondary" style="font-size:.72rem;padding:.2rem .6rem"
+                onclick="duplicateCampaign('{{ campaign.id }}')">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-5 text-muted">
+          <i class="fas fa-paper-plane fa-3x mb-3 d-block opacity-25"></i>
+          No campaigns yet. Click <strong>New Campaign</strong> to get started.
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="col-lg-4">
+
+      <div class="compose-card mb-4">
+        <div class="section-title mb-1"><i class="fas fa-bolt me-1 text-warning"></i> Quick Composer</div>
+        <div class="section-subtitle mb-3">AI-powered promotional email</div>
+
+        <div class="mb-2">
+          <label class="form-label small fw-semibold">Recipients</label>
+          <select class="form-select form-select-sm" id="recipientGroup">
+            <option value="all">All Clients</option>
+            <option value="active">Active Clients Only</option>
+            <option value="prospects">Prospects</option>
+            <option value="at_risk">At Risk Clients</option>
+            {% for org in organizations %}
+            <option value="org_{{ org.id }}">{{ org.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small fw-semibold">Message Type</label>
+          <select class="form-select form-select-sm" id="messageType" onchange="updateTemplateSuggestion()">
+            <option value="promotion">Promotion</option>
+            <option value="discount">Discount Offer</option>
+            <option value="announcement">Announcement</option>
+            <option value="reminder">Reminder</option>
+          </select>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small fw-semibold">Subject Line</label>
+          <input type="text" class="form-control form-control-sm" id="quickSubject" placeholder="e.g. Exclusive 20% off this week only!"/>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small fw-semibold">Key Message / Offer Details</label>
+          <textarea class="form-control form-control-sm" id="quickContext" rows="3"
+            placeholder="e.g. 20% discount on all Leadership training programmes, valid until 31 Dec…"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-semibold">Generated Email Body</label>
+          <textarea class="form-control form-control-sm" id="quickBody" rows="9" placeholder="Click Generate to produce a polished email…"></textarea>
+        </div>
+
+        <div class="send-progress mb-2" id="sendProgress">
+          <div class="d-flex justify-content-between mb-1" style="font-size:.75rem">
+            <span>Sending…</span><span id="sendCount">0 / 0</span>
+          </div>
+          <div class="progress" style="height:6px">
+            <div class="progress-bar bg-primary" id="sendBar" style="width:0%"></div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-secondary btn-sm" onclick="generateQuickEmail()">
+            <i class="fas fa-robot me-1"></i>Generate
+          </button>
+          <button class="btn btn-primary btn-sm flex-fill" onclick="saveAndSendQuick()">
+            <i class="fas fa-paper-plane me-1"></i>Save &amp; Send
+          </button>
+          <button class="btn btn-outline-secondary btn-sm" onclick="saveAsDraft()">
+            <i class="fas fa-floppy-disk"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Template Library -->
+      <div class="compose-card">
+        <div class="section-title mb-1"><i class="fas fa-layer-group me-1 text-primary"></i> Email Templates</div>
+        <div class="section-subtitle mb-3">Click to load into composer</div>
+
+        <div class="template-card" id="tpl-promo" onclick="loadTemplate('promo')">
+          <div class="d-flex align-items-center gap-2">
+            <span class="type-badge type-promo"><i class="fas fa-star me-1"></i>Promotion</span>
+            <div class="t-name">New Programme Launch</div>
+          </div>
+          <div class="t-desc mt-1">Announce a new training programme with a compelling CTA</div>
+        </div>
+
+        <div class="template-card" id="tpl-discount" onclick="loadTemplate('discount')">
+          <div class="d-flex align-items-center gap-2">
+            <span class="type-badge type-discount"><i class="fas fa-tag me-1"></i>Discount</span>
+            <div class="t-name">Limited-Time Discount</div>
+          </div>
+          <div class="t-desc mt-1">Urgency-driven discount offer with countdown</div>
+        </div>
+
+        <div class="template-card" id="tpl-announce" onclick="loadTemplate('announce')">
+          <div class="d-flex align-items-center gap-2">
+            <span class="type-badge type-announce"><i class="fas fa-bullhorn me-1"></i>Announcement</span>
+            <div class="t-name">Company Update</div>
+          </div>
+          <div class="t-desc mt-1">Share company news, events or milestones</div>
+        </div>
+
+        <div class="template-card" id="tpl-reminder" onclick="loadTemplate('reminder')">
+          <div class="d-flex align-items-center gap-2">
+            <span class="type-badge type-reminder"><i class="fas fa-clock-rotate-left me-1"></i>Reminder</span>
+            <div class="t-name">Renewal Reminder</div>
+          </div>
+          <div class="t-desc mt-1">Prompt clients to renew upcoming contracts</div>
+        </div>
+
+        <div class="template-card" id="tpl-seasonal" onclick="loadTemplate('seasonal')">
+          <div class="d-flex align-items-center gap-2">
+            <span class="type-badge type-promo"><i class="fas fa-gift me-1"></i>Seasonal</span>
+            <div class="t-name">Seasonal Special Offer</div>
+          </div>
+          <div class="t-desc mt-1">Holiday or seasonal discount with festive tone</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- New Campaign Modal -->
+<div class="modal fade" id="newCampaignModal" tabindex="-1">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title"><i class="fas fa-paper-plane me-2"></i>New Bulk Campaign</h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Campaign Name</label>
+              <input type="text" class="form-control" id="nc_name" placeholder="e.g. Q4 Promo Blast"/>
+            </div>
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <label class="form-label fw-semibold">Type</label>
+                <select class="form-select" id="nc_type">
+                  <option value="promotion">Promotion</option>
+                  <option value="discount">Discount</option>
+                  <option value="announcement">Announcement</option>
+                  <option value="reminder">Reminder</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="form-label fw-semibold">Schedule</label>
+                <input type="datetime-local" class="form-control" id="nc_schedule"/>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Subject Line</label>
+              <input type="text" class="form-control" id="nc_subject" placeholder="Compelling subject…"/>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Recipients</label>
+              <select class="form-select" id="nc_recipients" multiple style="height:120px">
+                <option value="all">All Clients</option>
+                <option value="active">Active Clients</option>
+                <option value="prospects">Prospects</option>
+                {% for org in organizations %}
+                <option value="{{ org.id }}">{{ org.name }}</option>
+                {% endfor %}
+              </select>
+              <div class="form-text">Hold Ctrl/Cmd to select multiple</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Email Body</label>
+              <textarea class="form-control" id="nc_body" rows="10"
+                style="font-family:'DM Mono',monospace;font-size:.82rem"
+                placeholder="Paste or type your email HTML/text here…"></textarea>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-secondary btn-sm" onclick="generateCampaignEmail()">
+                <i class="fas fa-robot me-1"></i>AI Generate
+              </button>
+              <button class="btn btn-outline-primary btn-sm" onclick="previewNewCampaign()">
+                <i class="fas fa-eye me-1"></i>Preview
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="section-title mb-2">Live Preview</div>
+            <div class="preview-shell">
+              <iframe id="previewFrame" srcdoc="<p style='padding:2rem;color:#94a3b8;font-family:sans-serif'>Preview will appear here…</p>"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" onclick="saveCampaign('send')"><i class="fas fa-paper-plane me-1"></i>Save &amp; Send Now</button>
+        <button class="btn btn-primary" onclick="saveCampaign('schedule')"><i class="fas fa-calendar-days me-1"></i>Schedule</button>
+        <button class="btn btn-outline-secondary" onclick="saveCampaign('draft')"><i class="fas fa-floppy-disk me-1"></i>Save Draft</button>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-eye me-2"></i>Campaign Preview</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0">
+        <iframe id="campaignPreviewFrame" style="width:100%;min-height:500px;border:none"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="pc-footer">
+  <div class="footer-wrapper container-fluid">
+    <div class="row">
+      <div class="col my-1"><p class="m-0">&copy; AI-Powered Customer Intelligence and Retention Management System</p></div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app/assets/js/plugins/simplebar.min.js"></script>
+<script src="app/assets/js/script.js"></script>
+<script src="app/assets/js/theme.js"></script>
+
+<script>
+  layout_change("light");
+  main_layout_change("vertical");
+
+  const TEMPLATES = {
+    promo: {
+      subject: "Exciting New Training Programmes — Enrol Today!",
+      context: "New programme launch with early-bird pricing, limited seats available",
+      body: buildPromoTemplate,
+    },
+    discount: {
+      subject: "Exclusive 20% Discount — This Week Only!",
+      context: "20% off all programmes, offer expires Friday",
+      body: buildDiscountTemplate,
+    },
+    announce: {
+      subject: "Important Update from MTB Training",
+      context: "Company milestone / new partnership / event announcement",
+      body: buildAnnouncementTemplate,
+    },
+    reminder: {
+      subject: "Your Contract Renewal is Coming Up — Let's Talk",
+      context: "Friendly renewal reminder, contract expiring in 30 days",
+      body: buildReminderTemplate,
+    },
+    seasonal: {
+      subject: "Season's Greetings + Special Year-End Offer!",
+      context: "Year-end 25% discount, wishing clients well",
+      body: buildSeasonalTemplate,
+    },
+  };
+
+  function loadTemplate(key) {
+    document.querySelectorAll('.template-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('tpl-' + key)?.classList.add('selected');
+    const tpl = TEMPLATES[key];
+    if (!tpl) return;
+    document.getElementById('quickSubject').value = tpl.subject;
+    document.getElementById('quickContext').value = tpl.context;
+    document.getElementById('quickBody').value    = tpl.body("Dear Client", "{{OFFER_DETAILS}}");
+  }
+
+  function updateTemplateSuggestion() {
+    const type = document.getElementById('messageType').value;
+    const map  = { promotion:'promo', discount:'discount', announcement:'announce', reminder:'reminder' };
+    if (map[type]) loadTemplate(map[type]);
+  }
+
+  function filterCampaigns() {
+    const type   = document.getElementById('typeFilter').value.toLowerCase();
+    const status = document.getElementById('statusFilter').value.toLowerCase();
+    document.querySelectorAll('.campaign-card').forEach(card => {
+      const ct = (card.dataset.type   || '').toLowerCase();
+      const cs = (card.dataset.status || '').toLowerCase();
+      card.style.display = ((!type || ct === type) && (!status || cs === status)) ? '' : 'none';
+    });
+  }
+
+  function previewNewCampaign() {
+    const body  = document.getElementById('nc_body').value;
+    const subj  = document.getElementById('nc_subject').value;
+    const frame = document.getElementById('previewFrame');
+    frame.srcdoc = body.trim().startsWith('<') ? body : wrapPlainText(body, subj);
+  }
+
+  document.getElementById('nc_body').addEventListener('input',    debounce(previewNewCampaign, 600));
+  document.getElementById('nc_subject').addEventListener('input', debounce(previewNewCampaign, 400));
+
+  function previewCampaign(id) {
+    fetch(`/bulk/campaign/${id}/preview/`)
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('campaignPreviewFrame').srcdoc = html;
+        new bootstrap.Modal(document.getElementById('previewModal')).show();
+      });
+  }
+
+  async function generateQuickEmail() {
+    const type    = document.getElementById('messageType').value;
+    const subject = document.getElementById('quickSubject').value;
+    const context = document.getElementById('quickContext').value;
+    const resp = await fetch('/bulk/generate/', {
+      method: 'POST',
+      headers: { 'X-CSRFToken': getCookie('csrftoken'), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, subject, context }),
+    });
+    const data = await resp.json();
+    document.getElementById('quickBody').value = data.body || 'Error generating email.';
+  }
+
+  async function generateCampaignEmail() {
+    const type    = document.getElementById('nc_type').value;
+    const subject = document.getElementById('nc_subject').value;
+    const resp = await fetch('/bulk/generate/', {
+      method: 'POST',
+      headers: { 'X-CSRFToken': getCookie('csrftoken'), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, subject, context: '' }),
+    });
+    const data = await resp.json();
+    document.getElementById('nc_body').value = data.body || '';
+    previewNewCampaign();
+  }
+
+  async function saveAndSendQuick() {
+    await submitCampaign({
+      name: document.getElementById('quickSubject').value || 'Quick Send',
+      type: document.getElementById('messageType').value,
+      subject: document.getElementById('quickSubject').value,
+      body: document.getElementById('quickBody').value,
+      recipient_group: document.getElementById('recipientGroup').value,
+      action: 'send',
+    });
+  }
+
+  async function saveAsDraft() {
+    await submitCampaign({
+      name: document.getElementById('quickSubject').value || 'Draft',
+      type: document.getElementById('messageType').value,
+      subject: document.getElementById('quickSubject').value,
+      body: document.getElementById('quickBody').value,
+      recipient_group: document.getElementById('recipientGroup').value,
+      action: 'draft',
+    });
+  }
+
+  async function saveCampaign(action) {
+    const schedule    = document.getElementById('nc_schedule').value;
+    const recipients  = Array.from(document.getElementById('nc_recipients').selectedOptions).map(o => o.value);
+    await submitCampaign({
+      name: document.getElementById('nc_name').value,
+      type: document.getElementById('nc_type').value,
+      subject: document.getElementById('nc_subject').value,
+      body: document.getElementById('nc_body').value,
+      recipients,
+      scheduled_at: schedule || null,
+      action,
+    });
+    bootstrap.Modal.getInstance(document.getElementById('newCampaignModal'))?.hide();
+  }
+
+  async function submitCampaign(payload) {
+    const prog = document.getElementById('sendProgress');
+    const bar  = document.getElementById('sendBar');
+    const cnt  = document.getElementById('sendCount');
+
+    if (payload.action === 'send') {
+      prog.classList.add('active');
+      let p = 0;
+      const tick = setInterval(() => {
+        p = Math.min(p + Math.random() * 12, 90);
+        bar.style.width = p + '%';
+        cnt.textContent = Math.round(p) + '%';
+      }, 300);
+      try {
+        const resp = await fetch('/bulk/send/', {
+          method: 'POST',
+          headers: { 'X-CSRFToken': getCookie('csrftoken'), 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        clearInterval(tick);
+        bar.style.width = '100%';
+        const data = await resp.json();
+        setTimeout(() => {
+          prog.classList.remove('active');
+          bar.style.width = '0%';
+          alert(data.success
+            ? `Campaign sent!\n${data.sent} emails delivered.`
+            : `Error: ${data.error}`);
+          if (data.success) location.reload();
+        }, 500);
+      } catch (e) {
+        clearInterval(tick);
+        prog.classList.remove('active');
+        alert('Send failed: ' + e.message);
+      }
+    } else {
+      const resp = await fetch('/bulk/save/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getCookie('csrftoken'), 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json();
+      alert(data.success
+        ? (payload.action === 'schedule' ? 'Campaign scheduled!' : 'Draft saved!')
+        : `Error: ${data.error}`);
+      if (data.success) location.reload();
+    }
+  }
+
+  async function sendCampaign(id, name) {
+    if (!confirm(`Send campaign "${name}" now?`)) return;
+    const resp = await fetch(`/bulk/campaign/${id}/send/`, {
+      method: 'POST',
+      headers: { 'X-CSRFToken': getCookie('csrftoken') },
+    });
+    const data = await resp.json();
+    alert(data.success ? `Sent to ${data.sent} recipients!` : `Error: ${data.error}`);
+    if (data.success) location.reload();
+  }
+
+  async function duplicateCampaign(id) {
+    const resp = await fetch(`/bulk/campaign/${id}/duplicate/`, {
+      method: 'POST',
+      headers: { 'X-CSRFToken': getCookie('csrftoken') },
+    });
+    const data = await resp.json();
+    if (data.success) { alert('Campaign duplicated as draft.'); location.reload(); }
+    else alert('Error: ' + data.error);
+  }
+
+  function openComposer() {
+    const el = document.getElementById('quickSubject');
+    el.focus();
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+  }
+
+  function wrapPlainText(text, subject) {
+    return `<html><body style="font-family:sans-serif;padding:2rem;max-width:600px;margin:auto">
+      <h2 style="color:#2563EB">${subject}</h2>
+      <div style="white-space:pre-wrap;line-height:1.7">${text}</div>
+    </body></html>`;
+  }
+
+  function debounce(fn, ms) {
+    let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+  }
+
+  function getCookie(name) {
+    let v = null;
+    document.cookie.split(';').forEach(c => {
+      const [k, val] = c.trim().split('=');
+      if (k === name) v = decodeURIComponent(val);
+    });
+    return v;
+  }
+
+  function buildPromoTemplate(greeting, offer) {
+    return `${greeting},\n\nWe are excited to introduce our latest training programmes designed to elevate your team's performance and capability.\n\n${offer}\n\nExpert-led, industry-accredited content\nFlexible delivery — in-person or virtual\nTailored for your organisation's needs\n\nEnrol your team today and take the first step towards measurable results.\n\nReply to this email or call us to reserve your seats.\n\nWarm regards,\nThe MTB Training Team`;
+  }
+
+  function buildDiscountTemplate(greeting, offer) {
+    return `${greeting},\n\nFor a limited time, we are offering an exclusive discount to our valued clients.\n\n${offer}\n\nOFFER EXPIRES FRIDAY — Don't miss out!\n\nTo claim your discount, simply reply to this email with the code: MTB2024\n\nKind regards,\nThe MTB Training Team`;
+  }
+
+  function buildAnnouncementTemplate(greeting, offer) {
+    return `${greeting},\n\nWe have some exciting news to share with you.\n\n${offer}\n\nAs one of our valued clients, we wanted you to be among the first to know.\n\nThank you for your continued support and trust in MTB Training.\n\nBest regards,\nThe MTB Training Team`;
+  }
+
+  function buildReminderTemplate(greeting, offer) {
+    return `${greeting},\n\nThis is a friendly reminder that your training contract or programme is coming up for renewal.\n\n${offer}\n\nWe value our partnership with your organisation and would love to continue supporting your team's development.\n\nWarm regards,\nThe MTB Training Team`;
+  }
+
+  function buildSeasonalTemplate(greeting, offer) {
+    return `${greeting},\n\nAs the year draws to a close, we want to take a moment to thank you for being a valued part of the MTB Training family.\n\n${offer}\n\nBook before 31 December to lock in your savings.\n\nSeason's greetings,\nThe MTB Training Team`;
+  }
+</script>
+</body>
+</html>

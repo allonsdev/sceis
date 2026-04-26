@@ -1,6 +1,8 @@
 """
-urls.py — full updated URL configuration
-Place in: your_project/urls.py  OR  app/urls.py (whichever is your main router)
+urls.py — Add these paths to your main urls.py
+
+Drop the bulk_messaging app into your INSTALLED_APPS and include these URLs.
+All existing routes are preserved below for reference.
 """
 
 from django.contrib import admin
@@ -17,17 +19,26 @@ urlpatterns = [
     path("dashboard/", views.dashboard_view, name="dashboard"),
 
     # ── Email Intelligence ────────────────────
-    path("email-intelligence/", views.email_intelligence_view, name="email_intelligence"),
-    path("email/sync/",          views.email_sync_view,        name="email_sync"),
-    path("email/generate-reply/",views.email_generate_reply,   name="email_generate_reply"),
-    path("email/send/",          views.email_send_reply,        name="email_send_reply"),
+    path("email-intelligence/",      views.email_intelligence_view, name="email_intelligence"),
+    path("email/sync/",              views.email_sync_view,          name="email_sync"),
+    path("email/generate-reply/",    views.email_generate_reply,     name="email_generate_reply"),
+    path("email/send/",              views.email_send_reply,          name="email_send_reply"),
     path("email/<int:email_id>/create-task/", views.email_create_task, name="email_create_task"),
     path("email/<int:email_id>/flag-churn/",  views.email_flag_churn,  name="email_flag_churn"),
 
+    # ── Bulk Messaging ────────────────────────  ← NEW
+    path("bulk-messaging/",                       views.bulk_messaging_view,     name="bulk_messaging"),
+    path("bulk/generate/",                        views.bulk_generate_view,      name="bulk_generate"),
+    path("bulk/send/",                            views.bulk_send_view,           name="bulk_send"),
+    path("bulk/save/",                            views.bulk_save_view,           name="bulk_save"),
+    path("bulk/campaign/<int:campaign_id>/send/",      views.campaign_send_view,      name="campaign_send"),
+    path("bulk/campaign/<int:campaign_id>/preview/",   views.campaign_preview_view,   name="campaign_preview"),
+    path("bulk/campaign/<int:campaign_id>/duplicate/", views.campaign_duplicate_view, name="campaign_duplicate"),
+
     # ── Client Alerts ─────────────────────────
-    path("client/",             views.client_alerts_view, name="client_alerts"),
-    path("churn/add/",          views.add_churn_alert,    name="add_churn_alert"),
-    path("churn/edit/<int:pk>/",views.edit_churn_alert,   name="edit_churn_alert"),
+    path("client/",              views.client_alerts_view, name="client_alerts"),
+    path("churn/add/",           views.add_churn_alert,    name="add_churn_alert"),
+    path("churn/edit/<int:pk>/", views.edit_churn_alert,   name="edit_churn_alert"),
 
     # ── Communication ─────────────────────────
     path("communication/", views.communication_view, name="communication"),
@@ -39,9 +50,9 @@ urlpatterns = [
     path("competitors/", views.competitors_view, name="competitors"),
 
     # ── Organisation ──────────────────────────
-    path("organisation/",             views.organisation_view,  name="organizations"),
-    path("organisations/add/",        views.add_organization,   name="add_organization"),
-    path("organizations/edit/<int:pk>/", views.edit_organization, name="edit_organization"),
+    path("organisation/",                views.organisation_view,  name="organizations"),
+    path("organisations/add/",           views.add_organization,   name="add_organization"),
+    path("organizations/edit/<int:pk>/", views.edit_organization,  name="edit_organization"),
 
     # ── Site Visit ────────────────────────────
     path("site-visit/", views.site_visit_view, name="site_visit"),
@@ -52,13 +63,13 @@ urlpatterns = [
     path("training-engagement/edit/<int:pk>/", views.edit_training_engagement, name="edit_training_engagement"),
 
     # ── Training ──────────────────────────────
-    path("training/",             views.training_view,         name="training_programs"),
-    path("training/add/",         views.add_training_program,  name="add_training_program"),
+    path("training/",               views.training_view,         name="training_programs"),
+    path("training/add/",           views.add_training_program,  name="add_training_program"),
     path("training/edit/<int:pk>/", views.edit_training_program, name="edit_training_program"),
-    path("lifecycle/run/", views.run_lifecycle_view, name="run_lifecycle"),
+    path("lifecycle/run/",          views.run_lifecycle_view,    name="run_lifecycle"),
 
     # ── Tasks ─────────────────────────────────
-    path("task/",             views.task_view, name="task_list"),
-    path("tasks/add/",        views.add_task,  name="add_task"),
-    path("tasks/edit/<int:pk>/", views.edit_task, name="edit_task"),
+    path("task/",               views.task_view, name="task_list"),
+    path("tasks/add/",          views.add_task,  name="add_task"),
+    path("tasks/edit/<int:pk>/",views.edit_task, name="edit_task"),
 ]

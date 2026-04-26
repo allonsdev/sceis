@@ -410,7 +410,7 @@ class ChurnAlert(TimeStampedModel):
 # EMAIL MESSAGE  (from Gmail automation)
 # ─────────────────────────────────────────────
 
-class EmailMessage(models.Model):
+class EmailMessageContacts(models.Model):
     """
     Stores emails fetched from Gmail + AI analysis results.
     Uses default auto int pk so {{ email.id }} works in Django URL tags.
@@ -456,3 +456,70 @@ def task_post_save(sender, instance, created, **kwargs):
         # Import here to avoid circular import at module load time
         from app.task_email_lifecycle import send_task_created_email
         send_task_created_email(instance)
+        
+        
+        
+
+ 
+class BulkCampaign(models.Model):
+    CAMPAIGN_TYPES = [
+        ("promotion",    "Promotion"),
+        ("discount",     "Discount"),
+        ("announcement", "Announcement"),
+        ("reminder",     "Reminder"),
+        ("seasonal",     "Seasonal"),
+    ]
+ 
+    STATUS_CHOICES = [
+        ("draft",      "Draft"),
+        ("scheduled",  "Scheduled"),
+        ("sending",    "Sending"),
+        ("sent",       "Sent"),
+        ("partial",    "Partially Sent"),
+        ("failed",     "Failed"),
+    ]
+ 
+    # ── Core fields ────────────────────────────────────────────────────────
+    name            = models.CharField(max_length=255)
+    campaign_type   = models.CharField(max_length=50, choices=CAMPAIGN_TYPES, default="promotion")
+    subject         = models.CharField(max_length=500)
+    body            = models.TextField()
+ 
+    # ── Recipients ─────────────────────────────────────────────────────────
+    recipient_group  = models.CharField(
+        max_length=50, default="all",
+        help_text="Slug: all | active | prospects | at_risk | org_<id>"
+    )
+    # Serialised list of resolved email addresses at send time (JSON array)
+    recipient_emails = models.TextField(blank=True, default="[]")
+    recipient_count  = models.IntegerField(default=0)
+ 
+    # ── Scheduling & status ────────────────────────────────────────────────
+    status           = models.CharField(max_length=20, choices=STATUS_CHOICES, default="draft")
+    scheduled_at     = models.DateTimeField(null=True, blank=True)
+    sent_at          = models.DateTimeField(null=True, blank=True)
+    sent_count       = models.IntegerField(default=0)
+ 
+    # ── Meta ───────────────────────────────────────────────────────────────
+    created_at  = models.DateTimeField(default=timezone.now)
+    updated_at  = models.DateTimeField(auto_now=True)
+    created_by  = models.ForeignKey(
+        User, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name="bulk_campaigns"
+    )
+ 
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Bulk Campaign"
+        verbose_name_plural = "Bulk Campaigns"
+ 
+    def __str__(self):
+        return f"{self.name} [{self.get_status_display()}]"
+ 
+    @property
+    def delivery_rate(self) -> float:
+        """Percentage of recipients successfully reached."""
+        if not self.recipient_count:
+            return 0.0
+        return round(self.sent_count / self.recipient_count * 100, 1)
+ 
